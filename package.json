@@ -1,8 +1,8 @@
 {
-  "name": "nest-test",
+  "name": "warstars-next",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Priyam <roy_priyam@outlook.com>",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
