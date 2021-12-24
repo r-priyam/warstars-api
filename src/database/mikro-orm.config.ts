@@ -1,6 +1,7 @@
 import { Options } from '@mikro-orm/core';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
+import { Logger as CustomLogger } from '~/util/Logger';
 
 const config: Options = {
 	type: 'postgresql',
@@ -15,6 +16,7 @@ const config: Options = {
 	highlighter: new SqlHighlighter(),
 	metadataProvider: TsMorphMetadataProvider,
 	pool: { min: 10, max: 10 },
+	logger: (msg) => new CustomLogger().info(msg, { label: 'DATABASE' }),
 };
 
 export default config;
