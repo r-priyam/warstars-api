@@ -7,7 +7,7 @@ import { Logger } from '~/util/Logger';
 @Module({
 	imports: [ConfigModule.forRoot({ envFilePath: '.env' }), MikroOrmModule.forRoot()],
 	controllers: [AppController],
-	providers: [Logger],
-	exports: [Logger],
+	providers: [],
+	exports: [MikroOrmModule],
 })
 export class AppModule {}

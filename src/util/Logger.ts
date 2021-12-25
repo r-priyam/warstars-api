@@ -1,5 +1,6 @@
 import * as chalk from 'chalk';
 import * as moment from 'moment';
+import util from 'util';
 import { LoggerService } from '@nestjs/common';
 
 const COLORS: { [key: string]: 'red' | 'cyan' | 'yellow' | 'magenta' } = {
@@ -17,36 +18,45 @@ const TAGS: { [key: string]: string } = {
 };
 
 export class Logger implements LoggerService {
-	log(message: string, { label }: { label?: string }): void {
-		return (this.constructor as typeof Logger).formatedLog(message, { label, tag: 'info' });
+	private label: string;
+
+	constructor(label?: string) {
+		this.label = label;
 	}
 
-	info(message: string, { label }: { label?: string }): void {
-		return (this.constructor as typeof Logger).formatedLog(message, { label, tag: 'info' });
+	log(message: string): void {
+		return this.formatedLog(message, { tag: 'info' });
 	}
 
-	error(message: string, trace?: any) {
-		return (this.constructor as typeof Logger).formatedLog(message, { trace, label: null, tag: 'error' });
+	info(message: string): void {
+		return this.formatedLog(message, { tag: 'info' });
 	}
 
-	warn(message: string, { label }: { label?: string }) {
-		return (this.constructor as typeof Logger).formatedLog(message, { label, tag: 'warn' });
+	error(message: string, trace?: any): void {
+		return this.formatedLog(message, { trace, tag: 'error' });
 	}
 
-	debug(message: string, { label }: { label?: string }) {
-		return (this.constructor as typeof Logger).formatedLog(message, { label, tag: 'debug' });
+	warn(message: string): void {
+		return this.formatedLog(message, { tag: 'warn' });
 	}
 
-	private static formatedLog(
-		message: string | any,
-		{ trace, label, tag }: { trace?: any; label?: string; tag: string },
-	) {
+	debug(message: string): void {
+		return this.formatedLog(message, { tag: 'debug' });
+	}
+
+	private formatedLog(message: string | any, { trace, tag }: { trace?: any; label?: string; tag: string }): void {
 		const timestamp = chalk.cyan(moment().utcOffset('+05:30').format('DD-MM-YYYY kk:mm:ss'));
-		console.log(
+		const content = this.clean(message);
+		const stream = trace ? process.stderr : process.stdout;
+		stream.write(
 			`[${timestamp}] ${chalk[COLORS[tag]].bold(TAGS[tag])} » ${
-				label ? `[${chalk.blue(label)}] » ` : ''
-			}${message}`,
+				this.label ? `[${chalk.blue(this.label)}] » ` : ''
+			}${content}\n`,
 		);
-		if (trace) console.log(trace);
+	}
+
+	private clean(message: string | any) {
+		if (typeof message === 'string') return message;
+		return util.inspect(message, { depth: Infinity });
 	}
 }

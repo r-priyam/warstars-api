@@ -16,7 +16,7 @@ const config: Options = {
 	highlighter: new SqlHighlighter(),
 	metadataProvider: TsMorphMetadataProvider,
 	pool: { min: 10, max: 10 },
-	logger: (msg) => new CustomLogger().info(msg, { label: 'DATABASE' }),
+	logger: (msg) => new CustomLogger('DATABASE').info(msg),
 };
 
 export default config;

@@ -11,6 +11,6 @@ async function main() {
 	app.useGlobalPipes(new ValidationPipe());
 	app.useLogger(new Logger());
 	await app.listen(3000);
-	new Logger().info(`Application is running on: ${await app.getUrl()}`, { label: 'MAIN' });
+	new Logger('MAIN').info(`Application is running on: ${await app.getUrl()}`);
 }
 main();
