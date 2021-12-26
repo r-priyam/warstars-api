@@ -9,7 +9,7 @@ export class ExceptionFilter implements IExceptionFilter {
 		this.logger.printError(exception);
 		const res = host.switchToHttp().getResponse();
 		res.status((exception?.getStatus && exception?.getStatus()) || 500).send(
-			(exception?.getResponse && exception.getResponse()) || 'Internal Server Error',
+			(exception?.getResponse && exception.getResponse()) || 'Internal Server Error'
 		);
 	}
 }

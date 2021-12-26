@@ -13,19 +13,19 @@ import configuration from '~/core/config/configuration';
 	imports: [
 		ConfigModule.forRoot({ load: [configuration], cache: true, isGlobal: true }),
 		MikroOrmModule.forRootAsync({ useClass: MikroOrmModuleConfig }),
-		OgmaModule.forRootAsync({ useClass: OgmaModuleConfig, imports: [ConfigModule] }),
+		OgmaModule.forRootAsync({ useClass: OgmaModuleConfig, imports: [ConfigModule] })
 	],
 	controllers: [AppController],
 	providers: [
 		{
 			provide: APP_INTERCEPTOR,
-			useClass: OgmaInterceptor,
+			useClass: OgmaInterceptor
 		},
 		{
 			provide: APP_FILTER,
-			useClass: ExceptionFilter,
-		},
+			useClass: ExceptionFilter
+		}
 	],
-	exports: [MikroOrmModule],
+	exports: [MikroOrmModule]
 })
 export class AppModule {}

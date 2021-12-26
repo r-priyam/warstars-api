@@ -28,7 +28,7 @@ export class MikroOrmModuleConfig implements MikroOrmOptionsFactory {
 			highlighter: new SqlHighlighter(),
 			metadataProvider: TsMorphMetadataProvider,
 			pool: { min: 10, max: 10 },
-			logger: (msg) => this.logger.log(msg, 'DATABASE'),
+			logger: (msg) => this.logger.log(msg, 'DATABASE')
 		};
 	}
 }

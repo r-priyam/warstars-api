@@ -8,7 +8,7 @@ import { ConfigService } from '@nestjs/config';
 async function main() {
 	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
 		bufferLogs: true,
-		logger: false,
+		logger: false
 	});
 	app.useGlobalPipes(new ValidationPipe());
 	const config = app.get(ConfigService);

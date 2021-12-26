@@ -28,6 +28,7 @@ module.exports = {
       { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
     ],
     'sort-imports': ['error', { ignoreDeclarationSort: true, ignoreCase: true }],
+    "prettier/prettier": ["error", { "trailingComma": "none" }]
   },
   ignorePatterns: ['*.d.ts', 'dist/*', '**/node_modules/*', 'lib/*', '*.js'],
   globals: {
