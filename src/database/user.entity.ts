@@ -1,4 +1,4 @@
-import { Entity, PrimaryKey, Property, BigIntType, Unique } from '@mikro-orm/core';
+import { BigIntType, Entity, PrimaryKey, Property, Unique } from '@mikro-orm/core';
 
 @Entity()
 export class User {
