@@ -14,7 +14,7 @@ async function main() {
 	const config = app.get(ConfigService);
 	const logger = app.get<OgmaService>(OgmaService);
 	app.useLogger(logger);
-	await app.listen(config.get<number>('PORT'));
+	await app.listen(config.get<number>('PORT'), '127.0.0.1');
 	logger.info(`Application is running on: ${await app.getUrl()}`, 'MAIN');
 }
 main();
