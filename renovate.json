@@ -3,7 +3,8 @@
     "config:base",
     ":disablePeerDependencies",
     ":disableDependencyDashboard",
-    "group:allNonMajor"
+    "group:allNonMajor",
+    ":semanticCommitTypeAll(chore)"
   ],
   "rangeStrategy": "bump",
   "packageRules": [
