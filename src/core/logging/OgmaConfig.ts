@@ -1,24 +1,25 @@
 import * as rfs from 'rotating-file-stream';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { FastifyParser } from '@ogma/platform-fastify';
 import { OgmaModuleOptions } from '@ogma/nestjs-module';
 import { ModuleConfigFactory } from '@golevelup/nestjs-modules';
-import { generateLogFilename } from '~/util/LogName';
+
+import { generateLogFilename } from './LogName';
+import { AppConfig } from '../config/env.getters';
 
 @Injectable()
 export class OgmaModuleConfig implements ModuleConfigFactory<OgmaModuleOptions> {
-	constructor(private readonly configService: ConfigService) {}
+	constructor(private readonly config: AppConfig) {}
 
 	createModuleConfig(): OgmaModuleOptions {
 		return {
 			service: {
-				color: this.configService.get('env') === 'DEV',
-				application: 'WarStars',
+				color: this.config.isDevelopment,
+				application: this.config.appName,
 				stream: rfs.createStream(generateLogFilename, {
 					interval: '1d',
 					path: './logs',
-					teeToStdout: this.configService.get('env') === 'DEV'
+					teeToStdout: this.config.isDevelopment
 				})
 			},
 			interceptor: {
