@@ -13,6 +13,7 @@ export class ConfigEnvironment {
 	@IsString()
 	APP_NAME: string;
 
+	@IsString()
 	@IsPort()
 	PORT: string;
 
@@ -28,4 +29,25 @@ export class ConfigEnvironment {
 	@IsString()
 	@Length(64)
 	COOKIE_SECRET: string;
+
+	@IsNotEmpty()
+	@IsString()
+	DATABASE_HOST: string;
+
+	@IsNotEmpty()
+	@IsString()
+	@IsPort()
+	DATABASE_PORT: string;
+
+	@IsNotEmpty()
+	@IsString()
+	DATABASE_USER: string;
+
+	@IsNotEmpty()
+	@IsString()
+	DATABASE_PASSWORD: string;
+
+	@IsNotEmpty()
+	@IsString()
+	DATABASE_NAME: string;
 }

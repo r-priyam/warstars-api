@@ -5,9 +5,10 @@ import { AppService } from './app.service';
 import { AppConfig } from '../core/config/env.getters';
 import { ConfigModule } from 'src/core/config/config.module';
 import { LoggingModule } from 'src/core/logging/logging.module';
+import { DatabaseModule } from '~/database/config/database.module';
 
 @Module({
-	imports: [ConfigModule, LoggingModule],
+	imports: [ConfigModule, LoggingModule, DatabaseModule],
 	controllers: [AppController],
 	providers: [AppConfig, AppService],
 	exports: [AppConfig]
