@@ -2,6 +2,7 @@ import * as uid from 'uid-safe';
 import { getRepository } from 'typeorm';
 import { NestFactory } from '@nestjs/core';
 import { TypeormStore } from 'connect-typeorm';
+import { fastifyHelmet } from 'fastify-helmet';
 import { OgmaService } from '@ogma/nestjs-module';
 import fastifyCookie from 'fastify-cookie';
 import fastifySession from '@fastify/session';
@@ -22,6 +23,7 @@ async function main() {
 	const sessionStore = getRepository(DatabaseSession);
 
 	app.useLogger(logger);
+	await app.register(fastifyHelmet);
 	app.enableCors({ origin: config.corsOrigins, credentials: true });
 	app.register(fastifyCookie, { secret: [config.sessionCookieSecret, config.cookieSignSecret] });
 	await app.register(fastifySession, {
