@@ -1,3 +1,4 @@
+import * as uid from 'uid-safe';
 import { getRepository } from 'typeorm';
 import { NestFactory } from '@nestjs/core';
 import { TypeormStore } from 'connect-typeorm';
@@ -30,6 +31,7 @@ async function main() {
 		},
 		secret: config.sessionCookieSecret,
 		saveUninitialized: false,
+		idGenerator: () => uid.sync(128),
 		store: new TypeormStore().connect(sessionStore)
 	});
 
