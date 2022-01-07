@@ -33,8 +33,10 @@ export class SessionGuard implements CanActivate {
 			);
 
 		if (sessionStore.expiredAt < Date.now()) {
+			// session expired here, grab the new token from discord and delete the previous one from db
 			await sessionRepository.delete(sessionStore);
 			await this.discordService.handleTokenRefresh();
+			return true;
 		} else {
 			return true;
 		}
