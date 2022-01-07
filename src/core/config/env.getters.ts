@@ -29,6 +29,10 @@ export class AppConfig {
 		return this.configService.get('COOKIE_SECRET');
 	}
 
+	get sessionCookieSecret(): string {
+		return this.configService.get('SESSION_COOKIE_SECRET');
+	}
+
 	get database(): {
 		host: string;
 		port: number;
@@ -43,5 +47,20 @@ export class AppConfig {
 			password: this.configService.get('DATABASE_PASSWORD'),
 			name: this.configService.get('DATABASE_NAME')
 		};
+	}
+
+	get discord() {
+		return {
+			clientId: this.configService.get('DISCORD_OAUTH_CLIENT_ID'),
+			clientSecret: this.configService.get('DISCORD_OAUTH_SECRET'),
+			redirectUrl: this.configService.get('DISCORD_REDIRECT_URL'), // redirect url where discord will shoot
+			authRedirect: this.configService.get('DISCORD_OAUTH_REDIRECT'), // redirect to get authorize
+			encryptSecret: this.configService.get('DATABASE_HOST'), // encrypt secret for tokens
+			successRedirect: this.configService.get('OAUTH_SUCCESS_REDIRECT') // redirect url after oauth success
+		};
+	}
+
+	get logOutRedirectUrl(): string {
+		return this.configService.get('LOGOUT_REDIRECT_URL');
 	}
 }

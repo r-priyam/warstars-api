@@ -32,6 +32,11 @@ export class ConfigEnvironment {
 
 	@IsNotEmpty()
 	@IsString()
+	@Length(64)
+	SESSION_COOKIE_SECRET: string;
+
+	@IsNotEmpty()
+	@IsString()
 	DATABASE_HOST: string;
 
 	@IsNotEmpty()
@@ -42,12 +47,16 @@ export class ConfigEnvironment {
 	@IsNotEmpty()
 	@IsString()
 	DATABASE_USER: string;
-
-	@IsNotEmpty()
-	@IsString()
 	DATABASE_PASSWORD: string;
+	DATABASE_NAME: string;
 
 	@IsNotEmpty()
 	@IsString()
-	DATABASE_NAME: string;
+	OAUTH_SUCCESS_REDIRECT: string;
+	DISCORD_OAUTH_REDIRECT: string;
+	DISCORD_OAUTH_CLIENT_ID: string;
+	DISCORD_OAUTH_SECRET: string;
+	DISCORD_REDIRECT_URL: string;
+	DISCORD_TOKEN_ENCRYPT_SECRET: string;
+	LOGOUT_REDIRECT_URL: string;
 }
