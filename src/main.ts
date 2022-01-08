@@ -11,6 +11,7 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 import { AppModule } from './app/app.module';
 import { DatabaseSession } from './database';
 import { AppConfig } from './core/config/env.getters';
+import { ClashService } from './core/clash/clash.service';
 
 async function main() {
 	const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
@@ -21,6 +22,8 @@ async function main() {
 	const config = app.get(AppConfig);
 	const logger = app.get<OgmaService>(OgmaService);
 	const sessionStore = getRepository(DatabaseSession);
+	const coc = app.get<ClashService>(ClashService);
+	await coc.init();
 
 	app.useLogger(logger);
 	await app.register(fastifyHelmet);

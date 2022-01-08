@@ -59,4 +59,10 @@ export class ConfigEnvironment {
 	DISCORD_REDIRECT_URL: string;
 	DISCORD_TOKEN_ENCRYPT_SECRET: string;
 	LOGOUT_REDIRECT_URL: string;
+
+	@IsNotEmpty()
+	@IsString()
+	COC_EMAIL: string;
+	COC_PASSWORD: string;
+	COC_KEY_NAME: string;
 }

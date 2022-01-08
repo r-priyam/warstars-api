@@ -63,4 +63,12 @@ export class AppConfig {
 	get logOutRedirectUrl(): string {
 		return this.configService.get('LOGOUT_REDIRECT_URL');
 	}
+
+	get clashConfig() {
+		return {
+			email: this.configService.get('COC_EMAIL'),
+			password: this.configService.get('COC_PASSWORD'),
+			keyName: this.configService.get('COC_KEY_NAME')
+		};
+	}
 }
