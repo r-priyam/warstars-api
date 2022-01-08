@@ -27,6 +27,6 @@ export class User {
 	@Column({ name: 'refresh_token' })
 	refreshToken: string;
 
-	@Column({ name: 'created_at', default: () => 'CURRENT_TIMESTAMP', type: 'timestamp' })
+	@Column('timestamp without time zone', { name: 'start_time', default: () => 'now()' })
 	createdAt?: Date;
 }
