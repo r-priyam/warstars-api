@@ -1,21 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { OgmaService } from '@ogma/nestjs-module';
+import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
 import { BatchThrottler, Client } from 'clashofclans.js';
 import { AppConfig } from '../config/env.getters';
 
 @Injectable()
 export class ClashService {
-	constructor(private readonly logger: OgmaService, private readonly config: AppConfig) {
+	constructor(@OgmaLogger(ClashService) private readonly logger: OgmaService, private readonly config: AppConfig) {
 		this.client.on('maintenanceStart', () => {
-			this.logger.info('Maintenance started!', { context: ClashService.name });
+			this.logger.info('Maintenance started!');
 		});
 
 		this.client.on('maintenanceEnd', (duration) => {
-			this.logger.info(`Maintenance ended! Duration: ${duration}`, { context: ClashService.name });
+			this.logger.info(`Maintenance ended! Duration: ${duration}`);
 		});
 
 		this.client.on('newSeasonStart', (id) => {
-			this.logger.info(`New season started!, ID: ${id}`, { context: ClashService.name });
+			this.logger.info(`New season started!, ID: ${id}`);
 		});
 	}
 	private readonly client = new Client({
@@ -37,7 +37,7 @@ export class ClashService {
 				keyName: this.config.clashConfig.keyName
 			});
 			await this.client.events.init();
-			this.logger.info('Clash API connection initialized', { context: ClashService.name });
+			this.logger.info('Clash API connection initialized');
 		} catch (error) {
 			this.logger.printError(error);
 		}
