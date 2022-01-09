@@ -17,7 +17,6 @@ export class PlayerService {
 		private readonly clash: ClashService
 	) {}
 	private coc = this.clash.clashClient;
-	private PG_UNIQUE_CONSTRAINT_VIOLATION = '23505';
 
 	public async userPlayes() {
 		try {
@@ -55,7 +54,7 @@ export class PlayerService {
 				.execute();
 			return 'Player linked successfully';
 		} catch (error) {
-			if (error.code === this.PG_UNIQUE_CONSTRAINT_VIOLATION) {
+			if (error.code === '23505') {
 				throw new HttpException('Player is already linked', HttpStatus.BAD_REQUEST);
 			} else {
 				this.logger.error(error);

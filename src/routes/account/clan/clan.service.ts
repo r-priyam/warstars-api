@@ -18,7 +18,6 @@ export class ClanService {
 		private readonly clash: ClashService
 	) {}
 	private coc = this.clash.clashClient;
-	private PG_UNIQUE_CONSTRAINT_VIOLATION = '23505';
 
 	public async userClans() {
 		try {
@@ -54,7 +53,7 @@ export class ClanService {
 				.values([{ discordId: this.request.session.user.discordId, clanTag: clan.tag }])
 				.execute();
 		} catch (error) {
-			if (error.code === this.PG_UNIQUE_CONSTRAINT_VIOLATION) {
+			if (error.code === '23505') {
 				throw new HttpException('Clan is already linked', HttpStatus.BAD_REQUEST);
 			} else {
 				this.logger.error(error);
