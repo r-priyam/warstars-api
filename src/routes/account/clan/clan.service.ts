@@ -38,7 +38,7 @@ export class ClanService {
 
 		let clan: Clan;
 		try {
-			clan = await this.coc.getClan(Util.formatTag(clanTag));
+			clan = await this.coc.getClan(clanTag);
 		} catch (error) {
 			if (error.reason === 'notFound') throw new HttpException('Clan Not Found!', HttpStatus.NOT_FOUND);
 			else {

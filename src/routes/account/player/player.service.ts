@@ -37,7 +37,7 @@ export class PlayerService {
 
 		let status: boolean;
 		try {
-			status = await this.coc.verifyPlayerToken(Util.formatTag(playerTag), apiToken);
+			status = await this.coc.verifyPlayerToken(playerTag, apiToken);
 			if (!status) throw new HttpException('Invalid API Token!', HttpStatus.BAD_REQUEST);
 		} catch (error) {
 			if (error.reason === 'notFound') throw new HttpException('Player Not Found!', HttpStatus.NOT_FOUND);
