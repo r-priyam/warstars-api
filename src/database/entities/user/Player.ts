@@ -1,14 +1,14 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
 @Entity({ name: 'user_player' })
-@Unique('user_players_unique_tag', ['userId', 'playerTag'])
+@Unique('user_players_unique_tag', ['discordId', 'playerTag'])
 export class UserPlayer {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Index('index_user_player_user_id')
-	@Column({ name: 'user_id' })
-	userId: string;
+	@Index('index_user_player_discord_id')
+	@Column({ name: 'discord_id' })
+	discordId: string;
 
 	@Column({ name: 'player_tag' })
 	playerTag: string;
