@@ -64,16 +64,16 @@ export class ClanService {
 	}
 
 	public async removeClan(clanTag: string) {
+		let data: any;
 		try {
-			const data = await this.clanDb.query('DELETE FROM user_clan WHERE discord_id = $1 AND clan_tag = $2', [
+			data = await this.clanDb.query('DELETE FROM user_clan WHERE discord_id = $1 AND clan_tag = $2', [
 				this.request.session.user.discordId,
 				Util.formatTag(clanTag)
 			]);
-
-			if (data[1] === 0) throw new HttpException('Clan Tag not linked!', HttpStatus.CONFLICT);
 		} catch (error) {
 			this.logger.error(error);
 			throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		if (data[1] === 0) throw new HttpException('Clan Tag not linked!', HttpStatus.CONFLICT);
 	}
 }

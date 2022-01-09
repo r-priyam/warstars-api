@@ -65,16 +65,16 @@ export class PlayerService {
 	}
 
 	public async removePlayer(playerTag: string) {
+		let data: any;
 		try {
-			const data = await this.playerDb.query('DELETE FROM user_player WHERE discord_id = $1 AND player_tag = $2', [
+			data = await this.playerDb.query('DELETE FROM user_player WHERE discord_id = $1 AND player_tag = $2', [
 				this.request.session.user.discordId,
 				Util.formatTag(playerTag)
 			]);
-
-			if (data[1] === 0) throw new HttpException('Player Tag not linked!', HttpStatus.CONFLICT);
 		} catch (error) {
 			this.logger.error(error);
 			throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		if (data[1] === 0) throw new HttpException('Player Tag not linked!', HttpStatus.CONFLICT);
 	}
 }
