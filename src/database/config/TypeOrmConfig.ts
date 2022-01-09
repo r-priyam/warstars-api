@@ -19,6 +19,7 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
 			database: this.database.name,
 			entities: entities,
 			synchronize: this.config.isDevelopment,
+			keepConnectionAlive: true,
 			extra: { min: 10, max: 20, idleTimeoutMillis: 0 }
 		};
 	}
