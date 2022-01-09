@@ -8,7 +8,7 @@ import { Repository } from 'typeorm';
 import { ClashService } from '~/core/clash/clash.service';
 import { UserPlayer } from '~/database';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable({ scope: Scope.DEFAULT })
 export class PlayerService {
 	constructor(
 		@Inject(REQUEST) private readonly request: FastifyRequest,

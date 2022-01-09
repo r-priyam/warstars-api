@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 import { ClashService } from '~/core/clash/clash.service';
 import { UserClan } from '~/database';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable({ scope: Scope.DEFAULT })
 export class ClanService {
 	constructor(
 		@Inject(REQUEST) private readonly request: FastifyRequest,
