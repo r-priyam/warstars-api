@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { RouterModule } from '@nestjs/core';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -6,11 +7,29 @@ import { AppConfig } from '../core/config/env.getters';
 import { ConfigModule } from 'src/core/config/config.module';
 import { LoggingModule } from 'src/core/logging/logging.module';
 import { DatabaseModule } from '~/database/config/database.module';
-import { DiscordModule } from '~/routes';
+import { ClanModule, DiscordModule, PlayerModule } from '~/routes';
 import { ClashModule } from '~/core/clash/clash.module';
 
 @Module({
-	imports: [ConfigModule, ClashModule, LoggingModule, DatabaseModule, DiscordModule],
+	imports: [
+		ConfigModule,
+		ClashModule,
+		LoggingModule,
+		DatabaseModule,
+		DiscordModule,
+		PlayerModule,
+		ClanModule,
+		RouterModule.register([
+			{
+				path: 'account',
+				module: PlayerModule
+			},
+			{
+				path: 'account',
+				module: ClanModule
+			}
+		])
+	],
 	controllers: [AppController],
 	providers: [AppConfig, AppService],
 	exports: [AppConfig]
