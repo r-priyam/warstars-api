@@ -1,14 +1,20 @@
-import { CanActivate, ExecutionContext, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ContextIdFactory, ModuleRef, Reflector } from '@nestjs/core';
+import { FastifyRequest } from 'fastify';
 import { getRepository } from 'typeorm';
 import { DatabaseSession } from '~/database';
 import { DiscordService } from '~/routes/discord/discord.service';
+import { AUTH_KEY } from '../decorators/auth.decorator';
 
 @Injectable()
 export class SessionGuard implements CanActivate {
-	constructor(@Inject(DiscordService) private readonly discordService: DiscordService) {}
+	constructor(private readonly reflector: Reflector, private readonly moduleRef: ModuleRef) {}
 
-	async canActivate(context: ExecutionContext) {
-		const request = context.switchToHttp().getRequest();
+	async canActivate(context: ExecutionContext): Promise<boolean> {
+		const checkAuth = this.reflector.getAllAndOverride(AUTH_KEY, [context.getHandler(), context.getClass()]);
+		if (!checkAuth) return true;
+
+		const request: FastifyRequest = context.switchToHttp().getRequest();
 		const session = request.session;
 
 		if (!session)
@@ -34,8 +40,10 @@ export class SessionGuard implements CanActivate {
 
 		if (sessionStore.expiredAt < Date.now()) {
 			// session expired here, grab the new token from discord and delete the previous one from db
+			const contextId = ContextIdFactory.getByRequest(request);
+			const discord = await this.moduleRef.resolve(DiscordService, contextId);
 			await sessionRepository.delete(sessionStore);
-			await this.discordService.handleTokenRefresh();
+			await discord.handleTokenRefresh();
 			return true;
 		} else {
 			return true;

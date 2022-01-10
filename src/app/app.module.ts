@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { RouterModule } from '@nestjs/core';
+import { APP_GUARD, RouterModule } from '@nestjs/core';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -9,6 +9,7 @@ import { LoggingModule } from 'src/core/logging/logging.module';
 import { DatabaseModule } from '~/database/config/database.module';
 import { ClanModule, DiscordModule, PlayerModule } from '~/routes';
 import { ClashModule } from '~/core/clash/clash.module';
+import { SessionGuard } from '~/core/guards/session.guard';
 
 @Module({
 	imports: [
@@ -31,7 +32,7 @@ import { ClashModule } from '~/core/clash/clash.module';
 		])
 	],
 	controllers: [AppController],
-	providers: [AppConfig, AppService],
+	providers: [AppConfig, AppService, { provide: APP_GUARD, useClass: SessionGuard }],
 	exports: [AppConfig]
 })
 export class AppModule {}

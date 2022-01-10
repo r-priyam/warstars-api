@@ -1,7 +1,7 @@
-import { Controller, Get, HttpException, HttpStatus, Query, Req, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Query, Req, Res } from '@nestjs/common';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { AppConfig } from '~/core/config/env.getters';
-import { SessionGuard } from '~/core/guards/session.guard';
+import { Authenticated } from '~/core/decorators/auth.decorator';
 import { DiscordService } from './discord.service';
 
 @Controller('discord')
@@ -22,13 +22,13 @@ export class DiscordController {
 	}
 
 	@Get('guilds')
-	@UseGuards(SessionGuard)
+	@Authenticated()
 	async guilds() {
 		return await this.discordService.userGuilds();
 	}
 
 	@Get('logout')
-	@UseGuards(SessionGuard)
+	@Authenticated()
 	async logout(@Req() request: FastifyRequest, @Res() response: FastifyReply) {
 		await this.discordService.logOut();
 		request.destroySession((error) => {

@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
-import { SessionGuard } from '~/core/guards/session.guard';
+import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
+import { Authenticated } from '~/core/decorators/auth.decorator';
 import { ClanService } from './clan.service';
 
 @Controller('clan')
@@ -7,19 +7,19 @@ export class ClanController {
 	constructor(private readonly clanService: ClanService) {}
 
 	@Get('clans')
-	@UseGuards(SessionGuard)
+	@Authenticated()
 	async userClans() {
 		return this.clanService.userClans();
 	}
 
 	@Post('link-clan')
-	@UseGuards(SessionGuard)
+	@Authenticated()
 	async linkClan(@Body() payload: { clanTag: string }) {
 		return await this.clanService.linkClan(payload.clanTag);
 	}
 
 	@Delete('remove-clan')
-	@UseGuards(SessionGuard)
+	@Authenticated()
 	async removeClan(@Body() payload: { clanTag: string }) {
 		return await this.clanService.removeClan(payload.clanTag);
 	}
