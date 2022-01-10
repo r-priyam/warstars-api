@@ -10,7 +10,7 @@ import { DatabaseSession, User } from '~/database';
 import { AppConfig } from '~/core/config/env.getters';
 import { ICreateUser, ICredentialsResponse, IDiscordUser, IDiscordUserGuild, IEncryptedTokens } from '~/utils/interfaces';
 
-@Injectable({ scope: Scope.DEFAULT })
+@Injectable({ scope: Scope.REQUEST })
 export class DiscordService {
 	constructor(
 		private readonly config: AppConfig,
