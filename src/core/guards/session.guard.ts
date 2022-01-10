@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { ContextIdFactory, ModuleRef, Reflector } from '@nestjs/core';
 import { FastifyRequest } from 'fastify';
 import { getRepository } from 'typeorm';
@@ -17,26 +17,12 @@ export class SessionGuard implements CanActivate {
 		const request: FastifyRequest = context.switchToHttp().getRequest();
 		const session = request.session;
 
-		if (!session)
-			throw new HttpException(
-				{
-					status: HttpStatus.UNAUTHORIZED,
-					error: 'You must log in to use this feature.'
-				},
-				HttpStatus.UNAUTHORIZED
-			);
+		if (!session) throw new UnauthorizedException('You must log in to use this feature.');
 
 		const sessionRepository = getRepository(DatabaseSession);
 		const sessionStore = await sessionRepository.findOne({ id: session.sessionId });
 
-		if (!sessionStore)
-			throw new HttpException(
-				{
-					status: HttpStatus.UNAUTHORIZED,
-					error: 'You must log in to use this feature.'
-				},
-				HttpStatus.UNAUTHORIZED
-			);
+		if (!sessionStore) throw new UnauthorizedException('You must log in to use this feature.');
 
 		if (sessionStore.expiredAt < Date.now()) {
 			// session expired here, grab the new token from discord and delete the previous one from db
