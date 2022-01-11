@@ -34,6 +34,7 @@ export class ConfigEnvironment {
 	@IsString()
 	@Length(64)
 	SESSION_COOKIE_SECRET: string;
+	JWT_SECRET: string;
 
 	@IsNotEmpty()
 	@IsString()

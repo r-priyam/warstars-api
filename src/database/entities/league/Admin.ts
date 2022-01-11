@@ -11,7 +11,7 @@ export class LeagueAdmin {
 	discordId: string;
 
 	@Column({ name: 'league_id' })
-	leagueId: string;
+	leagueId: number;
 
 	@Column()
 	permissions: number;

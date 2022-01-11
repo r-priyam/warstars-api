@@ -14,7 +14,7 @@ export class LeagueClan {
 	@Column('integer', { name: 'child_id', nullable: true, unique: true })
 	childId: number | null;
 
-	@Column('integer', { name: 'division_id', nullable: true, unique: true })
+	@Column('integer', { name: 'division_id', default: () => '0', unique: true })
 	divisionId: number | null;
 
 	@Column('integer', { name: 'league_season_id', nullable: true })

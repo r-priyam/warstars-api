@@ -19,6 +19,9 @@ export class League {
 	@Column({ name: 'discord_id' })
 	discordId: string;
 
+	@Column('text', { name: 'icon_url' })
+	iconUrl: string;
+
 	@Column('text', { name: 'discord_invite', nullable: true })
 	discordInvite: string | null;
 
@@ -33,9 +36,6 @@ export class League {
 
 	@Column('text', { name: 'description', default: () => "'No description provided yet from the league side.'" })
 	description: string;
-
-	@Column('text', { name: 'icon_url' })
-	iconUrl: string;
 
 	@Column('boolean', { name: 'is_verified', default: () => 'false' })
 	isVerified: boolean;

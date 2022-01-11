@@ -9,8 +9,8 @@ export class ChildLeagueSeason {
 	@Column('integer', { name: 'league_season_id', default: () => '0' })
 	leagueSeasonId: number;
 
-	@Column('integer', { name: 'league_id', nullable: true })
-	leagueId: number | null;
+	@Column('integer', { name: 'league_id' })
+	leagueId: number;
 
 	@Column('integer', { name: 'child_league_id' })
 	childLeagueId: number;
