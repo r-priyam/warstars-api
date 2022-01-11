@@ -7,7 +7,7 @@ import { AppConfig } from '~/core/config/env.getters';
 import { ConfigModule } from '~/core/config/config.module';
 import { LoggingModule } from '~/core/logging/logging.module';
 import { DatabaseModule } from '~/database/config/database.module';
-import { ClanModule, DiscordModule, PlayerModule } from '~/routes';
+import { AccountModule, DiscordModule } from '~/routes';
 import { ClashModule } from '~/core/clash/clash.module';
 import { SessionGuard } from '~/core/guards/session.guard';
 import { LeaguePermission } from '~/core/guards/leaguepermissions.guard';
@@ -20,17 +20,12 @@ import { LeagueModule } from '~/routes/league/league.module';
 		LoggingModule,
 		DatabaseModule,
 		DiscordModule,
-		PlayerModule,
-		ClanModule,
+		AccountModule,
 		LeagueModule,
 		RouterModule.register([
 			{
 				path: 'account',
-				module: PlayerModule
-			},
-			{
-				path: 'account',
-				module: ClanModule
+				module: AccountModule
 			},
 			{
 				path: 'league',
