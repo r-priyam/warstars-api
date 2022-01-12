@@ -23,9 +23,29 @@ export class ClanService {
 		try {
 			const data = await this.clanDb
 				.createQueryBuilder('user')
+				.select('user.clan_tag', 'user.linked_at')
 				.where('user.discord_id = :discordId', { discordId: this.request.session.user.discordId })
 				.getMany();
-			return data;
+
+			const clansData = [];
+			const clans = Util.allSettled(data.map((e) => this.coc.getClan(e.clanTag)));
+
+			for (const clan of await clans) {
+				clansData.push({
+					name: clan.name,
+					tag: clan.tag,
+					members: clan.memberCount,
+					badge: clan.badge.url,
+					leader: clan.members.find((m) => m.role === 'leader'),
+					level: clan.level,
+					location: clan.location?.name || 'No Location Set',
+					trophies: clan.points,
+					versusTrophies: clan.versusPoints,
+					labels: Object.fromEntries(clan.labels.map((label) => [label.name, label.icon.url])),
+					linkedAt: data.find((e) => e.clanTag === clan.tag).linkedAt
+				});
+			}
+			return clansData;
 		} catch (error) {
 			this.logger.error(error);
 			throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);

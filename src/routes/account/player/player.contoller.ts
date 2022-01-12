@@ -9,7 +9,7 @@ export class PlayerController {
 	@Get('players')
 	@Authenticated()
 	async userPlayers() {
-		return this.playerService.userPlayes();
+		return this.playerService.userPlayers();
 	}
 
 	@Post('link-player')
