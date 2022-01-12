@@ -9,7 +9,7 @@ export class ClanController {
 	@Get('clans')
 	@Authenticated()
 	async userClans() {
-		return this.clanService.userClans();
+		return await this.clanService.userClans();
 	}
 
 	@Post('link-clan')
