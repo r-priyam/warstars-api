@@ -15,7 +15,7 @@ export class ExceptionsFilter implements ExceptionFilter {
 		const responseBody = {
 			statusCode: httpStatus,
 			timestamp: new Date().toISOString(),
-			error: (exception?.getResponse && exception.getResponse()) || 'Internal Server Error',
+			detail: (exception?.getResponse && exception.getResponse()) || 'Internal Server Error',
 			path: httpAdapter.getRequestUrl(ctx.getRequest())
 		};
 		httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);

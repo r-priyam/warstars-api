@@ -23,7 +23,6 @@ export class ClanService {
 		try {
 			const data = await this.clanDb
 				.createQueryBuilder('user')
-				.select('user.clan_tag', 'user.linked_at')
 				.where('user.discord_id = :discordId', { discordId: this.request.session.user.discordId })
 				.getMany();
 
@@ -36,7 +35,7 @@ export class ClanService {
 					tag: clan.tag,
 					members: clan.memberCount,
 					badge: clan.badge.url,
-					leader: clan.members.find((m) => m.role === 'leader'),
+					leader: clan.members.find((m) => m.role === 'leader').name,
 					level: clan.level,
 					location: clan.location?.name || 'No Location Set',
 					trophies: clan.points,

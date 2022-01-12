@@ -13,6 +13,6 @@ export class UserClan {
 	@Column({ name: 'clan_tag' })
 	clanTag: string;
 
-	@Column('timestamp without time zone', { name: 'start_time', default: () => 'now()' })
+	@Column('timestamp without time zone', { name: 'linked_at', default: () => 'now()' })
 	linkedAt?: Date;
 }
