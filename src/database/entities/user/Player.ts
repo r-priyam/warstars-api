@@ -13,6 +13,6 @@ export class UserPlayer {
 	@Column({ name: 'player_tag' })
 	playerTag: string;
 
-	@Column('timestamp without time zone', { name: 'start_time', default: () => 'now()' })
+	@Column('timestamp without time zone', { name: 'linked_at', default: () => 'now()' })
 	linkedAt?: Date;
 }
