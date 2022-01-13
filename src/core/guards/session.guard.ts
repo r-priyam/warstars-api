@@ -1,5 +1,5 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
-import { ContextIdFactory, ModuleRef, Reflector } from '@nestjs/core';
+import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
 import { FastifyRequest } from 'fastify';
 import { getRepository } from 'typeorm';
 import { DatabaseSession } from '~/database';
@@ -8,7 +8,7 @@ import { AUTH_KEY } from '../decorators/auth.decorator';
 
 @Injectable()
 export class SessionGuard implements CanActivate {
-	constructor(private readonly reflector: Reflector, private readonly moduleRef: ModuleRef) {}
+	constructor(private readonly reflector: Reflector, @Inject(DiscordService) private readonly discordService: DiscordService) {}
 
 	async canActivate(context: ExecutionContext): Promise<boolean> {
 		const checkAuth = this.reflector.getAllAndOverride(AUTH_KEY, [context.getHandler(), context.getClass()]);
@@ -25,14 +25,10 @@ export class SessionGuard implements CanActivate {
 		if (!sessionStore) throw new UnauthorizedException('You must log in to use this feature.');
 
 		if (sessionStore.expiredAt < Date.now()) {
-			// session expired here, grab the new token from discord and delete the previous one from db
-			const contextId = ContextIdFactory.getByRequest(request);
-			const discord = await this.moduleRef.resolve(DiscordService, contextId);
 			await sessionRepository.delete(sessionStore);
-			await discord.handleTokenRefresh();
-			return true;
-		} else {
+			await this.discordService.handleTokenRefresh(request);
 			return true;
 		}
+		return true;
 	}
 }

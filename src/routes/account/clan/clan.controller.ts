@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Req } from '@nestjs/common';
+import { FastifyRequest } from 'fastify';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { ClanService } from './clan.service';
 
@@ -8,19 +9,19 @@ export class ClanController {
 
 	@Get('clans')
 	@Authenticated()
-	async userClans() {
-		return await this.clanService.userClans();
+	async userClans(@Req() request: FastifyRequest) {
+		return await this.clanService.userClans(request);
 	}
 
 	@Post('link-clan')
 	@Authenticated()
-	async linkClan(@Body() payload: { clanTag: string }) {
-		return await this.clanService.linkClan(payload.clanTag);
+	async linkClan(@Req() request: FastifyRequest, @Body() payload: { clanTag: string }) {
+		return await this.clanService.linkClan(request, payload.clanTag);
 	}
 
 	@Delete('remove-clan')
 	@Authenticated()
-	async removeClan(@Body() payload: { clanTag: string }) {
-		return await this.clanService.removeClan(payload.clanTag);
+	async removeClan(@Req() request: FastifyRequest, @Body() payload: { clanTag: string }) {
+		return await this.clanService.removeClan(request, payload.clanTag);
 	}
 }

@@ -1,5 +1,4 @@
-import { HttpException, HttpStatus, Inject, Injectable, Scope } from '@nestjs/common';
-import { REQUEST } from '@nestjs/core';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
 import { Util } from 'clashofclans.js';
@@ -8,10 +7,9 @@ import { Repository } from 'typeorm';
 import { ClashService } from '~/core/clash/clash.service';
 import { UserPlayer } from '~/database';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class PlayerService {
 	constructor(
-		@Inject(REQUEST) private readonly request: FastifyRequest,
 		@InjectRepository(UserPlayer) private playerDb: Repository<UserPlayer>,
 		@OgmaLogger(PlayerService) private readonly logger: OgmaService,
 		private readonly clash: ClashService
@@ -19,11 +17,11 @@ export class PlayerService {
 	private coc = this.clash.clashClient;
 	private readonly roles = { member: 'Member', coLeader: 'Co-Leader', leader: 'Leader', admin: 'Elder' };
 
-	public async userPlayers() {
+	public async userPlayers(request: FastifyRequest) {
 		try {
 			const data = await this.playerDb
 				.createQueryBuilder('user')
-				.where('user.discord_id = :discordId', { discordId: this.request.session.user.discordId })
+				.where('user.discord_id = :discordId', { discordId: request.session.user.discordId })
 				.getMany();
 
 			const playersData = [];
@@ -51,7 +49,7 @@ export class PlayerService {
 		}
 	}
 
-	public async linkPlayer(playerTag: string, apiToken: string) {
+	public async linkPlayer(request: FastifyRequest, playerTag: string, apiToken: string) {
 		if (!Util.isValidTag(Util.formatTag(playerTag))) throw new HttpException('Invalid Player Tag!', HttpStatus.NOT_ACCEPTABLE);
 
 		let status: boolean;
@@ -70,7 +68,7 @@ export class PlayerService {
 			await this.playerDb
 				.createQueryBuilder()
 				.insert()
-				.values([{ discordId: this.request.session.user.discordId, playerTag: Util.formatTag(playerTag) }])
+				.values([{ discordId: request.session.user.discordId, playerTag: Util.formatTag(playerTag) }])
 				.execute();
 			return 'Player linked successfully';
 		} catch (error) {
@@ -83,11 +81,11 @@ export class PlayerService {
 		}
 	}
 
-	public async removePlayer(playerTag: string) {
+	public async removePlayer(request: FastifyRequest, playerTag: string) {
 		let data: any;
 		try {
 			data = await this.playerDb.query('DELETE FROM user_player WHERE discord_id = $1 AND player_tag = $2', [
-				this.request.session.user.discordId,
+				request.session.user.discordId,
 				Util.formatTag(playerTag)
 			]);
 		} catch (error) {
