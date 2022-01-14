@@ -12,6 +12,7 @@ import { AppModule } from './app/app.module';
 import { DatabaseSession } from './database';
 import { AppConfig } from './core/config/env.getters';
 import { ClashService } from './core/clash/clash.service';
+import { BotService } from './core/bot/bot.service';
 
 declare const module: any;
 
@@ -22,12 +23,17 @@ async function main() {
 	});
 
 	const config = app.get(AppConfig);
-	const logger = app.get<OgmaService>(OgmaService);
 	const sessionStore = getRepository(DatabaseSession);
+
+	const logger = app.get<OgmaService>(OgmaService);
+	app.useLogger(logger);
+
 	const coc = app.get<ClashService>(ClashService);
 	await coc.init();
 
-	app.useLogger(logger);
+	const discord = app.get<BotService>(BotService);
+	discord.init();
+
 	await app.register(fastifyHelmet);
 	app.enableCors({ origin: config.corsOrigins, credentials: true });
 	app.register(fastifyCookie, { secret: [config.sessionCookieSecret, config.cookieSignSecret] });
