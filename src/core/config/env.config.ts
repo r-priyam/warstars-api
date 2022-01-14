@@ -53,6 +53,7 @@ export class ConfigEnvironment {
 
 	@IsNotEmpty()
 	@IsString()
+	BOT_TOKEN: string;
 	OAUTH_SUCCESS_REDIRECT: string;
 	DISCORD_OAUTH_REDIRECT: string;
 	DISCORD_OAUTH_CLIENT_ID: string;
