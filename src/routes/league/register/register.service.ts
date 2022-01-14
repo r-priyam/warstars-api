@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Repository } from 'typeorm';
 import { ChildLeague, Division, League, LeagueAdmin } from '~/database';
 import { IRegisterChildLeague, IRegisterDivision, IRegisterLeague } from '~/utils/interfaces';
@@ -12,7 +13,8 @@ export class RegisterService {
 		@InjectRepository(ChildLeague) private childLeagueDb: Repository<ChildLeague>,
 		@InjectRepository(Division) private divisionDb: Repository<Division>,
 		@InjectRepository(LeagueAdmin) private adminDb: Repository<LeagueAdmin>,
-		@OgmaLogger(RegisterService) private readonly logger: OgmaService
+		@OgmaLogger(RegisterService) private readonly logger: OgmaService,
+		private eventEmitter: EventEmitter2
 	) {}
 
 	public async registerLeague(data: IRegisterLeague) {
@@ -31,6 +33,7 @@ export class RegisterService {
 				.insert()
 				.values([{ ...data }])
 				.execute();
+			this.eventEmitter.emit('league.register', data);
 		} catch (error) {
 			if (error.code === '23505') {
 				throw new HttpException(`Abbreviation: ${data.abbreviation}  is already registered!`, HttpStatus.BAD_REQUEST);
