@@ -19,7 +19,7 @@ export class League {
 	@Column({ name: 'discord_id' })
 	discordId: string;
 
-	@Column('text', { name: 'icon_url' })
+	@Column('text', { name: 'icon_url', nullable: true })
 	iconUrl: string;
 
 	@Column('text', { name: 'discord_invite', nullable: true })
