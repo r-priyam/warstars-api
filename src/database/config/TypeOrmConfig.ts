@@ -3,7 +3,6 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
 import { AppConfig } from '~/core/config/env.getters';
 import { entities } from '~/database';
-import { CustomNamingStrategy } from './CustomNamingStrategy';
 
 @Injectable()
 export class TypeOrmConfig implements TypeOrmOptionsFactory {
@@ -21,8 +20,7 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
 			entities: entities,
 			synchronize: this.config.isDevelopment,
 			keepConnectionAlive: true,
-			extra: { min: 10, max: 20, idleTimeoutMillis: 0 },
-			namingStrategy: new CustomNamingStrategy()
+			extra: { min: 10, max: 20, idleTimeoutMillis: 0 }
 		};
 	}
 }

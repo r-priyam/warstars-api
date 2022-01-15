@@ -6,7 +6,7 @@ export class LeagueAdmin {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Index('index_admin_discord_id')
+	@Index()
 	@Column({ name: 'discord_id' })
 	discordId: string;
 

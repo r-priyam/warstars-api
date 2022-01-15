@@ -103,7 +103,7 @@ export class CoreService {
 
 			const payload = {};
 			data.forEach((x) => (payload[x.leagueId] = x.permissions));
-			return this.jwtService.sign({ permissions: payload });
+			return this.jwtService.sign(payload);
 		} catch (error) {
 			this.logger.error(error);
 			throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);

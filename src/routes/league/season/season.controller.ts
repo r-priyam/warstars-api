@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Permissions } from '~/core/decorators/leaguepermissions.decorator';
 import { Permission } from '~/utils/AdminPermissions';
@@ -34,7 +34,6 @@ export class SeasonController {
 	@Post('new')
 	@Authenticated()
 	@Permissions(Permission.MANAGE_SEASON)
-	@HttpCode(200)
 	async newLeagueSeason(@Body() payload: INewLeagueSeason) {
 		return await this.newLeagueSeason(payload);
 	}
@@ -42,7 +41,6 @@ export class SeasonController {
 	@Post('new-child')
 	@Authenticated()
 	@Permissions(Permission.MANAGE_SEASON)
-	@HttpCode(200)
 	async newChildSason(@Body() payload: INewChildLeagueSeason) {
 		return await this.seasonService.newChildSeason(payload);
 	}
@@ -64,7 +62,6 @@ export class SeasonController {
 	@Post('add-clans')
 	@Authenticated()
 	@Permissions(Permission.MANAGE_CLANS)
-	@HttpCode(200)
 	async addClans(@Body() payload: ISeasonAddClan) {
 		return await this.seasonService.addSeasonClans(payload);
 	}
