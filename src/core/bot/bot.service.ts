@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
-import { Client, Intents } from 'discord.js';
 import { AppConfig } from '../config/env.getters';
+import Client from './struct/Client';
 
 @Injectable()
 export class BotService {
@@ -11,9 +11,9 @@ export class BotService {
 		this.client.on('warn', (error) => this.logger.warn(error));
 	}
 
-	public readonly client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+	public readonly client = new Client();
 
 	public async init() {
-		this.client.login(this.config.botToken);
+		this.client.start(this.config.botToken);
 	}
 }
