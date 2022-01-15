@@ -1,4 +1,4 @@
-import { Controller, Get, HttpException, HttpStatus, Post, Query, Req, Res } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Query, Req, Res } from '@nestjs/common';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { AppConfig } from '~/core/config/env.getters';
 import { Authenticated } from '~/core/decorators/auth.decorator';
@@ -14,26 +14,11 @@ export class DiscordController {
 	}
 
 	@Get('callback')
-	async callback(@Query() query: { code: string }, @Res() response: FastifyReply) {
+	async callback(@Query() query: { code: string }) {
 		if (!query.code)
 			throw new HttpException('No code received. Please return back to homepage and try to authorize again.', HttpStatus.BAD_REQUEST);
 
-		await this.discordService.handleCallback(query.code);
-		return response.status(302).redirect(this.config.discord.successRedirect);
-	}
-
-	@Get('user')
-	@Authenticated()
-	user(@Req() request: FastifyRequest) {
-		const user = request.session.user;
-		['id', 'email', 'accessToken', 'refreshToken'].forEach((e) => delete user[e]);
-		return user;
-	}
-
-	@Get('check')
-	@Authenticated()
-	checkLoggedIn() {
-		return;
+		return await this.discordService.handleCallback(query.code);
 	}
 
 	@Get('guilds')
@@ -42,13 +27,13 @@ export class DiscordController {
 		return await this.discordService.userGuilds();
 	}
 
-	@Post('logout')
+	@Get('logout')
 	@Authenticated()
 	async logout(@Req() request: FastifyRequest, @Res() response: FastifyReply) {
 		await this.discordService.logOut();
 		request.destroySession((error) => {
 			if (error) throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
-			else response.clearCookie('sessionId').status(302).redirect(this.config.logOutRedirectUrl);
+			else response.status(302).redirect(this.config.logOutRedirectUrl);
 		});
 	}
 }
