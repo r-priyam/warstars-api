@@ -64,10 +64,6 @@ export class AppConfig {
 		};
 	}
 
-	get botToken() {
-		return this.configService.get('BOT_TOKEN');
-	}
-
 	get logOutRedirectUrl(): string {
 		return this.configService.get('LOGOUT_REDIRECT_URL');
 	}

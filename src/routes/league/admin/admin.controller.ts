@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Permission } from '~/utils/AdminPermissions';
 import { Permissions } from '~/core/decorators/leaguepermissions.decorator';
@@ -20,7 +20,6 @@ export class AdminController {
 
 	@Post('add-admin')
 	@Authenticated()
-	@HttpCode(200)
 	@Permissions(Permission.MANAGE_ADMINS)
 	async addAdmin(@Body() payload: { discordId: string; leagueId: number; permissions: number }) {
 		return await this.adminService.addAdmin(payload.discordId, payload.leagueId, payload.permissions);
