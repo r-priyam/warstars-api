@@ -1,5 +1,5 @@
-import { Controller, Get, Param, Req, Res } from '@nestjs/common';
-import { FastifyReply, FastifyRequest } from 'fastify';
+import { Controller, Get, Param, Req } from '@nestjs/common';
+import { FastifyRequest } from 'fastify';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { CoreService } from './core.service';
 
@@ -25,9 +25,7 @@ export class CoreController {
 
 	@Get('user-league-permissions')
 	@Authenticated()
-	async userLeaguePermissions(@Req() request: FastifyRequest, @Res({ passthrough: true }) response: FastifyReply) {
-		const perms = await this.coreService.getUserLeaguePermissions(request.session.user.discordId);
-		response.setCookie('_league_permissions', perms, { maxAge: 180000, secure: false, path: '/' });
-		return;
+	async userLeaguePermissions(@Req() request: FastifyRequest) {
+		return await this.coreService.getUserLeaguePermissions(request.session.user.discordId);
 	}
 }
