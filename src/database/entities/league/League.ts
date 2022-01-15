@@ -1,9 +1,9 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
 @Index('league_abbreviation_key', ['abbreviation'], { unique: true })
-@Index('league_pkey', ['leagueId'], { unique: true })
 @Entity('league')
 export class League {
+	@Index()
 	@PrimaryGeneratedColumn({ type: 'integer', name: 'league_id' })
 	leagueId: number;
 
