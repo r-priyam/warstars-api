@@ -16,15 +16,6 @@ export class RegisterService {
 	) {}
 
 	public async registerLeague(data: IRegisterLeague) {
-		const check = await this.leagueDb.query('SELECT EXISTS(SELECT 1 FROM league WHERE discord_id = $1 AND is_verified = False)', [
-			data.discordId
-		]);
-		if (check)
-			throw new HttpException(
-				'Your one application is pending. You can only submit one league application at a time.',
-				HttpStatus.BAD_REQUEST
-			);
-
 		try {
 			await this.leagueDb
 				.createQueryBuilder()
