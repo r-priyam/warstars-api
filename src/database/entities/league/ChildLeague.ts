@@ -1,13 +1,12 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
 @Entity({ name: 'child_league' })
-@Index('child_league_id_pkey', ['id'], { unique: true })
 @Unique('unique_child_league', ['leagueId', 'abbreviation'])
 export class ChildLeague {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Index('index_child_league_leagueid')
+	@Index()
 	@Column({ name: 'league_id' })
 	leagueId: number;
 
