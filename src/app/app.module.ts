@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD, RouterModule } from '@nestjs/core';
-import { EventEmitterModule } from '@nestjs/event-emitter';
 
 import { AppController } from './app.controller';
 import { AppConfig } from '~/core/config/env.getters';
@@ -12,16 +11,13 @@ import { ClashModule } from '~/core/clash/clash.module';
 import { SessionGuard } from '~/core/guards/session.guard';
 import { LeaguePermission } from '~/core/guards/leaguepermissions.guard';
 import { LeagueModule } from '~/routes/league/league.module';
-import { BotModule } from '~/core/bot/bot.module';
 
 @Module({
 	imports: [
 		ConfigModule,
-		BotModule,
 		ClashModule,
 		LoggingModule,
 		DatabaseModule,
-		EventEmitterModule.forRoot(),
 		DiscordModule,
 		AccountModule,
 		LeagueModule,
