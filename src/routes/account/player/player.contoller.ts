@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Post, Req } from '@nestjs/common';
+import { FastifyRequest } from 'fastify';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { PlayerService } from './player.service';
 
@@ -8,19 +9,20 @@ export class PlayerController {
 
 	@Get('players')
 	@Authenticated()
-	async userPlayers() {
-		return this.playerService.userPlayes();
+	async userPlayers(@Req() request: FastifyRequest) {
+		return await this.playerService.userPlayers(request);
 	}
 
 	@Post('link-player')
 	@Authenticated()
-	async linkPlayer(@Body() payload: { playerTag: string; apiToken: string }) {
-		return await this.playerService.linkPlayer(payload.playerTag, payload.apiToken);
+	@HttpCode(200)
+	async linkPlayer(@Req() request: FastifyRequest, @Body() payload: { playerTag: string; apiToken: string }) {
+		return await this.playerService.linkPlayer(request, payload.playerTag, payload.apiToken);
 	}
 
 	@Delete('remove-player')
 	@Authenticated()
-	async removePlayer(@Body() payload: { playerTag: string }) {
-		return await this.playerService.removePlayer(payload.playerTag);
+	async removePlayer(@Req() request: FastifyRequest, @Body() payload: { playerTag: string }) {
+		return await this.playerService.removePlayer(request, payload.playerTag);
 	}
 }

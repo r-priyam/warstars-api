@@ -14,10 +14,13 @@ import { SeasonController } from './season/season.controller';
 import { SeasonService } from './season/season.service';
 import { ConfigModule } from '~/core/config/config.module';
 import { AppConfig } from '~/core/config/env.getters';
+import { LeagueRegisterListener } from './register/register-event.listener';
+import { BotModule } from '~/core/bot/bot.module';
 
 @Module({
 	imports: [
 		ClashModule,
+		BotModule,
 		OgmaModule.forFeatures([AdminService, CoreService, RegisterService, SeasonService]),
 		TypeOrmModule.forFeature([LeagueAdmin, League, ChildLeague, Division, LeagueSeason, ChildLeagueSeason, LeagueClan]),
 		JwtModule.registerAsync({
@@ -29,6 +32,6 @@ import { AppConfig } from '~/core/config/env.getters';
 		})
 	],
 	controllers: [AdminController, CoreController, RegisterController, SeasonController],
-	providers: [AdminService, CoreService, RegisterService, SeasonService]
+	providers: [AdminService, CoreService, RegisterService, SeasonService, LeagueRegisterListener]
 })
 export class LeagueModule {}
