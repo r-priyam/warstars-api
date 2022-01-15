@@ -36,7 +36,7 @@
     "discord.js": "^13.6.0",
     "fastify": "^3.25.3",
     "fastify-cookie": "^5.5.0",
-    "fastify-helmet": "^6.0.0",
+    "fastify-helmet": "^7.0.0",
     "node-fetch": "2.6.6",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
