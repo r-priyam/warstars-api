@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Repository } from 'typeorm';
-import { ChildLeague, Division, League, LeagueAdmin } from '~/database';
+import { ChildLeague, Division, League } from '~/database';
 import { IRegisterChildLeague, IRegisterDivision, IRegisterLeague } from '~/utils/interfaces';
 
 @Injectable()
@@ -12,16 +12,14 @@ export class RegisterService {
 		@InjectRepository(League) private leagueDb: Repository<League>,
 		@InjectRepository(ChildLeague) private childLeagueDb: Repository<ChildLeague>,
 		@InjectRepository(Division) private divisionDb: Repository<Division>,
-		@InjectRepository(LeagueAdmin) private adminDb: Repository<LeagueAdmin>,
 		@OgmaLogger(RegisterService) private readonly logger: OgmaService,
 		private eventEmitter: EventEmitter2
 	) {}
 
 	public async registerLeague(data: IRegisterLeague) {
-		const check = await this.leagueDb.query('SELECT EXISTS(SELECT 1 FROM league WHERE discord_id = $1 AND is_verified = False)', [
-			data.discordId
-		]);
-		if (check)
+		const check = await this.leagueDb.query('SELECT * FROM league WHERE discord_id = $1 AND is_verified = $2', [data.discordId, false]);
+
+		if (check.length > 0)
 			throw new HttpException(
 				'Your one application is pending. You can only submit one league application at a time.',
 				HttpStatus.BAD_REQUEST
