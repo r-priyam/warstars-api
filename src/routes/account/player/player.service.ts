@@ -23,6 +23,7 @@ export class PlayerService {
 		try {
 			const data = await this.playerDb
 				.createQueryBuilder('user')
+				.select('user.player_tag', 'user.linked_at')
 				.where('user.discord_id = :discordId', { discordId: this.request.session.user.discordId })
 				.getMany();
 
