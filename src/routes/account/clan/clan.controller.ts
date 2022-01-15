@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Post, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Req } from '@nestjs/common';
 import { FastifyRequest } from 'fastify';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { ClanService } from './clan.service';
@@ -15,7 +15,6 @@ export class ClanController {
 
 	@Post('link-clan')
 	@Authenticated()
-	@HttpCode(200)
 	async linkClan(@Req() request: FastifyRequest, @Body() payload: { clanTag: string }) {
 		return await this.clanService.linkClan(request, payload.clanTag);
 	}

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Post, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Req } from '@nestjs/common';
 import { FastifyRequest } from 'fastify';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { PlayerService } from './player.service';
@@ -15,7 +15,6 @@ export class PlayerController {
 
 	@Post('link-player')
 	@Authenticated()
-	@HttpCode(200)
 	async linkPlayer(@Req() request: FastifyRequest, @Body() payload: { playerTag: string; apiToken: string }) {
 		return await this.playerService.linkPlayer(request, payload.playerTag, payload.apiToken);
 	}
