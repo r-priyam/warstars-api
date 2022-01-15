@@ -17,35 +17,14 @@ export class PlayerService {
 		private readonly clash: ClashService
 	) {}
 	private coc = this.clash.clashClient;
-	private readonly roles = { member: 'Member', coLeader: 'Co-Leader', leader: 'Leader', admin: 'Elder' };
 
-	public async userPlayers() {
+	public async userPlayes() {
 		try {
 			const data = await this.playerDb
 				.createQueryBuilder('user')
-				.select('user.player_tag', 'user.linked_at')
 				.where('user.discord_id = :discordId', { discordId: this.request.session.user.discordId })
 				.getMany();
-
-			const playersData = [];
-			const players = Util.allSettled(data.map((e) => this.coc.getPlayer(e.playerTag)));
-
-			for (const player of await players) {
-				playersData.push({
-					name: player.name,
-					tag: player.tag,
-					trophies: player.trophies,
-					versusTrophies: player.versusTrophies,
-					clan: {
-						name: player.clan?.name || 'No Clan',
-						position: this.roles[player.role] || null,
-						badge: player.clan?.badge.url || null
-					},
-					labels: Object.fromEntries(player.labels.map((label) => [label.name, label.icon.url])),
-					linkedAt: data.find((e) => e.playerTag === player.tag).linkedAt
-				});
-			}
-			return playersData;
+			return data;
 		} catch (error) {
 			this.logger.error(error);
 			throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
