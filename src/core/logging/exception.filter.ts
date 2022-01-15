@@ -7,13 +7,10 @@ export class ExceptionsFilter implements ExceptionFilter {
 	constructor(private readonly httpAdapterHost: HttpAdapterHost, private readonly logger: OgmaService) {}
 
 	catch(exception: any, host: ArgumentsHost): void {
+		this.logger.printError(exception);
 		const { httpAdapter } = this.httpAdapterHost;
 		const ctx = host.switchToHttp();
 		const httpStatus = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
-
-		if (httpStatus === 500) {
-			this.logger.printError(exception);
-		}
 
 		const responseBody = {
 			statusCode: httpStatus,
