@@ -19,7 +19,7 @@ export class OgmaModuleConfig implements ModuleConfigFactory<OgmaModuleOptions> 
 				stream: rfs.createStream(generateLogFilename, {
 					interval: '1d',
 					path: './logs',
-					teeToStdout: this.config.isDevelopment
+					teeToStdout: true
 				})
 			},
 			interceptor: {
