@@ -1,49 +1,49 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Index('league_matches_pkey', ['warId'], { unique: true })
+// TODO: Better column indexes
 @Entity('league_matches', { schema: 'public' })
 export class LeagueMatches {
 	@PrimaryGeneratedColumn({ name: 'war_id' })
 	warId: number;
 
-	@Column('integer', { name: 'league_id', nullable: true })
-	leagueId: number | null;
+	@Column('integer', { name: 'league_id' })
+	leagueId: number;
 
-	@Column('text', { name: 'league_abbr', nullable: true })
-	leagueAbbr: string | null;
+	@Column('text', { name: 'league_abbr' })
+	leagueAbbr: string;
 
-	@Column('integer', { name: 'sub_league_id', nullable: true })
-	subLeagueId: number | null;
+	@Column('integer', { name: 'child_league_id' })
+	childLeagueId: number;
 
-	@Column('text', { name: 'sub_league_name', nullable: true })
-	subLeagueName: string | null;
+	@Column('text', { name: 'sub_league_name' })
+	childLeagueName: string;
 
-	@Column('integer', { name: 'season_id', nullable: true })
-	seasonId: number | null;
+	@Column('integer', { name: 'season_id' })
+	seasonId: number;
 
-	@Column('integer', { name: 'war_week', nullable: true })
-	warWeek: number | null;
+	@Column('integer', { name: 'war_week' })
+	warWeek: number;
 
-	@Column('text', { name: 'week_duration', nullable: true })
+	@Column('text', { name: 'week_duration' })
 	weekDuration: string | null;
 
 	@Column('date', { name: 'war_date', nullable: true })
 	warDate: string | null;
 
-	@Column('text', { name: 'clan_one_name', nullable: true })
-	clanOneName: string | null;
+	@Column('text', { name: 'clan_one_name' })
+	clanOneName: string;
 
-	@Column('text', { name: 'clan_one_tag', nullable: true })
-	clanOneTag: string | null;
+	@Column('text', { name: 'clan_one_tag' })
+	clanOneTag: string;
 
 	@Column('text', { name: 'clan_one_abbr', nullable: true })
 	clanOneAbbr: string | null;
 
-	@Column('text', { name: 'clan_two_name', nullable: true })
-	clanTwoName: string | null;
+	@Column('text', { name: 'clan_two_name' })
+	clanTwoName: string;
 
-	@Column('text', { name: 'clan_two_tag', nullable: true })
-	clanTwoTag: string | null;
+	@Column('text', { name: 'clan_two_tag' })
+	clanTwoTag: string;
 
 	@Column('text', { name: 'clan_two_abbr', nullable: true })
 	clanTwoAbbr: string | null;
@@ -54,6 +54,6 @@ export class LeagueMatches {
 	@Column('timestamp without time zone', { name: 'end_time', nullable: true })
 	endTime: Date | null;
 
-	@Column('boolean', { name: 'result', nullable: true, default: () => 'false' })
-	result: boolean | null;
+	@Column('boolean', { name: 'result', default: () => 'false' })
+	result: boolean;
 }

@@ -8,24 +8,24 @@ export class LeagueClan {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Column('integer', { name: 'league_id', nullable: true, unique: true })
-	leagueId: number | null;
+	@Column('integer', { name: 'league_id' })
+	leagueId: number;
 
-	@Column('integer', { name: 'child_id', nullable: true, unique: true })
-	childId: number | null;
+	@Column('integer', { name: 'child_id' })
+	childId: number;
 
-	@Column('integer', { name: 'division_id', default: () => '0', unique: true })
-	divisionId: number | null;
+	@Column('integer', { name: 'division_id', default: () => '0' })
+	divisionId: number;
 
-	@Column('integer', { name: 'league_season_id', nullable: true })
-	leagueSeasonId: number | null;
+	@Column('integer', { name: 'league_season_id', default: () => '0' })
+	leagueSeasonId: number;
 
-	@Column('integer', { name: 'child_season_id', nullable: true, unique: true })
-	childSeasonId: number | null;
+	@Column('integer', { name: 'child_season_id' })
+	childSeasonId: number;
 
 	@Column('text', { name: 'name', nullable: true })
 	name: string | null;
 
-	@Column('text', { name: 'tag', nullable: true, unique: true })
-	tag: string | null;
+	@Column('text', { name: 'tag' })
+	tag: string;
 }

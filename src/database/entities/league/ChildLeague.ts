@@ -1,7 +1,6 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
-@Entity({ name: 'child_league' })
-@Index('child_league_id_pkey', ['id'], { unique: true })
+@Entity('child_league', { schema: 'public' })
 @Unique('unique_child_league', ['leagueId', 'abbreviation'])
 export class ChildLeague {
 	@PrimaryGeneratedColumn()

@@ -1,7 +1,7 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'user_clan' })
-@Unique('user_clan_unique_tag', ['discordId', 'clanTag'])
+@Entity('user_clan', { schema: 'public' })
+@Index('user_clan_unique_tag', ['discordId', 'clanTag'], { unique: true })
 export class UserClan {
 	@PrimaryGeneratedColumn()
 	id: number;

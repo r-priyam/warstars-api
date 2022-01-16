@@ -1,12 +1,11 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'league_admin' })
-@Unique('unique_league_admin_discord', ['discordId', 'leagueId'])
+@Entity('league_admin', { schema: 'public' })
+@Index('unique_league_admin_discord', ['discordId', 'leagueId'], { unique: true })
 export class LeagueAdmin {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Index('index_admin_discord_id')
 	@Column({ name: 'discord_id' })
 	discordId: string;
 
@@ -17,5 +16,5 @@ export class LeagueAdmin {
 	permissions: number;
 
 	@Column('timestamp without time zone', { name: 'start_time', default: () => 'now()' })
-	addedAt?: Date;
+	addedAt: Date;
 }

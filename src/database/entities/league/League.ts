@@ -1,16 +1,15 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
 @Index('league_abbreviation_key', ['abbreviation'], { unique: true })
-@Entity('league')
+@Entity('league', { schema: 'public' })
 export class League {
-	@Index()
 	@PrimaryGeneratedColumn({ type: 'integer', name: 'league_id' })
 	leagueId: number;
 
 	@Column('text', { name: 'name' })
 	name: string;
 
-	@Column('text', { name: 'abbreviation', unique: true })
+	@Column('text', { name: 'abbreviation' })
 	abbreviation: string;
 
 	@Column('text', { name: 'head_admin' })

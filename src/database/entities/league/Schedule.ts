@@ -1,22 +1,22 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Index('league_scehdule_pkey', ['id'], { unique: true })
+// TODO: better column uniqueness
 @Entity('league_scehdule', { schema: 'public' })
 export class LeagueScehdule {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Column('integer', { name: 'league_id', nullable: true })
-	leagueId: number | null;
+	@Column('integer', { name: 'league_id' })
+	leagueId: number;
 
-	@Column('text', { name: 'sub_league_id', nullable: true })
-	subLeagueId: string | null;
+	@Column('integer', { name: 'child_league_id' })
+	childLeagueId: number;
 
-	@Column('integer', { name: 'season_id', nullable: true })
-	seasonId: number | null;
+	@Column('integer', { name: 'season_id' })
+	seasonId: number;
 
-	@Column('integer', { name: 'week', nullable: true })
-	week: number | null;
+	@Column('integer', { name: 'week' })
+	week: number;
 
 	@Column('timestamp without time zone', { name: 'start_date', nullable: true })
 	startDate: Date | null;

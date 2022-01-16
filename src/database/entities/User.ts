@@ -1,12 +1,13 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'users' })
+@Entity('users', { schema: 'public' })
+@Index('index_user_discord_id', ['discordId'], { unique: true })
 export class User {
 	@PrimaryGeneratedColumn()
 	id: number;
 
 	@Index()
-	@Column({ name: 'discord_id', unique: true })
+	@Column({ name: 'discord_id' })
 	discordId: string;
 
 	@Column({ name: 'user_name' })
