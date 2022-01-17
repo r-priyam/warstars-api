@@ -38,18 +38,18 @@ export class ConfigEnvironment {
 
 	@IsNotEmpty()
 	@IsString()
-	DATABASE_HOST: string;
+	POSTGRES_HOST: string;
 
 	@IsNotEmpty()
 	@IsString()
 	@IsPort()
-	DATABASE_PORT: string;
+	POSTGRES_PORT: string;
 
 	@IsNotEmpty()
 	@IsString()
-	DATABASE_USER: string;
-	DATABASE_PASSWORD: string;
-	DATABASE_NAME: string;
+	POSTGRES_USER: string;
+	POSTGRES_PASSWORD: string;
+	POSTGRES_DB: string;
 
 	@IsNotEmpty()
 	@IsString()

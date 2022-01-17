@@ -49,11 +49,11 @@ export class AppConfig {
 		name: string;
 	} {
 		return {
-			host: this.configService.get('DATABASE_HOST'),
-			port: parseInt(this.configService.get('DATABASE_PORT'), 10),
-			user: this.configService.get('DATABASE_USER'),
-			password: this.configService.get('DATABASE_PASSWORD'),
-			name: this.configService.get('DATABASE_NAME')
+			host: this.configService.get('POSTGRES_HOST'),
+			port: parseInt(this.configService.get('POSTGRES_PORT'), 10),
+			user: this.configService.get('POSTGRES_USER'),
+			password: this.configService.get('POSTGRES_PASSWORD'),
+			name: this.configService.get('POSTGRES_DB')
 		};
 	}
 
@@ -63,7 +63,7 @@ export class AppConfig {
 			clientSecret: this.configService.get('DISCORD_OAUTH_SECRET'),
 			redirectUrl: this.configService.get('DISCORD_REDIRECT_URL'), // redirect url where discord will shoot
 			authRedirect: this.configService.get('DISCORD_OAUTH_REDIRECT'), // redirect to get authorize
-			encryptSecret: this.configService.get('DATABASE_HOST'), // encrypt secret for tokens
+			encryptSecret: this.configService.get('DISCORD_TOKEN_ENCRYPT_SECRET'), // encrypt secret for tokens
 			successRedirect: this.configService.get('OAUTH_SUCCESS_REDIRECT') // redirect url after oauth success
 		};
 	}
