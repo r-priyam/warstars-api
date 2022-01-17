@@ -38,7 +38,8 @@ async function main() {
 	await app.register(fastifySession, {
 		cookie: {
 			maxAge: 60000 * 60 * 24 * 7,
-			secure: !config.isDevelopment
+			secure: !config.isDevelopment,
+			domain: config.cookieDomain
 		},
 		secret: config.sessionCookieSecret,
 		saveUninitialized: false,

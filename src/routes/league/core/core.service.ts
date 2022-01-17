@@ -3,14 +3,13 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
 import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
 import { Connection, Repository } from 'typeorm';
-import { ChildLeague, Division, League, LeagueAdmin } from '~/database';
+import { ChildLeague, League, LeagueAdmin } from '~/database';
 
 @Injectable()
 export class CoreService {
 	constructor(
 		@InjectRepository(League) private leagueDb: Repository<League>,
 		@InjectRepository(ChildLeague) private childLeagueDb: Repository<ChildLeague>,
-		@InjectRepository(Division) private divisionDb: Repository<Division>,
 		@InjectRepository(LeagueAdmin) private adminDb: Repository<LeagueAdmin>,
 		@OgmaLogger(CoreService) private readonly logger: OgmaService,
 		@InjectConnection() private readonly db: Connection,
