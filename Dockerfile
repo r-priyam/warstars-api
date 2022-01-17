@@ -1,4 +1,4 @@
-FROM node:16 AS base
+FROM node:17 AS base
 
 WORKDIR /app
 COPY package*.json ./
@@ -15,7 +15,7 @@ COPY ./src/ ./src/
 
 RUN npm run build
 
-FROM node:16
+FROM node:17
 
 COPY --from=base /app/package.json ./
 COPY --from=dev /app/dist/ ./dist/
