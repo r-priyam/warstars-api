@@ -30,7 +30,7 @@ async function main() {
 	await coc.init();
 
 	const discord = app.get<BotService>(BotService);
-	discord.init();
+	await discord.init();
 
 	await app.register(fastifyHelmet);
 	app.enableCors({ origin: config.corsOrigins, credentials: true });
