@@ -15,6 +15,6 @@ export class LeagueAdmin {
 	@Column()
 	permissions: number;
 
-	@Column('timestamp without time zone', { name: 'start_time', default: () => 'now()' })
+	@Column('timestamp without time zone', { name: 'added_at', default: () => 'now()' })
 	addedAt: Date;
 }

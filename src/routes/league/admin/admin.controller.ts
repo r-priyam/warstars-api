@@ -8,11 +8,6 @@ import { AdminService } from './admin.service';
 export class AdminController {
 	constructor(private readonly adminService: AdminService) {}
 
-	@Get('info')
-	async adminInfo(@Body() payload: { leagueId: number; adminId: number }) {
-		return await this.adminService.adminInfo(payload.leagueId, payload.adminId);
-	}
-
 	@Get('admins')
 	async admins(@Body() payload: { leagueId: number }) {
 		return await this.adminService.admins(payload.leagueId);
