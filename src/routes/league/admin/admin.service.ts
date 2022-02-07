@@ -1,35 +1,24 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
 import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
-import { Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 import { LeagueAdmin } from '~/database';
 
 @Injectable()
 export class AdminService {
 	constructor(
 		@InjectRepository(LeagueAdmin) private leagueAdminDb: Repository<LeagueAdmin>,
-		@OgmaLogger(AdminService) private readonly logger: OgmaService
+		@OgmaLogger(AdminService) private readonly logger: OgmaService,
+		@InjectConnection() private readonly db: Connection
 	) {}
-
-	public async adminInfo(leagueId: number, adminId: number) {
-		try {
-			const data = await this.leagueAdminDb
-				.createQueryBuilder('admin')
-				.where('admin.league_id = :leagueid AND admin.id = :adminId', { leagueId: leagueId, adminId: adminId })
-				.getOne();
-			return data;
-		} catch (error) {
-			this.logger.error(error);
-			throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
 
 	public async admins(leagueId: number) {
 		try {
-			const data = await this.leagueAdminDb
-				.createQueryBuilder('admin')
-				.where('admin.league_id = :leagueId', { leagueId: leagueId })
-				.getMany();
+			const query = `SELECT t1.id, t1.discord_id AS "discordId", t1.league_id AS "leagueId", t1.permissions, t1.added_at AS addedAt, 
+			t2.user_name AS "username", t2.discriminator, t2.avatar 
+			FROM league_admin t1 LEFT JOIN users t2 USING(discord_id) 
+			WHERE t1.league_id = $1`;
+			const data = await this.db.query(query, [leagueId]);
 			return data;
 		} catch (error) {
 			this.logger.error(error);

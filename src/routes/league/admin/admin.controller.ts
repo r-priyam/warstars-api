@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Permission } from '~/utils/AdminPermissions';
 import { Permissions } from '~/core/decorators/leaguepermissions.decorator';
@@ -8,9 +8,9 @@ import { AdminService } from './admin.service';
 export class AdminController {
 	constructor(private readonly adminService: AdminService) {}
 
-	@Get('admins')
-	async admins(@Body() payload: { leagueId: number }) {
-		return await this.adminService.admins(payload.leagueId);
+	@Get('admins/:leagueId')
+	async admins(@Param('leagueId') leagueId: number) {
+		return await this.adminService.admins(leagueId);
 	}
 
 	@Post('add-admin')
