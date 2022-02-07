@@ -51,8 +51,12 @@ export class DiscordController {
 	async logout(@Req() request: FastifyRequest, @Res() response: FastifyReply) {
 		await this.discordService.logOut(request);
 		request.destroySession((error) => {
-			if (error) throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
-			else response.clearCookie('sessionId').status(302).redirect(this.config.logOutRedirectUrl);
+			if (error) {
+				throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+			} else {
+				response.clearCookie('sessionId');
+				response.redirect(this.config.logOutRedirectUrl);
+			}
 		});
 	}
 }
