@@ -25,4 +25,4 @@ COPY --from=base /app/package*.json ./
 COPY --from=dev /app/dist ./dist/
 COPY --from=base /app/node_modules ./node_modules
 
-CMD ["node", "dist/main.js"]
+CMD ["node", "--trace-warnings", "dist/main.js"]
