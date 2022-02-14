@@ -18,7 +18,6 @@
     "release": "bumpp package.json package-lock.json --commit --push --tag"
   },
   "dependencies": {
-    "@deepkit/type": "^1.0.1-alpha.59",
     "@fastify/session": "^6.4.0",
     "@nestjs/common": "^8.3.0 ",
     "@nestjs/config": "^1.2.0",
@@ -62,10 +61,6 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.5.1",
-    "ts-loader": "^9.2.6",
-    "ts-node": "^10.5.0",
-    "tsconfig-paths": "^3.12.0",
-    "typescript": "^4.5.5",
-    "webpack": "^5.68.0"
+    "typescript": "^4.5.5"
   }
 }
