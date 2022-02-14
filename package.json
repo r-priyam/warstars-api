@@ -1,6 +1,6 @@
 {
   "name": "warstars-api-next",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "API for WarStars",
   "author": "Priyam",
   "private": true,
@@ -15,7 +15,7 @@
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs}/**/*.ts\"",
     "lint:fix": "eslint \"{src,apps,libs}/**/*.ts\" --fix",
-    "release": "bumpp package.json --commit --push --tag"
+    "release": "bumpp package.json package-lock.json --commit --push --tag"
   },
   "dependencies": {
     "@deepkit/type": "^1.0.1-alpha.59",
