@@ -17,33 +17,33 @@ import { UserPlayer } from './entities/user/Player';
 const coreEntities = [DatabaseSession, User];
 const userEntities = [User, UserClan, UserPlayer];
 const leagueEntities = [
-	LeagueAdmin,
-	ChildLeague,
-	ChildLeagueSeason,
-	LeagueClan,
-	Division,
-	League,
-	LeagueSeason,
-	LeagueMatches,
-	LeagueScehdule,
-	LeagueWarAttacks,
-	LeagueLeaderBoard
+    LeagueAdmin,
+    ChildLeague,
+    ChildLeagueSeason,
+    LeagueClan,
+    Division,
+    League,
+    LeagueSeason,
+    LeagueMatches,
+    LeagueScehdule,
+    LeagueWarAttacks,
+    LeagueLeaderBoard
 ];
 
 export const entities = [...coreEntities, ...userEntities, ...leagueEntities];
 
 export {
-	DatabaseSession,
-	User,
-	UserClan,
-	UserPlayer,
-	LeagueAdmin,
-	ChildLeague,
-	ChildLeagueSeason,
-	LeagueClan,
-	Division,
-	League,
-	LeagueSeason,
-	LeagueMatches,
-	LeagueScehdule
+    DatabaseSession,
+    User,
+    UserClan,
+    UserPlayer,
+    LeagueAdmin,
+    ChildLeague,
+    ChildLeagueSeason,
+    LeagueClan,
+    Division,
+    League,
+    LeagueSeason,
+    LeagueMatches,
+    LeagueScehdule
 };

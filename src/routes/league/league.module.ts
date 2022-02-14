@@ -18,20 +18,20 @@ import { LeagueRegisterListener } from './register/register-event.listener';
 import { BotModule } from '~/core/bot/bot.module';
 
 @Module({
-	imports: [
-		ClashModule,
-		BotModule,
-		OgmaModule.forFeatures([AdminService, CoreService, RegisterService, SeasonService]),
-		TypeOrmModule.forFeature([LeagueAdmin, League, ChildLeague, Division, LeagueSeason, ChildLeagueSeason, LeagueClan]),
-		JwtModule.registerAsync({
-			imports: [ConfigModule],
-			useFactory: async (config: AppConfig) => ({
-				secret: config.jwtSecret
-			}),
-			inject: [AppConfig]
-		})
-	],
-	controllers: [AdminController, CoreController, RegisterController, SeasonController],
-	providers: [AdminService, CoreService, RegisterService, SeasonService, LeagueRegisterListener]
+    imports: [
+        ClashModule,
+        BotModule,
+        OgmaModule.forFeatures([AdminService, CoreService, RegisterService, SeasonService]),
+        TypeOrmModule.forFeature([LeagueAdmin, League, ChildLeague, Division, LeagueSeason, ChildLeagueSeason, LeagueClan]),
+        JwtModule.registerAsync({
+            imports: [ConfigModule],
+            useFactory: async (config: AppConfig) => ({
+                secret: config.jwtSecret
+            }),
+            inject: [AppConfig]
+        })
+    ],
+    controllers: [AdminController, CoreController, RegisterController, SeasonController],
+    providers: [AdminService, CoreService, RegisterService, SeasonService, LeagueRegisterListener]
 })
 export class LeagueModule {}

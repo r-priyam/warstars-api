@@ -11,9 +11,9 @@ import { DiscordService } from './discord.service';
 
 @Global()
 @Module({
-	imports: [ConfigModule, LoggingModule, TypeOrmModule.forFeature([DatabaseSession, User])],
-	controllers: [DiscordController],
-	providers: [AppConfig, DiscordService],
-	exports: [AppConfig, DiscordService]
+    imports: [ConfigModule, LoggingModule, TypeOrmModule.forFeature([DatabaseSession, User])],
+    controllers: [DiscordController],
+    providers: [AppConfig, DiscordService],
+    exports: [AppConfig, DiscordService]
 })
 export class DiscordModule {}

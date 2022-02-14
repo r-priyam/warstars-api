@@ -5,11 +5,11 @@ import { TypeOrmConfig } from './TypeOrmConfig';
 import { ConfigModule } from '~/core/config/config.module';
 
 @Module({
-	imports: [
-		TypeOrmModule.forRootAsync({
-			useClass: TypeOrmConfig,
-			imports: [ConfigModule]
-		})
-	]
+    imports: [
+        TypeOrmModule.forRootAsync({
+            useClass: TypeOrmConfig,
+            imports: [ConfigModule]
+        })
+    ]
 })
 export class DatabaseModule {}

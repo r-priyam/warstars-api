@@ -6,57 +6,57 @@ import { DiscordService } from './discord.service';
 
 @Controller('discord')
 export class DiscordController {
-	constructor(private readonly config: AppConfig, private readonly discordService: DiscordService) {}
+    constructor(private readonly config: AppConfig, private readonly discordService: DiscordService) {}
 
-	@Get('login')
-	login(@Res() response: FastifyReply): FastifyReply {
-		return response.status(302).redirect(this.config.discord.authRedirect);
-	}
+    @Get('login')
+    login(@Res() response: FastifyReply): FastifyReply {
+        return response.status(302).redirect(this.config.discord.authRedirect);
+    }
 
-	@Get('callback')
-	async callback(@Req() request: FastifyRequest, @Query() query: { code: string }, @Res() response: FastifyReply) {
-		if (!query.code)
-			throw new HttpException('No code received. Please return back to homepage and try to authorize again.', HttpStatus.BAD_REQUEST);
+    @Get('callback')
+    async callback(@Req() request: FastifyRequest, @Query() query: { code: string }, @Res() response: FastifyReply) {
+        if (!query.code)
+            throw new HttpException('No code received. Please return back to homepage and try to authorize again.', HttpStatus.BAD_REQUEST);
 
-		await this.discordService.handleCallback(request, query.code);
-		return response.status(302).redirect(this.config.discord.successRedirect);
-	}
+        await this.discordService.handleCallback(request, query.code);
+        return response.status(302).redirect(this.config.discord.successRedirect);
+    }
 
-	@Get('user')
-	@Authenticated()
-	user(@Req() request: FastifyRequest) {
-		return {
-			discordId: request.session.user.discordId,
-			username: request.session.user.username,
-			discriminator: request.session.user.discriminator,
-			avatar: request.session.user.avatar,
-			createdAt: request.session.user.createdAt
-		};
-	}
+    @Get('user')
+    @Authenticated()
+    user(@Req() request: FastifyRequest) {
+        return {
+            discordId: request.session.user.discordId,
+            username: request.session.user.username,
+            discriminator: request.session.user.discriminator,
+            avatar: request.session.user.avatar,
+            createdAt: request.session.user.createdAt
+        };
+    }
 
-	@Get('check')
-	@Authenticated()
-	checkLoggedIn() {
-		return;
-	}
+    @Get('check')
+    @Authenticated()
+    checkLoggedIn() {
+        return;
+    }
 
-	@Get('guilds')
-	@Authenticated()
-	async guilds(@Req() request: FastifyRequest) {
-		return await this.discordService.userGuilds(request);
-	}
+    @Get('guilds')
+    @Authenticated()
+    async guilds(@Req() request: FastifyRequest) {
+        return await this.discordService.userGuilds(request);
+    }
 
-	@Post('logout')
-	@Authenticated()
-	async logout(@Req() request: FastifyRequest, @Res() response: FastifyReply) {
-		await this.discordService.logOut(request);
-		request.destroySession((error) => {
-			if (error) {
-				throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
-			} else {
-				response.clearCookie('sessionId');
-				response.redirect(this.config.logOutRedirectUrl);
-			}
-		});
-	}
+    @Post('logout')
+    @Authenticated()
+    async logout(@Req() request: FastifyRequest, @Res() response: FastifyReply) {
+        await this.discordService.logOut(request);
+        request.destroySession((error) => {
+            if (error) {
+                throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+            } else {
+                response.clearCookie('sessionId');
+                response.redirect(this.config.logOutRedirectUrl);
+            }
+        });
+    }
 }

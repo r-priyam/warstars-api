@@ -15,29 +15,29 @@ import { LeagueModule } from '~/routes/league/league.module';
 import { BotModule } from '~/core/bot/bot.module';
 
 @Module({
-	imports: [
-		ConfigModule,
-		BotModule,
-		ClashModule,
-		LoggingModule,
-		DatabaseModule,
-		EventEmitterModule.forRoot(),
-		DiscordModule,
-		AccountModule,
-		LeagueModule,
-		RouterModule.register([
-			{
-				path: 'account',
-				module: AccountModule
-			},
-			{
-				path: 'league',
-				module: LeagueModule
-			}
-		])
-	],
-	controllers: [AppController],
-	providers: [AppConfig, { provide: APP_GUARD, useClass: SessionGuard }, { provide: APP_GUARD, useClass: LeaguePermission }],
-	exports: [AppConfig]
+    imports: [
+        ConfigModule,
+        BotModule,
+        ClashModule,
+        LoggingModule,
+        DatabaseModule,
+        EventEmitterModule.forRoot(),
+        DiscordModule,
+        AccountModule,
+        LeagueModule,
+        RouterModule.register([
+            {
+                path: 'account',
+                module: AccountModule
+            },
+            {
+                path: 'league',
+                module: LeagueModule
+            }
+        ])
+    ],
+    controllers: [AppController],
+    providers: [AppConfig, { provide: APP_GUARD, useClass: SessionGuard }, { provide: APP_GUARD, useClass: LeaguePermission }],
+    exports: [AppConfig]
 })
 export class AppModule {}

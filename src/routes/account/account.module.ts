@@ -9,8 +9,8 @@ import { PlayerController } from './player/player.contoller';
 import { PlayerService } from './player/player.service';
 
 @Module({
-	imports: [ClashModule, OgmaModule.forFeatures([ClanService, PlayerService]), TypeOrmModule.forFeature([UserClan, UserPlayer])],
-	controllers: [ClanController, PlayerController],
-	providers: [ClanService, PlayerService]
+    imports: [ClashModule, OgmaModule.forFeatures([ClanService, PlayerService]), TypeOrmModule.forFeature([UserClan, UserPlayer])],
+    controllers: [ClanController, PlayerController],
+    providers: [ClanService, PlayerService]
 })
 export class AccountModule {}

@@ -5,24 +5,24 @@ import { ClanService } from './clan.service';
 
 @Controller('clan')
 export class ClanController {
-	constructor(private readonly clanService: ClanService) {}
+    constructor(private readonly clanService: ClanService) {}
 
-	@Get('clans')
-	@Authenticated()
-	async userClans(@Req() request: FastifyRequest) {
-		return await this.clanService.userClans(request);
-	}
+    @Get('clans')
+    @Authenticated()
+    async userClans(@Req() request: FastifyRequest) {
+        return await this.clanService.userClans(request);
+    }
 
-	@Post('link-clan')
-	@Authenticated()
-	@HttpCode(200)
-	async linkClan(@Req() request: FastifyRequest, @Body() payload: { clanTag: string }) {
-		return await this.clanService.linkClan(request, payload.clanTag);
-	}
+    @Post('link-clan')
+    @Authenticated()
+    @HttpCode(200)
+    async linkClan(@Req() request: FastifyRequest, @Body() payload: { clanTag: string }) {
+        return await this.clanService.linkClan(request, payload.clanTag);
+    }
 
-	@Delete('remove-clan')
-	@Authenticated()
-	async removeClan(@Req() request: FastifyRequest, @Body() payload: { clanTag: string }) {
-		return await this.clanService.removeClan(request, payload.clanTag);
-	}
+    @Delete('remove-clan')
+    @Authenticated()
+    async removeClan(@Req() request: FastifyRequest, @Body() payload: { clanTag: string }) {
+        return await this.clanService.removeClan(request, payload.clanTag);
+    }
 }

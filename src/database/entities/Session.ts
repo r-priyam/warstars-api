@@ -3,13 +3,13 @@ import { Column, Entity, Index, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'sessions' })
 export class DatabaseSession implements ISession {
-	@Index()
-	@PrimaryColumn('text')
-	id = '';
+    @Index()
+    @PrimaryColumn('text')
+    id = '';
 
-	@Column('bigint')
-	expiredAt: number;
+    @Column('bigint')
+    expiredAt: number;
 
-	@Column('text')
-	json = '';
+    @Column('text')
+    json = '';
 }

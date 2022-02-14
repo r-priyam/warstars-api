@@ -7,28 +7,28 @@ import { IRegisterChildLeague, IRegisterDivision, IRegisterLeague } from '~/util
 
 @Controller('register')
 export class RegisterController {
-	constructor(private readonly regusterService: RegisterService) {}
+    constructor(private readonly regusterService: RegisterService) {}
 
-	@Post('league')
-	@Authenticated()
-	@HttpCode(200)
-	async registerLeague(@Body() payload: IRegisterLeague) {
-		return await this.regusterService.registerLeague(payload);
-	}
+    @Post('league')
+    @Authenticated()
+    @HttpCode(200)
+    async registerLeague(@Body() payload: IRegisterLeague) {
+        return await this.regusterService.registerLeague(payload);
+    }
 
-	@Post('child-league')
-	@Authenticated()
-	@Permissions(Permission.MANAGE_CHILD_LEAGUES)
-	@HttpCode(200)
-	async registerChildLeague(@Body() payload: IRegisterChildLeague) {
-		return await this.regusterService.registerChildLeague(payload);
-	}
+    @Post('child-league')
+    @Authenticated()
+    @Permissions(Permission.MANAGE_CHILD_LEAGUES)
+    @HttpCode(200)
+    async registerChildLeague(@Body() payload: IRegisterChildLeague) {
+        return await this.regusterService.registerChildLeague(payload);
+    }
 
-	@Post('child-division')
-	@Authenticated()
-	@Permissions(Permission.MANAGE_CHILD_DIVISIONS)
-	@HttpCode(200)
-	async registerChildDivision(@Body() payload: IRegisterDivision) {
-		return await this.regusterService.registerDivision(payload);
-	}
+    @Post('child-division')
+    @Authenticated()
+    @Permissions(Permission.MANAGE_CHILD_DIVISIONS)
+    @HttpCode(200)
+    async registerChildDivision(@Body() payload: IRegisterDivision) {
+        return await this.regusterService.registerDivision(payload);
+    }
 }

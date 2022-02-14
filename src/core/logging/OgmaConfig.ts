@@ -9,22 +9,22 @@ import { AppConfig } from '../config/env.getters';
 
 @Injectable()
 export class OgmaModuleConfig implements ModuleConfigFactory<OgmaModuleOptions> {
-	constructor(private readonly config: AppConfig) {}
+    constructor(private readonly config: AppConfig) {}
 
-	createModuleConfig(): OgmaModuleOptions {
-		return {
-			service: {
-				color: this.config.isDevelopment,
-				application: this.config.appName,
-				stream: rfs.createStream(generateLogFilename, {
-					interval: '1d',
-					path: './logs',
-					teeToStdout: true
-				})
-			},
-			interceptor: {
-				http: FastifyParser
-			}
-		};
-	}
+    createModuleConfig(): OgmaModuleOptions {
+        return {
+            service: {
+                color: this.config.isDevelopment,
+                application: this.config.appName,
+                stream: rfs.createStream(generateLogFilename, {
+                    interval: '1d',
+                    path: './logs',
+                    teeToStdout: true
+                })
+            },
+            interceptor: {
+                http: FastifyParser
+            }
+        };
+    }
 }
