@@ -1,6 +1,6 @@
 {
   "name": "warstars-api-next",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "API for WarStars",
   "author": "Priyam",
   "private": true,
@@ -14,7 +14,8 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs}/**/*.ts\"",
-    "lint:fix": "eslint \"{src,apps,libs}/**/*.ts\" --fix"
+    "lint:fix": "eslint \"{src,apps,libs}/**/*.ts\" --fix",
+    "release": "bumpp package.json --commit --push --tag"
   },
   "dependencies": {
     "@deepkit/type": "^1.0.1-alpha.59",
@@ -57,6 +58,7 @@
     "@types/uid-safe": "^2.1.2",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
+    "bumpp": "^7.1.1",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
