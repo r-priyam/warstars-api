@@ -1,10 +1,11 @@
-import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
-import { FastifyRequest } from 'fastify';
+import type { CanActivate, ExecutionContext } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import type { Reflector } from '@nestjs/core';
+import type { FastifyRequest } from 'fastify';
 import { getRepository } from 'typeorm';
+import { AUTH_KEY } from '../decorators/auth.decorator';
 import { DatabaseSession } from '~/database';
 import { DiscordService } from '~/routes/discord/discord.service';
-import { AUTH_KEY } from '../decorators/auth.decorator';
 
 @Injectable()
 export class SessionGuard implements CanActivate {

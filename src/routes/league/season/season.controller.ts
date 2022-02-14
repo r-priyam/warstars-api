@@ -1,8 +1,9 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
+import type { SeasonService } from './season.service';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Permissions } from '~/core/decorators/leaguepermissions.decorator';
 import { Permission } from '~/utils/AdminPermissions';
-import {
+import type {
     IEndChildSeason,
     IEndLeagueSeason,
     INewChildLeagueSeason,
@@ -10,7 +11,6 @@ import {
     ISeasonAddClan,
     ISeasonRemoveClan
 } from '~/utils/interfaces';
-import { SeasonService } from './season.service';
 
 @Controller('season')
 export class SeasonController {

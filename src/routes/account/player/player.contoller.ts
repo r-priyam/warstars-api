@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, Post, Req } from '@nestjs/common';
-import { FastifyRequest } from 'fastify';
+import type { FastifyRequest } from 'fastify';
+import type { PlayerService } from './player.service';
 import { Authenticated } from '~/core/decorators/auth.decorator';
-import { PlayerService } from './player.service';
 
 @Controller('player')
 export class PlayerController {

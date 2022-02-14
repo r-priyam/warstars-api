@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
-import { AppConfig } from '../config/env.getters';
+import type { OgmaService } from '@ogma/nestjs-module';
+import { OgmaLogger } from '@ogma/nestjs-module';
+import type { AppConfig } from '../config/env.getters';
 import Client from './struct/Client';
 
 @Injectable()

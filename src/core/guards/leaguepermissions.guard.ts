@@ -1,8 +1,9 @@
-import { BadRequestException, CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
-import { FastifyRequest } from 'fastify';
-import { Permission } from '~/utils/AdminPermissions';
+import type { CanActivate, ExecutionContext } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import type { Reflector } from '@nestjs/core';
+import type { FastifyRequest } from 'fastify';
 import { PERMISSIONS_KEY } from '../decorators/leaguepermissions.decorator';
+import type { Permission } from '~/utils/AdminPermissions';
 
 @Injectable()
 export class LeaguePermission implements CanActivate {
@@ -17,10 +18,9 @@ export class LeaguePermission implements CanActivate {
 
         const request: FastifyRequest = context.switchToHttp().getRequest();
         const { leagueid } = request.headers;
-        const permsCookie = request.cookies._league_permissions;
+        // const permsCookie = request.cookies._league_permissions;
 
         if (!leagueid) throw new BadRequestException('League Id is not present in request headers!');
-        console.log(permsCookie);
 
         return true;
     }

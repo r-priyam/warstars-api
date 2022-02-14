@@ -34,6 +34,7 @@ export class ConfigEnvironment {
     @IsString()
     @Length(64)
     SESSION_COOKIE_SECRET: string;
+
     JWT_SECRET: string;
 
     @IsNotEmpty()
@@ -48,12 +49,14 @@ export class ConfigEnvironment {
     @IsNotEmpty()
     @IsString()
     POSTGRES_USER: string;
+
     POSTGRES_PASSWORD: string;
     POSTGRES_DB: string;
 
     @IsNotEmpty()
     @IsString()
     BOT_TOKEN: string;
+
     OAUTH_SUCCESS_REDIRECT: string;
     DISCORD_OAUTH_REDIRECT: string;
     DISCORD_OAUTH_CLIENT_ID: string;
@@ -65,6 +68,7 @@ export class ConfigEnvironment {
     @IsNotEmpty()
     @IsString()
     COC_EMAIL: string;
+
     COC_PASSWORD: string;
     COC_KEY_NAME: string;
 }

@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import type { JwtService } from '@nestjs/jwt';
 import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
-import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
-import { Connection, Repository } from 'typeorm';
+import type { OgmaService } from '@ogma/nestjs-module';
+import { OgmaLogger } from '@ogma/nestjs-module';
+import type { Connection, Repository } from 'typeorm';
 import { ChildLeague, League, LeagueAdmin } from '~/database';
 
 @Injectable()
@@ -18,10 +19,7 @@ export class CoreService {
 
     public async getLeagueInfo(leagueId: number) {
         try {
-            const data = await this.leagueDb
-                .createQueryBuilder('league')
-                .where('league.league_id = :leagueId', { leagueId: leagueId })
-                .getOne();
+            const data = await this.leagueDb.createQueryBuilder('league').where('league.league_id = :leagueId', { leagueId }).getOne();
             return data;
         } catch (error) {
             this.logger.error(error);
@@ -33,7 +31,7 @@ export class CoreService {
         try {
             const data = await this.childLeagueDb
                 .createQueryBuilder('child')
-                .where('child.id = :childLeagueId', { childLeagueId: childLeagueId })
+                .where('child.id = :childLeagueId', { childLeagueId })
                 .getOne();
             return data;
         } catch (error) {
@@ -65,10 +63,7 @@ export class CoreService {
                 t2.division_id AND t1.season_id = t2.child_season_id WHERE t1.child_id = $1 AND t1.season_id = $2 GROUP BY 
                 t1.id, t2.division_id`;
 
-        const data = await this.adminDb
-            .createQueryBuilder('user')
-            .where('user.discord_id = :discordId', { discordId: discordId })
-            .getMany();
+        const data = await this.adminDb.createQueryBuilder('user').where('user.discord_id = :discordId', { discordId }).getMany();
         if (data) {
             const userLeagues = [];
             for (const league of data) {
@@ -81,15 +76,15 @@ export class CoreService {
                     const _childData = [];
                     for (const childData of child) {
                         const childLeagueData = await this.db.query(childDataQueryString, [childData.id]);
-                        childLeagueData[0]['divisions'] = await this.db.query(divisionDataQueryString, [
+                        childLeagueData[0].divisions = await this.db.query(divisionDataQueryString, [
                             childLeagueData.id,
                             childLeagueData.season_id
                         ]);
                         _childData.push(...childLeagueData);
                     }
-                    leagueData[0]['childLeagues'] = _childData;
+                    leagueData[0].childLeagues = _childData;
                 } else {
-                    leagueData[0]['childLeagues'] = [];
+                    leagueData[0].childLeagues = [];
                 }
                 userLeagues.push(...leagueData);
             }
@@ -99,10 +94,7 @@ export class CoreService {
 
     public async getUserLeaguePermissions(discordId: string) {
         try {
-            const data = await this.adminDb
-                .createQueryBuilder('user')
-                .where('user.discord_id = :discordId', { discordId: discordId })
-                .getMany();
+            const data = await this.adminDb.createQueryBuilder('user').where('user.discord_id = :discordId', { discordId }).getMany();
 
             const payload = {};
             data.forEach((x) => (payload[x.leagueId] = x.permissions));

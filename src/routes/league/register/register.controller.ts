@@ -1,9 +1,9 @@
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import type { RegisterService } from './register.service';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Permission } from '~/utils/AdminPermissions';
 import { Permissions } from '~/core/decorators/leaguepermissions.decorator';
-import { RegisterService } from './register.service';
-import { IRegisterChildLeague, IRegisterDivision, IRegisterLeague } from '~/utils/interfaces';
+import type { IRegisterChildLeague, IRegisterDivision, IRegisterLeague } from '~/utils/interfaces';
 
 @Controller('register')
 export class RegisterController {

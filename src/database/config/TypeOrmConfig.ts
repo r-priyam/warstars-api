@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import type { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
-import { AppConfig } from '~/core/config/env.getters';
-import { entities } from '~/database';
 import { CustomNamingStrategy } from './CustomNamingStrategy';
+import type { AppConfig } from '~/core/config/env.getters';
+import { entities } from '~/database';
 
 @Injectable()
 export class TypeOrmConfig implements TypeOrmOptionsFactory {
@@ -18,7 +18,7 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
             username: this.database.user,
             password: this.database.password,
             database: this.database.name,
-            entities: entities,
+            entities,
             synchronize: this.config.isDevelopment,
             keepConnectionAlive: true,
             extra: { min: 10, max: 20, idleTimeoutMillis: 0 },

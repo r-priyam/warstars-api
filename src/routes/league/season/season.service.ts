@@ -1,10 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
-import { Repository } from 'typeorm';
-import { ClashService } from '~/core/clash/clash.service';
+import type { OgmaService } from '@ogma/nestjs-module';
+import { OgmaLogger } from '@ogma/nestjs-module';
+import type { Repository } from 'typeorm';
+import type { ClashService } from '~/core/clash/clash.service';
 import { ChildLeagueSeason, LeagueClan, LeagueSeason } from '~/database';
-import {
+import type {
     IEndChildSeason,
     IEndLeagueSeason,
     INewChildLeagueSeason,
@@ -22,26 +23,21 @@ export class SeasonService {
         @OgmaLogger(SeasonService) private readonly logger: OgmaService,
         private readonly clash: ClashService
     ) {}
+
     private coc = this.clash.clashClient;
 
     public async seasonInfo(seasonId: number) {
-        return await this.leagueSeasonDb
-            .createQueryBuilder('season')
-            .where('season.season_id = :seasonId', { seasonId: seasonId })
-            .getOne();
+        return await this.leagueSeasonDb.createQueryBuilder('season').where('season.season_id = :seasonId', { seasonId }).getOne();
     }
 
     public async childSeasonInfo(seasonId: number) {
-        return await this.childSeasonDb
-            .createQueryBuilder('childSeason')
-            .where('childSeason.season_id = :seasonId', { seasonId: seasonId })
-            .getOne();
+        return await this.childSeasonDb.createQueryBuilder('childSeason').where('childSeason.season_id = :seasonId', { seasonId }).getOne();
     }
 
     public async getChildSeasonClans(childId: number, seasonId: number) {
         return await this.leagueClanDb
             .createQueryBuilder('clan')
-            .where('clan.child_id = :childId AND clan.child_season_id = seasonId', { childId: childId, seasonId: seasonId })
+            .where('clan.child_id = :childId AND clan.child_season_id = seasonId', { childId, seasonId })
             .getMany();
     }
 
@@ -198,7 +194,7 @@ export class SeasonService {
                         leagueSeasonId: data.leagueSeasonId,
                         childSeasonId: data.childSeasonId,
                         name: clanData[tag],
-                        tag: tag
+                        tag
                     }
                 ])
                 .orIgnore()

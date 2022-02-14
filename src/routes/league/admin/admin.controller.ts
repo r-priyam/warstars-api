@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
+import type { AdminService } from './admin.service';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Permission } from '~/utils/AdminPermissions';
 import { Permissions } from '~/core/decorators/leaguepermissions.decorator';
-import { AdminService } from './admin.service';
 
 @Controller('admin')
 export class AdminController {

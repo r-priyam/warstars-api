@@ -1,10 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
+import type { OgmaService } from '@ogma/nestjs-module';
+import { OgmaLogger } from '@ogma/nestjs-module';
 import { Util } from 'clashofclans.js';
-import { FastifyRequest } from 'fastify';
-import { Repository } from 'typeorm';
-import { ClashService } from '~/core/clash/clash.service';
+import type { FastifyRequest } from 'fastify';
+import type { Repository } from 'typeorm';
+import type { ClashService } from '~/core/clash/clash.service';
 import { UserPlayer } from '~/database';
 
 @Injectable()
@@ -14,6 +15,7 @@ export class PlayerService {
         @OgmaLogger(PlayerService) private readonly logger: OgmaService,
         private readonly clash: ClashService
     ) {}
+
     private coc = this.clash.clashClient;
     private readonly roles = { member: 'Member', coLeader: 'Co-Leader', leader: 'Leader', admin: 'Elder' };
 

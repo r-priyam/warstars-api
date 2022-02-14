@@ -1,13 +1,13 @@
 import fetch from 'node-fetch';
 import * as CryptoJS from 'crypto-js';
-import { Repository } from 'typeorm';
-import { FastifyRequest } from 'fastify';
+import type { Repository } from 'typeorm';
+import type { FastifyRequest } from 'fastify';
 import { InjectRepository } from '@nestjs/typeorm';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { DatabaseSession, User } from '~/database';
-import { AppConfig } from '~/core/config/env.getters';
-import { ICreateUser, ICredentialsResponse, IDiscordUser, IDiscordUserGuild, IEncryptedTokens } from '~/utils/interfaces';
+import type { AppConfig } from '~/core/config/env.getters';
+import type { ICreateUser, ICredentialsResponse, IDiscordUser, IDiscordUserGuild, IEncryptedTokens } from '~/utils/interfaces';
 
 @Injectable()
 export class DiscordService {
@@ -19,13 +19,13 @@ export class DiscordService {
 
     async handleCallback(request: FastifyRequest, code: string) {
         try {
-            const oauthData = await this.exchangeToken('authorization_code', { code: code });
+            const oauthData = await this.exchangeToken('authorization_code', { code });
             const userDiscordData: IDiscordUser = await this.getUserData(oauthData.access_token);
             const tokens = this.encryptTokens(oauthData.access_token, oauthData.refresh_token);
             const user = await this.createUser(this.userData(userDiscordData, tokens));
             await this.createSession(request, user);
         } catch (error) {
-            throw new HttpException({ status: HttpStatus.INTERNAL_SERVER_ERROR, error: error }, HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException({ status: HttpStatus.INTERNAL_SERVER_ERROR, error }, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -76,14 +76,13 @@ export class DiscordService {
     async handleTokenRefresh(request: FastifyRequest) {
         try {
             const refreshToken = this.decryptToken(request.session.user.refreshToken).toString(CryptoJS.enc.Utf8);
-            console.log(refreshToken);
-            const refreshData = await this.exchangeToken('refresh_token', { refreshToken: refreshToken });
+            const refreshData = await this.exchangeToken('refresh_token', { refreshToken });
             const userDiscordData: IDiscordUser = await this.getUserData(refreshData.access_token);
             const tokens = this.encryptTokens(refreshData.access_token, refreshData.refresh_token);
             const user = await this.createUser(this.userData(userDiscordData, tokens));
             await this.createSession(request, user);
         } catch (error) {
-            throw new HttpException({ status: HttpStatus.INTERNAL_SERVER_ERROR, error: error }, HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException({ status: HttpStatus.INTERNAL_SERVER_ERROR, error }, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -115,7 +114,7 @@ export class DiscordService {
 
         const response = await fetch('https://discord.com/api/v8//oauth2/token', {
             method: 'POST',
-            body: body,
+            body,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         });
 

@@ -1,4 +1,4 @@
-import { Message, TextChannel } from 'discord.js';
+import type { Message, TextChannel } from 'discord.js';
 import { Inhibitor } from 'discord-akairo';
 
 export default class PermissionInhibitor extends Inhibitor {

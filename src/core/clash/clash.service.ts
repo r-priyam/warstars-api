@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
+import type { OgmaService } from '@ogma/nestjs-module';
+import { OgmaLogger } from '@ogma/nestjs-module';
 import { BatchThrottler, Client } from 'clashofclans.js';
-import { AppConfig } from '../config/env.getters';
+import type { AppConfig } from '../config/env.getters';
 
 @Injectable()
 export class ClashService {
@@ -18,6 +19,7 @@ export class ClashService {
             this.logger.info(`New season started!, ID: ${id}`);
         });
     }
+
     private readonly client = new Client({
         cache: true,
         retryLimit: 1,

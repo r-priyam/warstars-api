@@ -15,6 +15,7 @@ export class AdminPermissions {
     constructor(value: number) {
         this.permissionsValue = value;
     }
+
     private permissionsValue = 0;
     private MANAGE_ADMINS = 1 << 0;
     private MANAGE_PERMISSIONS = 1 << 1;
@@ -60,7 +61,7 @@ export class AdminPermissions {
     }
 
     public get manageLeague(): boolean {
-        return (this.permissionsValue & this.MANAGE_LEAGUE) == this.MANAGE_LEAGUE;
+        return (this.permissionsValue & this.MANAGE_LEAGUE) === this.MANAGE_LEAGUE;
     }
 
     public get headAdmin(): boolean {

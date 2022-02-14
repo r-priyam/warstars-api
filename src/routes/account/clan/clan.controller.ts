@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, Post, Req } from '@nestjs/common';
-import { FastifyRequest } from 'fastify';
+import type { FastifyRequest } from 'fastify';
+import type { ClanService } from './clan.service';
 import { Authenticated } from '~/core/decorators/auth.decorator';
-import { ClanService } from './clan.service';
 
 @Controller('clan')
 export class ClanController {

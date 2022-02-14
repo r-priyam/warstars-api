@@ -6,7 +6,8 @@ import { fastifyHelmet } from 'fastify-helmet';
 import { OgmaService } from '@ogma/nestjs-module';
 import fastifyCookie from 'fastify-cookie';
 import fastifySession from '@fastify/session';
-import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
+import type { NestFastifyApplication } from '@nestjs/platform-fastify';
+import { FastifyAdapter } from '@nestjs/platform-fastify';
 
 import { AppModule } from './app/app.module';
 import { DatabaseSession } from './database';

@@ -1,7 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
-import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
-import { Connection, Repository } from 'typeorm';
+import type { OgmaService } from '@ogma/nestjs-module';
+import { OgmaLogger } from '@ogma/nestjs-module';
+import type { Connection, Repository } from 'typeorm';
 import { LeagueAdmin } from '~/database';
 
 @Injectable()
@@ -28,11 +29,7 @@ export class AdminService {
 
     public async addAdmin(discordId: string, leagueId: number, permissions: number) {
         try {
-            const data = await this.leagueAdminDb
-                .createQueryBuilder()
-                .insert()
-                .values([{ discordId: discordId, leagueId: leagueId, permissions: permissions }])
-                .execute();
+            const data = await this.leagueAdminDb.createQueryBuilder().insert().values([{ discordId, leagueId, permissions }]).execute();
             return data;
         } catch (error) {
             if (error.code === '23505') {
@@ -48,8 +45,8 @@ export class AdminService {
         await this.leagueAdminDb
             .createQueryBuilder()
             .update()
-            .set({ permissions: permissions })
-            .where('league_id = :leagueId AND id = :adminId', { leagueId: leagueId, adminId: adminId })
+            .set({ permissions })
+            .where('league_id = :leagueId AND id = :adminId', { leagueId, adminId })
             .execute();
     }
 

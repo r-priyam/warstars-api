@@ -1,8 +1,8 @@
 import { Controller, Get, HttpException, HttpStatus, Post, Query, Req, Res } from '@nestjs/common';
-import { FastifyReply, FastifyRequest } from 'fastify';
-import { AppConfig } from '~/core/config/env.getters';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { DiscordService } from './discord.service';
+import type { AppConfig } from '~/core/config/env.getters';
 import { Authenticated } from '~/core/decorators/auth.decorator';
-import { DiscordService } from './discord.service';
 
 @Controller('discord')
 export class DiscordController {
@@ -36,9 +36,7 @@ export class DiscordController {
 
     @Get('check')
     @Authenticated()
-    checkLoggedIn() {
-        return;
-    }
+    checkLoggedIn() {}
 
     @Get('guilds')
     @Authenticated()
