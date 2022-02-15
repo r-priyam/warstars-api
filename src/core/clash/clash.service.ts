@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import type { OgmaService } from '@ogma/nestjs-module';
 import { OgmaLogger } from '@ogma/nestjs-module';
 import { BatchThrottler, Client } from 'clashofclans.js';
-import type { AppConfig } from '../config/env.getters';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { AppConfig } from '../config/env.getters';
 
 @Injectable()
 export class ClashService {

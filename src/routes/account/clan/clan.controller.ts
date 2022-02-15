@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, Post, Req } from '@nestjs/common';
 import type { FastifyRequest } from 'fastify';
-import type { ClanService } from './clan.service';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { ClanService } from './clan.service';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 
 @Controller('clan')

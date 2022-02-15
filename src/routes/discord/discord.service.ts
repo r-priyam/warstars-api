@@ -1,12 +1,14 @@
 import fetch from 'node-fetch';
 import * as CryptoJS from 'crypto-js';
-import type { Repository } from 'typeorm';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { Repository } from 'typeorm';
 import type { FastifyRequest } from 'fastify';
 import { InjectRepository } from '@nestjs/typeorm';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { DatabaseSession, User } from '~/database';
-import type { AppConfig } from '~/core/config/env.getters';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { AppConfig } from '~/core/config/env.getters';
 import type { ICreateUser, ICredentialsResponse, IDiscordUser, IDiscordUserGuild, IEncryptedTokens } from '~/utils/interfaces';
 
 @Injectable()

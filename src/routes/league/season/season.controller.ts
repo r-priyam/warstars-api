@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
-import type { SeasonService } from './season.service';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { SeasonService } from './season.service';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Permissions } from '~/core/decorators/leaguepermissions.decorator';
 import { Permission } from '~/utils/AdminPermissions';

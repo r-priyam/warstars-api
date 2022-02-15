@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import type { TextChannel } from 'discord.js';
 import { MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
-import type { BotService } from '~/core/bot/bot.service';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { BotService } from '~/core/bot/bot.service';
 import type { IRegisterLeague } from '~/utils/interfaces';
 
 @Injectable()

@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
-import type { AdminService } from './admin.service';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { AdminService } from './admin.service';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Permission } from '~/utils/AdminPermissions';
 import { Permissions } from '~/core/decorators/leaguepermissions.decorator';

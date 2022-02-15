@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/consistent-type-imports */
 import { Controller, Get, HttpException, HttpStatus, Post, Query, Req, Res } from '@nestjs/common';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import type { DiscordService } from './discord.service';
-import type { AppConfig } from '~/core/config/env.getters';
+import { DiscordService } from './discord.service';
+import { AppConfig } from '~/core/config/env.getters';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 
 @Controller('discord')

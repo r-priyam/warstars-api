@@ -1,6 +1,7 @@
 import type { CanActivate, ExecutionContext } from '@nestjs/common';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import type { Reflector } from '@nestjs/core';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { Reflector } from '@nestjs/core';
 import type { FastifyRequest } from 'fastify';
 import { PERMISSIONS_KEY } from '../decorators/leaguepermissions.decorator';
 import type { Permission } from '~/utils/AdminPermissions';

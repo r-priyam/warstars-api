@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/consistent-type-imports */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import type { OgmaService } from '@ogma/nestjs-module';
-import { OgmaLogger } from '@ogma/nestjs-module';
-import type { EventEmitter2 } from '@nestjs/event-emitter';
-import type { Repository } from 'typeorm';
+import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Repository } from 'typeorm';
 import { ChildLeague, Division, League } from '~/database';
 import type { IRegisterChildLeague, IRegisterDivision, IRegisterLeague } from '~/utils/interfaces';
 

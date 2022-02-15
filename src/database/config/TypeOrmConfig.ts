@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import type { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
 import { CustomNamingStrategy } from './CustomNamingStrategy';
-import type { AppConfig } from '~/core/config/env.getters';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { AppConfig } from '~/core/config/env.getters';
 import { entities } from '~/database';
 
 @Injectable()
