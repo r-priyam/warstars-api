@@ -32,6 +32,7 @@ import { BotModule } from '~/core/bot/bot.module';
         })
     ],
     controllers: [AdminController, CoreController, RegisterController, SeasonController],
-    providers: [AdminService, CoreService, RegisterService, SeasonService, LeagueRegisterListener]
+    providers: [AdminService, CoreService, RegisterService, SeasonService, LeagueRegisterListener],
+    exports: [CoreService]
 })
 export class LeagueModule {}

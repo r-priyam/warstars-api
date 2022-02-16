@@ -16,7 +16,7 @@ export class AdminPermissions {
         this.permissionsValue = value;
     }
 
-    private permissionsValue = 0;
+    private readonly permissionsValue: number;
     private MANAGE_ADMINS = 1 << 0;
     private MANAGE_PERMISSIONS = 1 << 1;
     private ADMINISTRATOR = 1 << 3; // all powers, just below the boss

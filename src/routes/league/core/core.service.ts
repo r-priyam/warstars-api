@@ -77,6 +77,16 @@ export class CoreService {
         }
     }
 
+    public async getUserLeaguePermission(discordId: string, leagueId: number) {
+        return await this.adminDb
+            .createQueryBuilder('user')
+            .where('user.discord_id = :discordId AND user.league_id = :leagueId', {
+                discordId,
+                leagueId
+            })
+            .getOne();
+    }
+
     public async getUserLeaguePermissions(discordId: string) {
         const data = await this.adminDb.createQueryBuilder('user').where('user.discord_id = :discordId', { discordId }).getMany();
         const payload = {};
