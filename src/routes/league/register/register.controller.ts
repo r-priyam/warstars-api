@@ -8,13 +8,13 @@ import type { IRegisterChildLeague, IRegisterDivision, IRegisterLeague } from '~
 
 @Controller('register')
 export class RegisterController {
-    constructor(private readonly regusterService: RegisterService) {}
+    constructor(private readonly registerService: RegisterService) {}
 
     @Post('league')
     @Authenticated()
     @HttpCode(200)
     async registerLeague(@Body() payload: IRegisterLeague) {
-        return await this.regusterService.registerLeague(payload);
+        return await this.registerService.registerLeague(payload);
     }
 
     @Post('child-league')
@@ -22,7 +22,7 @@ export class RegisterController {
     @Permissions(Permission.MANAGE_CHILD_LEAGUES)
     @HttpCode(200)
     async registerChildLeague(@Body() payload: IRegisterChildLeague) {
-        return await this.regusterService.registerChildLeague(payload);
+        return await this.registerService.registerChildLeague(payload);
     }
 
     @Post('child-division')
@@ -30,6 +30,6 @@ export class RegisterController {
     @Permissions(Permission.MANAGE_CHILD_DIVISIONS)
     @HttpCode(200)
     async registerChildDivision(@Body() payload: IRegisterDivision) {
-        return await this.regusterService.registerDivision(payload);
+        return await this.registerService.registerDivision(payload);
     }
 }

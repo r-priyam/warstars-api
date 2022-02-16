@@ -50,11 +50,10 @@ export class SeasonService {
         if (check)
             throw new HttpException('One season is active at the moment. Please end it first to start new season', HttpStatus.BAD_REQUEST);
 
-        const nextId = await this.leagueSeasonDb
+        data.specificId = await this.leagueSeasonDb
             .createQueryBuilder('season')
             .where('season.league_id = :leagueId', { leagueId: data.leagueId })
             .getCount();
-        data.specificId = nextId;
 
         try {
             await this.leagueSeasonDb
@@ -98,11 +97,10 @@ export class SeasonService {
         if (check)
             throw new HttpException('One season is active at the moment. Please end it first to start new season', HttpStatus.BAD_REQUEST);
 
-        const nextId = await this.childSeasonDb
+        data.specificId = await this.childSeasonDb
             .createQueryBuilder('season')
             .where('season.child_league_id = :childLeagueId', { childLeagueId: data.childLeagueId })
             .getCount();
-        data.specificId = nextId;
 
         try {
             await this.childSeasonDb
@@ -211,7 +209,7 @@ export class SeasonService {
             ]);
         } catch (error) {
             this.logger.error(error);
-            throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException('Something went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

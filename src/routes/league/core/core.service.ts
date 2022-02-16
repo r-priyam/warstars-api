@@ -19,8 +19,7 @@ export class CoreService {
 
     public async getLeagueInfo(leagueId: number) {
         try {
-            const data = await this.leagueDb.createQueryBuilder('league').where('league.league_id = :leagueId', { leagueId }).getOne();
-            return data;
+            return await this.leagueDb.createQueryBuilder('league').where('league.league_id = :leagueId', { leagueId }).getOne();
         } catch (error) {
             this.logger.error(error);
             throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -29,11 +28,7 @@ export class CoreService {
 
     public async getChildLeagueInfo(childLeagueId: number) {
         try {
-            const data = await this.childLeagueDb
-                .createQueryBuilder('child')
-                .where('child.id = :childLeagueId', { childLeagueId })
-                .getOne();
-            return data;
+            return await this.childLeagueDb.createQueryBuilder('child').where('child.id = :childLeagueId', { childLeagueId }).getOne();
         } catch (error) {
             this.logger.error(error);
             throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);

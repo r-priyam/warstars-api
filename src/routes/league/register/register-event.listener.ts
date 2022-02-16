@@ -12,14 +12,14 @@ export class LeagueRegisterListener {
     private bot = this.discord.client;
 
     @OnEvent('league.register')
-    handleOrderCreatedEvent(data: IRegisterLeague) {
+    async handleOrderCreatedEvent(data: IRegisterLeague) {
         const LeagueInfoEmbed = new MessageEmbed()
             .setColor('#2ECC71')
             .setTitle('New League Approval Request')
             .addFields(
                 { name: 'League Name', value: data.name, inline: false },
                 { name: 'Abbreviation', value: data.abbreviation, inline: false },
-                { name: 'Head Deatils', value: `${data.headAdmin} (${data.discordId})`, inline: false },
+                { name: 'Head Details', value: `${data.headAdmin} (${data.discordId})`, inline: false },
                 { name: 'Discord Invite', value: data.discordInvite || 'Not provided', inline: false },
                 { name: 'Twitter Handle', value: data.twitterHandle || 'Not provided', inline: false },
                 { name: 'Website', value: data.website || 'Not Provided', inline: false },
@@ -33,6 +33,6 @@ export class LeagueRegisterListener {
         );
 
         const channel = this.bot.channels.cache.get('833084538971226132') as TextChannel;
-        channel.send({ embeds: [LeagueInfoEmbed], components: [buttons] });
+        await channel.send({ embeds: [LeagueInfoEmbed], components: [buttons] });
     }
 }

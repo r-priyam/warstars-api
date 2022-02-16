@@ -35,7 +35,7 @@ async function main() {
 
     await app.register(fastifyHelmet);
     app.enableCors({ origin: config.corsOrigins, credentials: true });
-    app.register(fastifyCookie, { secret: [config.sessionCookieSecret, config.cookieSignSecret] });
+    await app.register(fastifyCookie, { secret: [config.sessionCookieSecret, config.cookieSignSecret] });
     await app.register(fastifySession, {
         cookie: {
             maxAge: 60000 * 60 * 24 * 7,

@@ -15,8 +15,8 @@ export class CoreController {
     }
 
     @Get('child-league-info/:childLeagueId')
-    async childLeagueInfo(@Param('childLeagueId') chidlLeagueId: number) {
-        return await this.childLeagueInfo(chidlLeagueId);
+    async childLeagueInfo(@Param('childLeagueId') childLeagueId: number) {
+        return await this.coreService.getChildLeagueInfo(childLeagueId);
     }
 
     @Get('user-leagues')

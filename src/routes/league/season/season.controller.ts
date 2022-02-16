@@ -37,14 +37,14 @@ export class SeasonController {
     @Permissions(Permission.MANAGE_SEASON)
     @HttpCode(200)
     async newLeagueSeason(@Body() payload: INewLeagueSeason) {
-        return await this.newLeagueSeason(payload);
+        return await this.seasonService.newLeagueSeason(payload);
     }
 
     @Post('new-child')
     @Authenticated()
     @Permissions(Permission.MANAGE_SEASON)
     @HttpCode(200)
-    async newChildSason(@Body() payload: INewChildLeagueSeason) {
+    async newChildSeason(@Body() payload: INewChildLeagueSeason) {
         return await this.seasonService.newChildSeason(payload);
     }
 

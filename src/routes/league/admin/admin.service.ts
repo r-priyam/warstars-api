@@ -19,18 +19,26 @@ export class AdminService {
 			t2.user_name AS "username", t2.discriminator, t2.avatar 
 			FROM league_admin t1 LEFT JOIN users t2 USING(discord_id) 
 			WHERE t1.league_id = $1`;
-            const data = await this.db.query(query, [leagueId]);
-            return data;
+            return await this.db.query(query, [leagueId]);
         } catch (error) {
             this.logger.error(error);
-            throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException('Something went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     public async addAdmin(discordId: string, leagueId: number, permissions: number) {
         try {
-            const data = await this.leagueAdminDb.createQueryBuilder().insert().values([{ discordId, leagueId, permissions }]).execute();
-            return data;
+            return await this.leagueAdminDb
+                .createQueryBuilder()
+                .insert()
+                .values([
+                    {
+                        discordId,
+                        leagueId,
+                        permissions
+                    }
+                ])
+                .execute();
         } catch (error) {
             if (error.code === '23505') {
                 throw new HttpException('User is already a super admin for this league!', HttpStatus.BAD_REQUEST);
@@ -55,7 +63,7 @@ export class AdminService {
             await this.leagueAdminDb.query('DELETE FROM league_admin WHERE id = $1 AND league_id = $2', [adminId, leagueId]);
         } catch (error) {
             this.logger.error(error);
-            throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException('Something went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -1,14 +1,14 @@
-import fetch from 'node-fetch';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import * as CryptoJS from 'crypto-js';
+import type { FastifyRequest } from 'fastify';
+import fetch from 'node-fetch';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { Repository } from 'typeorm';
-import type { FastifyRequest } from 'fastify';
-import { InjectRepository } from '@nestjs/typeorm';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-
-import { DatabaseSession, User } from '~/database';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { AppConfig } from '~/core/config/env.getters';
+
+import { DatabaseSession, User } from '~/database';
 import type { ICreateUser, ICredentialsResponse, IDiscordUser, IDiscordUserGuild, IEncryptedTokens } from '~/utils/interfaces';
 
 @Injectable()
@@ -22,16 +22,16 @@ export class DiscordService {
     async handleCallback(request: FastifyRequest, code: string) {
         try {
             const oauthData = await this.exchangeToken('authorization_code', { code });
-            const userDiscordData: IDiscordUser = await this.getUserData(oauthData.access_token);
+            const userDiscordData: IDiscordUser = await DiscordService.getUserData(oauthData.access_token);
             const tokens = this.encryptTokens(oauthData.access_token, oauthData.refresh_token);
-            const user = await this.createUser(this.userData(userDiscordData, tokens));
+            const user = await this.createUser(DiscordService.userData(userDiscordData, tokens));
             await this.createSession(request, user);
         } catch (error) {
             throw new HttpException({ status: HttpStatus.INTERNAL_SERVER_ERROR, error }, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    private userData(user: IDiscordUser, tokens: IEncryptedTokens): ICreateUser {
+    private static userData(user: IDiscordUser, tokens: IEncryptedTokens): ICreateUser {
         return {
             discordId: user.id,
             username: user.username,
@@ -46,10 +46,7 @@ export class DiscordService {
     private async createUser(data: ICreateUser): Promise<User> {
         const user = await this.userDB.findOne({ discordId: data.discordId });
 
-        if (user) {
-            const updatedUser = await this.updateUser(user, data);
-            return updatedUser;
-        }
+        if (user) return await this.updateUser(user, data);
 
         const newUser = this.userDB.create(data);
         return await this.userDB.save(newUser);
@@ -79,9 +76,9 @@ export class DiscordService {
         try {
             const refreshToken = this.decryptToken(request.session.user.refreshToken).toString(CryptoJS.enc.Utf8);
             const refreshData = await this.exchangeToken('refresh_token', { refreshToken });
-            const userDiscordData: IDiscordUser = await this.getUserData(refreshData.access_token);
+            const userDiscordData: IDiscordUser = await DiscordService.getUserData(refreshData.access_token);
             const tokens = this.encryptTokens(refreshData.access_token, refreshData.refresh_token);
-            const user = await this.createUser(this.userData(userDiscordData, tokens));
+            const user = await this.createUser(DiscordService.userData(userDiscordData, tokens));
             await this.createSession(request, user);
         } catch (error) {
             throw new HttpException({ status: HttpStatus.INTERNAL_SERVER_ERROR, error }, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -125,7 +122,7 @@ export class DiscordService {
         return data;
     }
 
-    private async getUserData(accessToken: string): Promise<IDiscordUser> {
+    private static async getUserData(accessToken: string): Promise<IDiscordUser> {
         const response = await fetch('https://discord.com/api/users/@me', { headers: { authorization: `Bearer ${accessToken}` } });
         const data = await response.json();
         if (!response.ok) throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: data }, HttpStatus.BAD_REQUEST);

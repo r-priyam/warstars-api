@@ -3,7 +3,7 @@ import { Inhibitor } from 'discord-akairo';
 
 export default class PermissionInhibitor extends Inhibitor {
     public constructor() {
-        super('premission', {
+        super('permission', {
             reason: 'permission'
         });
     }

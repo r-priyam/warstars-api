@@ -16,6 +16,6 @@ export class BotService {
     public readonly client = new Client();
 
     public async init() {
-        this.client.start(this.config.botToken);
+        await this.client.start(this.config.botToken);
     }
 }
