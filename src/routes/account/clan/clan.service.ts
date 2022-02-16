@@ -47,7 +47,7 @@ export class ClanService {
             return clansData;
         } catch (error) {
             this.logger.error(error);
-            throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException('Something went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -90,7 +90,7 @@ export class ClanService {
             ]);
         } catch (error) {
             this.logger.error(error);
-            throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException('Something went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
         }
         if (data[1] === 0) throw new HttpException('Clan Tag not linked!', HttpStatus.CONFLICT);
     }

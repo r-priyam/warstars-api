@@ -6,7 +6,7 @@ import { Division } from './entities/league/Division';
 import { League } from './entities/league/League';
 import { LeagueSeason } from './entities/league/LeagueSeason';
 import { LeagueMatches } from './entities/league/Matches';
-import { LeagueScehdule } from './entities/league/Schedule';
+import { LeagueSchedule } from './entities/league/Schedule';
 import { LeagueWarAttacks } from './entities/league/war/Attacks';
 import { LeagueLeaderBoard } from './entities/league/war/Leaderboard';
 import { DatabaseSession } from './entities/Session';
@@ -25,7 +25,7 @@ const leagueEntities = [
     League,
     LeagueSeason,
     LeagueMatches,
-    LeagueScehdule,
+    LeagueSchedule,
     LeagueWarAttacks,
     LeagueLeaderBoard
 ];
@@ -45,5 +45,5 @@ export {
     League,
     LeagueSeason,
     LeagueMatches,
-    LeagueScehdule
+    LeagueSchedule
 };

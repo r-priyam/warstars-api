@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 // TODO: better column uniqueness
-@Entity('league_scehdule', { schema: 'public' })
-export class LeagueScehdule {
+@Entity('league_schedule', { schema: 'public' })
+export class LeagueSchedule {
     @PrimaryGeneratedColumn()
     id: number;
 

@@ -39,6 +39,6 @@ export class League {
     @Column('boolean', { name: 'is_verified', default: () => 'false' })
     isVerified: boolean;
 
-    @Column('timestamp without time zone', { name: 'registerd_on', default: () => 'now()' })
-    registerdOn: Date;
+    @Column('timestamp without time zone', { name: 'registered_on', default: () => 'now()' })
+    registeredOn: Date;
 }
