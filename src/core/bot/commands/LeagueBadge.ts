@@ -33,7 +33,7 @@ export default class LeagueIconCommand extends Command {
         if (!leagueId || !iconUrl) return message.util.send('**Please provide `League ID` and `Icon Url`**');
         const db = getConnection();
 
-        await db.query('UPDATE league SET icon_url = $1 WHERE league_id = $2 RETURNING league_name', [iconUrl, leagueId]);
+        await db.query('UPDATE league SET icon_url = $1 WHERE league_id = $2', [iconUrl, leagueId]);
         return message.util.send('League badge updated successfully!');
     }
 }
