@@ -33,9 +33,9 @@ export class LeaguePermission implements CanActivate {
         const checks: Record<number, boolean> = {
             1: check.manageAdmins,
             2: check.managePermissions,
+            4: check.manageChildDivisions,
             8: check.administrator,
             16: check.manageChildLeagues,
-            4: check.manageChildDivisions,
             32: check.manageClans,
             64: check.manageWarData,
             128: check.manageSeason,
