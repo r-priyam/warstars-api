@@ -20,35 +20,30 @@ export class ClanService {
     private coc = this.clash.clashClient;
 
     public async userClans(request: FastifyRequest) {
-        try {
-            const data = await this.clanDb
-                .createQueryBuilder('user')
-                .where('user.discord_id = :discordId', { discordId: request.session.user.discordId })
-                .getMany();
+        const data = await this.clanDb
+            .createQueryBuilder('user')
+            .where('user.discord_id = :discordId', { discordId: request.session.user.discordId })
+            .getMany();
 
-            const clansData = [];
-            const clans = Util.allSettled(data.map((e) => this.coc.getClan(e.clanTag)));
+        const clansData = [];
+        const clans = Util.allSettled(data.map((e) => this.coc.getClan(e.clanTag)));
 
-            for (const clan of await clans) {
-                clansData.push({
-                    name: clan.name,
-                    tag: clan.tag,
-                    members: clan.memberCount,
-                    badge: clan.badge.url,
-                    leader: clan.members.find((m) => m.role === 'leader').name,
-                    level: clan.level,
-                    location: clan.location?.name || 'No Location Set',
-                    trophies: clan.points,
-                    versusTrophies: clan.versusPoints,
-                    labels: Object.fromEntries(clan.labels.map((label) => [label.name, label.icon.url])),
-                    linkedAt: data.find((e) => e.clanTag === clan.tag).linkedAt
-                });
-            }
-            return clansData;
-        } catch (error) {
-            this.logger.error(error);
-            throw new HttpException('Something went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
+        for (const clan of await clans) {
+            clansData.push({
+                name: clan.name,
+                tag: clan.tag,
+                members: clan.memberCount,
+                badge: clan.badge.url,
+                leader: clan.members.find((m) => m.role === 'leader').name,
+                level: clan.level,
+                location: clan.location?.name || 'No Location Set',
+                trophies: clan.points,
+                versusTrophies: clan.versusPoints,
+                labels: Object.fromEntries(clan.labels.map((label) => [label.name, label.icon.url])),
+                linkedAt: data.find((e) => e.clanTag === clan.tag).linkedAt
+            });
         }
+        return clansData;
     }
 
     public async linkClan(request: FastifyRequest, clanTag: string) {
@@ -59,10 +54,6 @@ export class ClanService {
             clan = await this.coc.getClan(clanTag);
         } catch (error) {
             if (error.reason === 'notFound') throw new HttpException('Clan Not Found!', HttpStatus.NOT_FOUND);
-            else {
-                this.logger.error(error);
-                throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
         }
 
         try {
@@ -72,26 +63,15 @@ export class ClanService {
                 .values([{ discordId: request.session.user.discordId, clanTag: clan.tag }])
                 .execute();
         } catch (error) {
-            if (error.code === '23505') {
-                throw new HttpException('Clan is already linked', HttpStatus.BAD_REQUEST);
-            } else {
-                this.logger.error(error);
-                throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            if (error.code === '23505') throw new HttpException('Clan is already linked', HttpStatus.BAD_REQUEST);
         }
     }
 
     public async removeClan(request: FastifyRequest, clanTag: string) {
-        let data: any;
-        try {
-            data = await this.clanDb.query('DELETE FROM user_clan WHERE discord_id = $1 AND clan_tag = $2', [
-                request.session.user.discordId,
-                Util.formatTag(clanTag)
-            ]);
-        } catch (error) {
-            this.logger.error(error);
-            throw new HttpException('Something went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        const data = await this.clanDb.query('DELETE FROM user_clan WHERE discord_id = $1 AND clan_tag = $2', [
+            request.session.user.discordId,
+            Util.formatTag(clanTag)
+        ]);
         if (data[1] === 0) throw new HttpException('Clan Tag not linked!', HttpStatus.CONFLICT);
     }
 }

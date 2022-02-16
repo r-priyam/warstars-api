@@ -36,9 +36,6 @@ export class RegisterService {
         } catch (error) {
             if (error.code === '23505') {
                 throw new HttpException(`Abbreviation: ${data.abbreviation}  is already registered!`, HttpStatus.BAD_REQUEST);
-            } else {
-                this.logger.error(error);
-                throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
     }
@@ -51,12 +48,8 @@ export class RegisterService {
                 .values([{ ...data }])
                 .execute();
         } catch (error) {
-            if (error.code === '23505') {
+            if (error.code === '23505')
                 throw new HttpException(`Abbreviation: ${data.abbreviation}  is already registered!`, HttpStatus.BAD_REQUEST);
-            } else {
-                this.logger.error(error);
-                throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
         }
     }
 
@@ -68,12 +61,8 @@ export class RegisterService {
                 .values([{ ...data }])
                 .execute();
         } catch (error) {
-            if (error.code === '23505') {
+            if (error.code === '23505')
                 throw new HttpException(`Abbreviation: ${data.abbreviation}  is already registered!`, HttpStatus.BAD_REQUEST);
-            } else {
-                this.logger.error(error);
-                throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
         }
     }
 }

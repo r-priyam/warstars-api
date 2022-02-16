@@ -55,25 +55,21 @@ export class SeasonService {
             .where('season.league_id = :leagueId', { leagueId: data.leagueId })
             .getCount();
 
-        try {
-            await this.leagueSeasonDb
-                .createQueryBuilder()
-                .insert()
-                .values([
-                    {
-                        leagueId: data.leagueId,
-                        specificId: data.specificId,
-                        startTime: new Date(data.startTime),
-                        endTime: new Date(data.endTime),
-                        isActive: true
-                    }
-                ])
-                .execute();
-        } catch (error) {
-            this.logger.printError(error);
-            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        await this.leagueSeasonDb
+            .createQueryBuilder()
+            .insert()
+            .values([
+                {
+                    leagueId: data.leagueId,
+                    specificId: data.specificId,
+                    startTime: new Date(data.startTime),
+                    endTime: new Date(data.endTime),
+                    isActive: true
+                }
+            ])
+            .execute();
 
+        // TODO: cross check
         if (data.childData.length > 0) {
             for (const childId in data.childData) {
                 const childSeasonData: INewChildLeagueSeason = {
@@ -102,26 +98,21 @@ export class SeasonService {
             .where('season.child_league_id = :childLeagueId', { childLeagueId: data.childLeagueId })
             .getCount();
 
-        try {
-            await this.childSeasonDb
-                .createQueryBuilder()
-                .insert()
-                .values([
-                    {
-                        leagueSeasonId: data.leagueSeasonId ?? 0,
-                        leagueId: data.leagueId,
-                        childLeagueId: data.childLeagueId,
-                        specificId: data.specificId,
-                        startTime: new Date(data.startTime),
-                        endTime: new Date(data.endTime),
-                        isActive: true
-                    }
-                ])
-                .execute();
-        } catch (error) {
-            this.logger.printError(error);
-            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        await this.childSeasonDb
+            .createQueryBuilder()
+            .insert()
+            .values([
+                {
+                    leagueSeasonId: data.leagueSeasonId ?? 0,
+                    leagueId: data.leagueId,
+                    childLeagueId: data.childLeagueId,
+                    specificId: data.specificId,
+                    startTime: new Date(data.startTime),
+                    endTime: new Date(data.endTime),
+                    isActive: true
+                }
+            ])
+            .execute();
     }
 
     public async endLeagueSeason(data: IEndLeagueSeason) {
@@ -146,10 +137,6 @@ export class SeasonService {
                 clanData[clan.tag] = clan.name;
             } catch (error) {
                 if (error.reason === 'notFound') throw new HttpException('Clan Not Found!', HttpStatus.NOT_FOUND);
-                else {
-                    this.logger.error(error);
-                    throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-                }
             }
         }
 
@@ -171,12 +158,7 @@ export class SeasonService {
                     ])
                     .execute();
             } catch (error) {
-                if (error.code === '23505') {
-                    throw new HttpException('Clan tag is already registered for season', HttpStatus.BAD_REQUEST);
-                } else {
-                    this.logger.error(error);
-                    throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-                }
+                if (error.code === '23505') throw new HttpException('Clan tag is already registered for season', HttpStatus.BAD_REQUEST);
             }
         }
 
@@ -201,15 +183,10 @@ export class SeasonService {
     }
 
     public async removeSeasonClan(data: ISeasonRemoveClan) {
-        try {
-            await this.leagueClanDb.query('DELETE FROM league_clan WHERE child_id = $1 AND child_season_id = $2 AND tag = $3', [
-                data.childId,
-                data.childSeasonId,
-                data.tag
-            ]);
-        } catch (error) {
-            this.logger.error(error);
-            throw new HttpException('Something went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        await this.leagueClanDb.query('DELETE FROM league_clan WHERE child_id = $1 AND child_season_id = $2 AND tag = $3', [
+            data.childId,
+            data.childSeasonId,
+            data.tag
+        ]);
     }
 }

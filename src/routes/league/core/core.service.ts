@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
 import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
@@ -18,21 +18,11 @@ export class CoreService {
     ) {}
 
     public async getLeagueInfo(leagueId: number) {
-        try {
-            return await this.leagueDb.createQueryBuilder('league').where('league.league_id = :leagueId', { leagueId }).getOne();
-        } catch (error) {
-            this.logger.error(error);
-            throw new HttpException('Something went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return await this.leagueDb.createQueryBuilder('league').where('league.league_id = :leagueId', { leagueId }).getOne();
     }
 
     public async getChildLeagueInfo(childLeagueId: number) {
-        try {
-            return await this.childLeagueDb.createQueryBuilder('child').where('child.id = :childLeagueId', { childLeagueId }).getOne();
-        } catch (error) {
-            this.logger.error(error);
-            throw new HttpException('Something went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return await this.childLeagueDb.createQueryBuilder('child').where('child.id = :childLeagueId', { childLeagueId }).getOne();
     }
 
     public async getUserLeagues(discordId: string) {
@@ -88,15 +78,9 @@ export class CoreService {
     }
 
     public async getUserLeaguePermissions(discordId: string) {
-        try {
-            const data = await this.adminDb.createQueryBuilder('user').where('user.discord_id = :discordId', { discordId }).getMany();
-
-            const payload = {};
-            data.forEach((x) => (payload[x.leagueId] = x.permissions));
-            return this.jwtService.sign({ ...payload });
-        } catch (error) {
-            this.logger.error(error);
-            throw new HttpException('Something went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        const data = await this.adminDb.createQueryBuilder('user').where('user.discord_id = :discordId', { discordId }).getMany();
+        const payload = {};
+        data.forEach((league) => (payload[league.leagueId] = league.permissions));
+        return this.jwtService.sign({ ...payload });
     }
 }

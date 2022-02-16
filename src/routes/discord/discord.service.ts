@@ -20,15 +20,11 @@ export class DiscordService {
     ) {}
 
     async handleCallback(request: FastifyRequest, code: string) {
-        try {
-            const oauthData = await this.exchangeToken('authorization_code', { code });
-            const userDiscordData: IDiscordUser = await DiscordService.getUserData(oauthData.access_token);
-            const tokens = this.encryptTokens(oauthData.access_token, oauthData.refresh_token);
-            const user = await this.createUser(DiscordService.userData(userDiscordData, tokens));
-            await this.createSession(request, user);
-        } catch (error) {
-            throw new HttpException({ status: HttpStatus.INTERNAL_SERVER_ERROR, error }, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        const oauthData = await this.exchangeToken('authorization_code', { code });
+        const userDiscordData: IDiscordUser = await DiscordService.getUserData(oauthData.access_token);
+        const tokens = this.encryptTokens(oauthData.access_token, oauthData.refresh_token);
+        const user = await this.createUser(DiscordService.userData(userDiscordData, tokens));
+        await this.createSession(request, user);
     }
 
     private static userData(user: IDiscordUser, tokens: IEncryptedTokens): ICreateUser {
@@ -73,16 +69,12 @@ export class DiscordService {
     }
 
     async handleTokenRefresh(request: FastifyRequest) {
-        try {
-            const refreshToken = this.decryptToken(request.session.user.refreshToken).toString(CryptoJS.enc.Utf8);
-            const refreshData = await this.exchangeToken('refresh_token', { refreshToken });
-            const userDiscordData: IDiscordUser = await DiscordService.getUserData(refreshData.access_token);
-            const tokens = this.encryptTokens(refreshData.access_token, refreshData.refresh_token);
-            const user = await this.createUser(DiscordService.userData(userDiscordData, tokens));
-            await this.createSession(request, user);
-        } catch (error) {
-            throw new HttpException({ status: HttpStatus.INTERNAL_SERVER_ERROR, error }, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        const refreshToken = this.decryptToken(request.session.user.refreshToken).toString(CryptoJS.enc.Utf8);
+        const refreshData = await this.exchangeToken('refresh_token', { refreshToken });
+        const userDiscordData: IDiscordUser = await DiscordService.getUserData(refreshData.access_token);
+        const tokens = this.encryptTokens(refreshData.access_token, refreshData.refresh_token);
+        const user = await this.createUser(DiscordService.userData(userDiscordData, tokens));
+        await this.createSession(request, user);
     }
 
     async userGuilds(request: FastifyRequest): Promise<IDiscordUserGuild> {
