@@ -26,7 +26,7 @@ export class CoreService {
     }
 
     public async getUserLeagues(discordId: string) {
-        const leagueDataQueryString = `SELECT t1.league_id AS "leagueId", t1.name, t1.abbreviation, t1.head_admin AS "headAdmin", t1.discord_id AS "discordId", t1.icon_url AS "iconUrl", t1.discord_invite AS "discordInvite", t1.twitter_handle AS "twitterHandle", t1.website, t1.rules, t1.description, t1.is_verified AS "isVerified", t1.registerd_on AS "registerdOn",
+        const leagueDataQueryString = `SELECT t1.league_id AS "leagueId", t1.name, t1.abbreviation, t1.head_admin AS "headAdmin", t1.discord_id AS "discordId", t1.icon_url AS "iconUrl", t1.discord_invite AS "discordInvite", t1.twitter_handle AS "twitterHandle", t1.website, t1.rules, t1.description, t1.is_verified AS "isVerified", t1.registered_on AS "registerdOn",
                 t2.season_id AS "seasonId", t2.specific_id AS "specificId", t2.start_time AS "startTime", t2.end_time AS "endTime", t2.is_active AS "seasonActive",
                 COUNT(t3) AS "totalAdmins" 
                 FROM league t1 LEFT JOIN league_season t2 ON t1.league_id = t2.league_id AND 
