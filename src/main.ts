@@ -52,4 +52,4 @@ async function main() {
     logger.info(`Application is running on: ${await app.getUrl()}`, { context: 'MAIN' });
 }
 
-main();
+main().then(() => null);
