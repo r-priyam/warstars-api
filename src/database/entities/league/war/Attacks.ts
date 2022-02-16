@@ -44,8 +44,8 @@ export class LeagueWarAttacks {
     @Column('integer', { name: 'stars', nullable: true })
     stars: number | null;
 
-    @Column('numeric', { name: 'desturction', nullable: true })
-    desturction: string | null;
+    @Column('numeric', { name: 'destruction', nullable: true })
+    destruction: string | null;
 
     @Column('integer', { name: 'stars_earned', nullable: true })
     starsEarned: number | null;
