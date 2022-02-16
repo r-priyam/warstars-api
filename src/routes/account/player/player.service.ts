@@ -47,7 +47,7 @@ export class PlayerService {
             return playersData;
         } catch (error) {
             this.logger.error(error);
-            throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException('Something went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -57,7 +57,6 @@ export class PlayerService {
         let status: boolean;
         try {
             status = await this.coc.verifyPlayerToken(playerTag, apiToken);
-            if (!status) throw new HttpException('Invalid API Token!', HttpStatus.BAD_REQUEST);
         } catch (error) {
             if (error.reason === 'notFound') throw new HttpException('Player Not Found!', HttpStatus.NOT_FOUND);
             else {
@@ -65,6 +64,8 @@ export class PlayerService {
                 throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
+
+        if (!status) throw new HttpException('Invalid API Token!', HttpStatus.BAD_REQUEST);
 
         try {
             await this.playerDb
@@ -92,7 +93,7 @@ export class PlayerService {
             ]);
         } catch (error) {
             this.logger.error(error);
-            throw new HttpException('Soemething went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException('Something went wrong!', HttpStatus.INTERNAL_SERVER_ERROR);
         }
         if (data[1] === 0) throw new HttpException('Player Tag not linked!', HttpStatus.CONFLICT);
     }
