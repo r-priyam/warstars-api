@@ -17,7 +17,7 @@ import { BotService } from './core/bot/bot.service';
 
 async function main() {
     const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
-        bufferLogs: true,
+        bufferLogs: false,
         logger: false
     });
 
