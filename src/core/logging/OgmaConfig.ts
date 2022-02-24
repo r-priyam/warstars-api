@@ -1,4 +1,4 @@
-import * as rfs from 'rotating-file-stream';
+import { createWriteStream } from 'fs';
 import { Injectable } from '@nestjs/common';
 import { FastifyParser } from '@ogma/platform-fastify';
 import type { OgmaModuleOptions } from '@ogma/nestjs-module';
@@ -6,7 +6,6 @@ import type { ModuleConfigFactory } from '@golevelup/nestjs-modules';
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { AppConfig } from '../config/env.getters';
-import { generateLogFilename } from './LogName';
 
 @Injectable()
 export class OgmaModuleConfig implements ModuleConfigFactory<OgmaModuleOptions> {
@@ -17,11 +16,8 @@ export class OgmaModuleConfig implements ModuleConfigFactory<OgmaModuleOptions> 
             service: {
                 color: this.config.isDevelopment,
                 application: this.config.appName,
-                stream: rfs.createStream(generateLogFilename, {
-                    interval: '1d',
-                    path: './logs',
-                    teeToStdout: true
-                })
+                stream: this.config.isDevelopment ? null : createWriteStream('./logs/app.log'),
+                json: !this.config.isDevelopment
             },
             interceptor: {
                 http: FastifyParser

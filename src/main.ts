@@ -17,7 +17,6 @@ import { BotService } from './core/bot/bot.service';
 
 async function main() {
     const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {
-        bufferLogs: false,
         logger: false
     });
 
@@ -47,7 +46,7 @@ async function main() {
     });
 
     await app.listen(config.port, config.host);
-    logger.info(`Application is running on: ${await app.getUrl()}`, { context: 'MAIN' });
+    logger.info(`Application is running on: ${await app.getUrl()}`, 'Main');
 }
 
-main().then(() => null);
+main();

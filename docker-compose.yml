@@ -22,6 +22,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "${PORT}:${PORT}"
+    volumes:
+      - ./logs:/logs
     depends_on:
       - postgres
 
