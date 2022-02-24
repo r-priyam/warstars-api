@@ -44,7 +44,7 @@
     "rimraf": "^3.0.2",
     "rotating-file-stream": "^3.0.3",
     "rxjs": "^7.5.4",
-    "typeorm": "^0.2.43",
+    "typeorm": "^0.2.44",
     "uid-safe": "^2.1.5"
   },
   "devDependencies": {
