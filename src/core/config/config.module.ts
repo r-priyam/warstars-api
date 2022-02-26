@@ -1,3 +1,4 @@
+/* eslint-disable simple-import-sort/imports */
 import { Module } from '@nestjs/common';
 import { ConfigService, ConfigModule as NestConfig } from '@nestjs/config';
 

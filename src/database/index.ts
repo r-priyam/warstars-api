@@ -33,17 +33,17 @@ const leagueEntities = [
 export const entities = [...coreEntities, ...userEntities, ...leagueEntities];
 
 export {
-    DatabaseSession,
-    User,
-    UserClan,
-    UserPlayer,
-    LeagueAdmin,
     ChildLeague,
     ChildLeagueSeason,
-    LeagueClan,
+    DatabaseSession,
     Division,
     League,
-    LeagueSeason,
+    LeagueAdmin,
+    LeagueClan,
     LeagueMatches,
-    LeagueSchedule
+    LeagueSchedule,
+    LeagueSeason,
+    User,
+    UserClan,
+    UserPlayer
 };

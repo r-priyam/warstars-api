@@ -1,5 +1,6 @@
 import { plainToClass } from 'class-transformer';
 import { validateSync } from 'class-validator';
+
 import { ConfigEnvironment } from './env.config';
 
 export const validate = (config: Record<string, unknown>): ConfigEnvironment => {

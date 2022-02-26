@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/consistent-type-imports */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
 import { Repository } from 'typeorm';
+
 import { ClashService } from '~/core/clash/clash.service';
 import { ChildLeagueSeason, LeagueClan, LeagueSeason } from '~/database';
-import type {
+import {
     IEndChildSeason,
     IEndLeagueSeason,
     INewChildLeagueSeason,

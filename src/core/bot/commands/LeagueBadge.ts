@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
+import { Command } from 'discord-akairo';
 import { getConnection } from 'typeorm';
 
 @Injectable()

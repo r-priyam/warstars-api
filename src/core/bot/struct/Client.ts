@@ -1,6 +1,6 @@
-import * as path from 'path';
-import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
 import { Intents } from 'discord.js';
+import { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler } from 'discord-akairo';
+import * as path from 'path';
 
 export default class Client extends AkairoClient {
     public commandHandler: CommandHandler = new CommandHandler(this, {

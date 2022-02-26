@@ -1,11 +1,12 @@
 import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { Reflector } from '@nestjs/core';
 import { FastifyRequest } from 'fastify';
 import { getRepository } from 'typeorm';
-import { AUTH_KEY } from '../decorators/auth.decorator';
+
 import { DatabaseSession } from '~/database';
 import { DiscordService } from '~/routes/discord/discord.service';
+
+import { AUTH_KEY } from '../decorators/auth.decorator';
 
 @Injectable()
 export class SessionGuard implements CanActivate {

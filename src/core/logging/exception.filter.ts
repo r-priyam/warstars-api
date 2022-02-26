@@ -1,8 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { OgmaService } from '@ogma/nestjs-module';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { HttpAdapterHost } from '@nestjs/core';
+import { OgmaService } from '@ogma/nestjs-module';
 
 @Catch()
 export class ExceptionsFilter implements ExceptionFilter {

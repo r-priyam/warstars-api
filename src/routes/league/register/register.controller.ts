@@ -1,10 +1,11 @@
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { RegisterService } from './register.service';
+
 import { Authenticated } from '~/core/decorators/auth.decorator';
-import { Permission } from '~/utils/AdminPermissions';
 import { Permissions } from '~/core/decorators/leaguepermissions.decorator';
+import { Permission } from '~/utils/AdminPermissions';
 import { IRegisterChildLeague, IRegisterDivision, IRegisterLeague } from '~/utils/interfaces';
+
+import { RegisterService } from './register.service';
 
 @Controller('register')
 export class RegisterController {

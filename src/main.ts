@@ -1,18 +1,18 @@
-import * as uid from 'uid-safe';
-import { getRepository } from 'typeorm';
-import { NestFactory } from '@nestjs/core';
-import { TypeormStore } from 'connect-typeorm';
-import { fastifyHelmet } from 'fastify-helmet';
-import { OgmaService } from '@ogma/nestjs-module';
-import fastifyCookie from 'fastify-cookie';
 import fastifySession from '@fastify/session';
+import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
+import { OgmaService } from '@ogma/nestjs-module';
+import { TypeormStore } from 'connect-typeorm';
+import fastifyCookie from 'fastify-cookie';
+import { fastifyHelmet } from 'fastify-helmet';
+import { getRepository } from 'typeorm';
+import * as uid from 'uid-safe';
 
 import { AppModule } from './app/app.module';
-import { DatabaseSession } from './database';
-import { AppConfig } from './core/config/env.getters';
-import { ClashService } from './core/clash/clash.service';
 import { BotService } from './core/bot/bot.service';
+import { ClashService } from './core/clash/clash.service';
+import { AppConfig } from './core/config/env.getters';
+import { DatabaseSession } from './database';
 
 async function main() {
     const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), {

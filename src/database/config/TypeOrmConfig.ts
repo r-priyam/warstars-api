@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
-import { CustomNamingStrategy } from './CustomNamingStrategy';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { AppConfig } from '~/core/config/env.getters';
 import { entities } from '~/database';
+
+import { CustomNamingStrategy } from './CustomNamingStrategy';
 
 @Injectable()
 export class TypeOrmConfig implements TypeOrmOptionsFactory {

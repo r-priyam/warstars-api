@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
 import { BatchThrottler, Client } from 'clashofclans.js';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+
 import { AppConfig } from '../config/env.getters';
 
 @Injectable()

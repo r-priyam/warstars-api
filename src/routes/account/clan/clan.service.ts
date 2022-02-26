@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/consistent-type-imports */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
-import { Util } from 'clashofclans.js';
-import type { Clan } from 'clashofclans.js';
-import type { FastifyRequest } from 'fastify';
+import { Clan, Util } from 'clashofclans.js';
+import { FastifyRequest } from 'fastify';
 import { Repository } from 'typeorm';
+
 import { ClashService } from '~/core/clash/clash.service';
 import { UserClan } from '~/database';
 

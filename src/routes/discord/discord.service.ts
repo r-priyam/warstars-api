@@ -3,11 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as CryptoJS from 'crypto-js';
 import { FastifyRequest } from 'fastify';
 import fetch from 'node-fetch';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { Repository } from 'typeorm';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { AppConfig } from '~/core/config/env.getters';
 
+import { AppConfig } from '~/core/config/env.getters';
 import { DatabaseSession, User } from '~/database';
 import { ICreateUser, ICredentialsResponse, IDiscordUser, IDiscordUserGuild, IEncryptedTokens } from '~/utils/interfaces';
 
@@ -62,7 +60,7 @@ export class DiscordService {
         request.session.user = user;
         const session = this.sessionDB.create({
             id: request.session.sessionId,
-            expiredAt: new Date(request.session.cookie.expires).getTime(),
+            expiredAt: 604800000,
             json: JSON.stringify(user)
         });
         return await this.sessionDB.save(session);

@@ -1,8 +1,9 @@
 import { Body, Controller, Delete, Get, HttpCode, Post, Req } from '@nestjs/common';
 import { FastifyRequest } from 'fastify';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { PlayerService } from './player.service';
+
 import { Authenticated } from '~/core/decorators/auth.decorator';
+
+import { PlayerService } from './player.service';
 
 @Controller('player')
 export class PlayerController {

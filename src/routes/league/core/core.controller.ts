@@ -1,9 +1,10 @@
-/* eslint-disable @typescript-eslint/consistent-type-imports */
 import { Controller, Get, Param, Req, Res } from '@nestjs/common';
-import type { FastifyReply, FastifyRequest } from 'fastify';
-import { CoreService } from './core.service';
+import { FastifyReply, FastifyRequest } from 'fastify';
+
 import { AppConfig } from '~/core/config/env.getters';
 import { Authenticated } from '~/core/decorators/auth.decorator';
+
+import { CoreService } from './core.service';
 
 @Controller('core')
 export class CoreController {
