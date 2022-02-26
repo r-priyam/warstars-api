@@ -1,8 +1,8 @@
 import { createWriteStream } from 'fs';
 import { Injectable } from '@nestjs/common';
 import { FastifyParser } from '@ogma/platform-fastify';
-import type { OgmaModuleOptions } from '@ogma/nestjs-module';
-import type { ModuleConfigFactory } from '@golevelup/nestjs-modules';
+import { OgmaModuleOptions } from '@ogma/nestjs-module';
+import { ModuleConfigFactory } from '@golevelup/nestjs-modules';
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { AppConfig } from '../config/env.getters';

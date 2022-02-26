@@ -1,8 +1,7 @@
-import type { CanActivate, ExecutionContext } from '@nestjs/common';
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { Reflector } from '@nestjs/core';
-import type { FastifyRequest } from 'fastify';
+import { FastifyRequest } from 'fastify';
 import { getRepository } from 'typeorm';
 import { AUTH_KEY } from '../decorators/auth.decorator';
 import { DatabaseSession } from '~/database';

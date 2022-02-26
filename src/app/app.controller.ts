@@ -1,6 +1,6 @@
 import * as os from 'os';
 import { Controller, Get, Res } from '@nestjs/common';
-import type { FastifyReply } from 'fastify';
+import { FastifyReply } from 'fastify';
 
 @Controller()
 export class AppController {

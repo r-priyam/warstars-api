@@ -1,5 +1,4 @@
-import type { ArgumentsHost, ExceptionFilter } from '@nestjs/common';
-import { Catch, HttpException, HttpStatus } from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { OgmaService } from '@ogma/nestjs-module';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports

@@ -1,5 +1,4 @@
-import type { NamingStrategyInterface } from 'typeorm';
-import { DefaultNamingStrategy, Table } from 'typeorm';
+import { DefaultNamingStrategy, NamingStrategyInterface, Table } from 'typeorm';
 
 export class CustomNamingStrategy extends DefaultNamingStrategy implements NamingStrategyInterface {
     primaryKeyName(tableOrName: Table | string, columnNames: string[]) {

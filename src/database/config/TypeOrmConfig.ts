@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import type { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
 import { CustomNamingStrategy } from './CustomNamingStrategy';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports

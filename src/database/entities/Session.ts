@@ -1,4 +1,4 @@
-import type { ISession } from 'connect-typeorm';
+import { ISession } from 'connect-typeorm';
 import { Column, Entity, Index, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'sessions' })

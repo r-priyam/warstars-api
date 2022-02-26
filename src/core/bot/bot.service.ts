@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import type { OgmaService } from '@ogma/nestjs-module';
-import { OgmaLogger } from '@ogma/nestjs-module';
+import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { AppConfig } from '../config/env.getters';
 import Client from './struct/Client';

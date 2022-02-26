@@ -1,12 +1,10 @@
-import type { CanActivate, ExecutionContext } from '@nestjs/common';
-import { BadRequestException, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { Reflector } from '@nestjs/core';
-import type { FastifyRequest } from 'fastify';
+import { FastifyRequest } from 'fastify';
 import { PERMISSIONS_KEY } from '../decorators/leaguepermissions.decorator';
 import { CoreService } from '~/routes/league/core/core.service';
-import type { Permission } from '~/utils/AdminPermissions';
-import { AdminPermissions } from '~/utils/AdminPermissions';
+import { AdminPermissions, Permission } from '~/utils/AdminPermissions';
 
 @Injectable()
 export class LeaguePermission implements CanActivate {

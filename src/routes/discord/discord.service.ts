@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as CryptoJS from 'crypto-js';
-import type { FastifyRequest } from 'fastify';
+import { FastifyRequest } from 'fastify';
 import fetch from 'node-fetch';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { Repository } from 'typeorm';
@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 import { AppConfig } from '~/core/config/env.getters';
 
 import { DatabaseSession, User } from '~/database';
-import type { ICreateUser, ICredentialsResponse, IDiscordUser, IDiscordUserGuild, IEncryptedTokens } from '~/utils/interfaces';
+import { ICreateUser, ICredentialsResponse, IDiscordUser, IDiscordUserGuild, IEncryptedTokens } from '~/utils/interfaces';
 
 @Injectable()
 export class DiscordService {

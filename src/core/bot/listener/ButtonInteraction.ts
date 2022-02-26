@@ -1,5 +1,4 @@
-import type { GuildMember, Interaction } from 'discord.js';
-import { MessageEmbed } from 'discord.js';
+import { GuildMember, Interaction, MessageEmbed } from 'discord.js';
 import { Listener } from 'discord-akairo';
 import { getConnection } from 'typeorm';
 
