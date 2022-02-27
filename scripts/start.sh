@@ -2,6 +2,7 @@
 
 set -e
 
+cd ../
 if [[ $1 == 'dev' ]];
 then
   echo "$(tput setaf 4)Starting docker for development"
