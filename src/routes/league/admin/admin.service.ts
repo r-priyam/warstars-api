@@ -3,14 +3,15 @@ import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
 import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
 import { Connection, Repository } from 'typeorm';
 
-import { LeagueAdmin } from '~/database';
+import { LeagueAdmin, User } from '~/database';
 
 @Injectable()
 export class AdminService {
     constructor(
         @InjectRepository(LeagueAdmin) private leagueAdminDb: Repository<LeagueAdmin>,
         @OgmaLogger(AdminService) private readonly logger: OgmaService,
-        @InjectConnection() private readonly db: Connection
+        @InjectConnection() private readonly db: Connection,
+        @InjectRepository(User) private userDb: Repository<User>
     ) {}
 
     public async admins(leagueId: number) {
@@ -22,6 +23,9 @@ export class AdminService {
     }
 
     public async addAdmin(discordId: string, leagueId: number, permissions: number) {
+        const check = await this.userDb.query('SELECT EXISTS(SELECT 1 FROM users WHERE discord_id = $1)', [discordId]);
+
+        if (!check) throw new HttpException('User is not yet registered on this site.', HttpStatus.NOT_FOUND);
         try {
             return await this.leagueAdminDb
                 .createQueryBuilder()

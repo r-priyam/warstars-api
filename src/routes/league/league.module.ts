@@ -7,7 +7,7 @@ import { BotModule } from '~/core/bot/bot.module';
 import { ClashModule } from '~/core/clash/clash.module';
 import { ConfigModule } from '~/core/config/config.module';
 import { AppConfig } from '~/core/config/env.getters';
-import { ChildLeague, ChildLeagueSeason, Division, League, LeagueAdmin, LeagueClan, LeagueSeason } from '~/database';
+import { ChildLeague, ChildLeagueSeason, Division, League, LeagueAdmin, LeagueClan, LeagueSeason, User } from '~/database';
 
 import { AdminController } from './admin/admin.controller';
 import { AdminService } from './admin/admin.service';
@@ -24,7 +24,7 @@ import { SeasonService } from './season/season.service';
         ClashModule,
         BotModule,
         OgmaModule.forFeatures([AdminService, CoreService, RegisterService, SeasonService]),
-        TypeOrmModule.forFeature([LeagueAdmin, League, ChildLeague, Division, LeagueSeason, ChildLeagueSeason, LeagueClan]),
+        TypeOrmModule.forFeature([LeagueAdmin, League, ChildLeague, Division, LeagueSeason, ChildLeagueSeason, LeagueClan, User]),
         JwtModule.registerAsync({
             imports: [ConfigModule],
             useFactory: async (config: AppConfig) => ({
