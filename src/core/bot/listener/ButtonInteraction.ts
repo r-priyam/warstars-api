@@ -24,10 +24,11 @@ export default class MessageListener extends Listener {
                 'UPDATE league SET is_verified = true WHERE abbreviation = $1 RETURNING league_id, name, abbreviation, discord_id',
                 [abbreviation]
             );
-            await db.query('INSERT INTO league_admin (discord_id, league_id, permissions) VALUES($1, $2, $3)', [
+            await db.query('INSERT INTO league_admin (discord_id, league_id, permissions, head_admin) VALUES($1, $2, $3, $4)', [
                 leagueData[0][0].discord_id,
                 leagueData[0][0].league_id,
-                1024
+                8,
+                true
             ]);
             const verifiedEmbed = new MessageEmbed()
                 .setColor('#2ECC71')

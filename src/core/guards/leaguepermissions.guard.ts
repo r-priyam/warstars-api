@@ -38,8 +38,7 @@ export class LeaguePermission implements CanActivate {
             32: check.manageClans,
             64: check.manageWarData,
             128: check.manageSeason,
-            256: check.manageLeague,
-            1024: check.manageLeague
+            256: check.manageLeague
         };
         if (!checks[requiredPermissions[0]]) throw new UnauthorizedException("You aren't allowed to perform this action.");
         return true;

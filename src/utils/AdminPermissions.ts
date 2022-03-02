@@ -7,8 +7,7 @@ export enum Permission {
     MANAGE_CLANS = 1 << 5,
     MANAGE_WAR_DATA = 1 << 6,
     MANAGE_SEASON = 1 << 7,
-    MANAGE_LEAGUE = 1 << 8,
-    HEAD_ADMIN = 1 << 10
+    MANAGE_LEAGUE = 1 << 8
 }
 
 export class AdminPermissions {
@@ -26,14 +25,13 @@ export class AdminPermissions {
     private MANAGE_WAR_DATA = 1 << 6;
     private MANAGE_SEASON = 1 << 7;
     private MANAGE_LEAGUE = 1 << 8;
-    private HEAD_ADMIN = 1 << 10; // League head, hoisted at 1024
 
     public get manageAdmins(): boolean {
-        return (this.permissionsValue & this.MANAGE_ADMINS) === this.MANAGE_ADMINS;
+        return (this.permissionsValue & this.MANAGE_ADMINS) === this.MANAGE_ADMINS || this.administrator;
     }
 
     public get managePermissions(): boolean {
-        return (this.permissionsValue & this.MANAGE_PERMISSIONS) === this.MANAGE_PERMISSIONS;
+        return (this.permissionsValue & this.MANAGE_PERMISSIONS) === this.MANAGE_PERMISSIONS || this.administrator;
     }
 
     public get administrator(): boolean {
@@ -41,30 +39,26 @@ export class AdminPermissions {
     }
 
     public get manageChildLeagues(): boolean {
-        return (this.permissionsValue & this.MANAGE_CHILD_LEAGUES) === this.MANAGE_CHILD_LEAGUES;
+        return (this.permissionsValue & this.MANAGE_CHILD_LEAGUES) === this.MANAGE_CHILD_LEAGUES || this.administrator;
     }
 
     public get manageChildDivisions(): boolean {
-        return (this.permissionsValue & this.MANAGE_CHILD_DIVISIONS) === this.MANAGE_CHILD_DIVISIONS;
+        return (this.permissionsValue & this.MANAGE_CHILD_DIVISIONS) === this.MANAGE_CHILD_DIVISIONS || this.administrator;
     }
 
     public get manageClans(): boolean {
-        return (this.permissionsValue & this.MANAGE_CLANS) === this.MANAGE_CLANS;
+        return (this.permissionsValue & this.MANAGE_CLANS) === this.MANAGE_CLANS || this.administrator;
     }
 
     public get manageWarData(): boolean {
-        return (this.permissionsValue & this.MANAGE_WAR_DATA) === this.MANAGE_WAR_DATA;
+        return (this.permissionsValue & this.MANAGE_WAR_DATA) === this.MANAGE_WAR_DATA || this.administrator;
     }
 
     public get manageSeason(): boolean {
-        return (this.permissionsValue & this.MANAGE_SEASON) === this.MANAGE_SEASON;
+        return (this.permissionsValue & this.MANAGE_SEASON) === this.MANAGE_SEASON || this.administrator;
     }
 
     public get manageLeague(): boolean {
-        return (this.permissionsValue & this.MANAGE_LEAGUE) === this.MANAGE_LEAGUE;
-    }
-
-    public get headAdmin(): boolean {
-        return (this.permissionsValue & this.HEAD_ADMIN) === this.HEAD_ADMIN;
+        return (this.permissionsValue & this.MANAGE_LEAGUE) === this.MANAGE_LEAGUE || this.administrator;
     }
 }
