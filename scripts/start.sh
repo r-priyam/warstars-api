@@ -7,6 +7,7 @@ cd ../
 if [[ $1 == 'dev' ]];
 then
   echo "${BLUE}Starting docker for development"
+  docker-compose -f docker-compose.dev.yml build
   docker-compose -f docker-compose.dev.yml up
 
 elif [[ $1 == 'prod' ]];
