@@ -15,7 +15,7 @@ export class AdminService {
     ) {}
 
     public async admins(leagueId: number) {
-        const query = `SELECT t1.id, t1.discord_id AS "discordId", t1.league_id AS "leagueId", t1.permissions, t1.head_admin AS "headAdmin" t1.added_at AS "addedAt", 
+        const query = `SELECT t1.id, t1.discord_id AS "discordId", t1.league_id AS "leagueId", t1.permissions, t1.head_admin AS "headAdmin", t1.added_at AS "addedAt", 
 			t2.user_name AS "username", t2.discriminator, t2.avatar 
 			FROM league_admin t1 LEFT JOIN users t2 USING(discord_id) 
 			WHERE t1.league_id = $1`;
