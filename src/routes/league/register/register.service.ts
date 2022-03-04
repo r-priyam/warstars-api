@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
-import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
 import { Repository } from 'typeorm';
 
 import { ChildLeague, Division, League } from '~/database';
@@ -13,7 +12,6 @@ export class RegisterService {
         @InjectRepository(League) private leagueDb: Repository<League>,
         @InjectRepository(ChildLeague) private childLeagueDb: Repository<ChildLeague>,
         @InjectRepository(Division) private divisionDb: Repository<Division>,
-        @OgmaLogger(RegisterService) private readonly logger: OgmaService,
         private eventEmitter: EventEmitter2
     ) {}
 

@@ -1,6 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
 import { Repository } from 'typeorm';
 
 import { ClashService } from '~/core/clash/clash.service';
@@ -20,7 +19,6 @@ export class SeasonService {
         @InjectRepository(LeagueClan) private leagueClanDb: Repository<LeagueClan>,
         @InjectRepository(LeagueSeason) private leagueSeasonDb: Repository<LeagueSeason>,
         @InjectRepository(ChildLeagueSeason) private childSeasonDb: Repository<ChildLeagueSeason>,
-        @OgmaLogger(SeasonService) private readonly logger: OgmaService,
         private readonly clash: ClashService
     ) {}
 

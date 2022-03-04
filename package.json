@@ -15,6 +15,7 @@
     "start:prod": "node dist/main",
     "lint": "eslint \"**/*.{ts,js}\"",
     "lint:fix": "eslint \"**/*.{ts,js}\" --fix",
+    "typecheck": "tsc --noemit",
     "release": "bumpp package.json package-lock.json --commit --push --tag"
   },
   "dependencies": {

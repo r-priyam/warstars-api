@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OgmaModule } from '@ogma/nestjs-module';
 
 import { BotModule } from '~/core/bot/bot.module';
 import { ClashModule } from '~/core/clash/clash.module';
@@ -23,7 +22,6 @@ import { SeasonService } from './season/season.service';
     imports: [
         ClashModule,
         BotModule,
-        OgmaModule.forFeatures([AdminService, CoreService, RegisterService, SeasonService]),
         TypeOrmModule.forFeature([LeagueAdmin, League, ChildLeague, Division, LeagueSeason, ChildLeagueSeason, LeagueClan, User]),
         JwtModule.registerAsync({
             imports: [ConfigModule],

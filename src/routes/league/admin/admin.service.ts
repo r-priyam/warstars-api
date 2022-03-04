@@ -1,6 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
-import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
 import { Connection, Repository } from 'typeorm';
 
 import { LeagueAdmin, User } from '~/database';
@@ -9,7 +8,6 @@ import { LeagueAdmin, User } from '~/database';
 export class AdminService {
     constructor(
         @InjectRepository(LeagueAdmin) private leagueAdminDb: Repository<LeagueAdmin>,
-        @OgmaLogger(AdminService) private readonly logger: OgmaService,
         @InjectConnection() private readonly db: Connection,
         @InjectRepository(User) private userDb: Repository<User>
     ) {}

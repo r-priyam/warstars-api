@@ -1,6 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
 import { Clan, Util } from 'clashofclans.js';
 import { FastifyRequest } from 'fastify';
 import { Repository } from 'typeorm';
@@ -10,11 +9,7 @@ import { UserClan } from '~/database';
 
 @Injectable()
 export class ClanService {
-    constructor(
-        @InjectRepository(UserClan) private clanDb: Repository<UserClan>,
-        @OgmaLogger(ClanService) private readonly logger: OgmaService,
-        private readonly clash: ClashService
-    ) {}
+    constructor(@InjectRepository(UserClan) private clanDb: Repository<UserClan>, private readonly clash: ClashService) {}
 
     private coc = this.clash.clashClient;
 

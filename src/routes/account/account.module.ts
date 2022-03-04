@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OgmaModule } from '@ogma/nestjs-module';
 
 import { ClashModule } from '~/core/clash/clash.module';
 import { UserClan, UserPlayer } from '~/database';
@@ -11,7 +10,7 @@ import { PlayerController } from './player/player.contoller';
 import { PlayerService } from './player/player.service';
 
 @Module({
-    imports: [ClashModule, OgmaModule.forFeatures([ClanService, PlayerService]), TypeOrmModule.forFeature([UserClan, UserPlayer])],
+    imports: [ClashModule, TypeOrmModule.forFeature([UserClan, UserPlayer])],
     controllers: [ClanController, PlayerController],
     providers: [ClanService, PlayerService]
 })
