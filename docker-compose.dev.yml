@@ -1,9 +1,21 @@
 version: '3.9'
+
+x-logging: &logging
+  logging:
+    driver: "json-file"
+    options:
+      max-file: "1"
+      max-size: "10m"
+
+x-restart-policy: &restart_policy
+  restart: unless-stopped
+
 services:
   postgres:
+    << : *logging
+    << : *restart_policy
     image: postgres:14-alpine
     container_name: warstars-database
-    restart: always
     ports:
       - "5433:5433"
     env_file:
@@ -14,6 +26,8 @@ services:
       - PGDATA=/var/lib/postgresql/data
 
   api:
+    << : *logging
+    << : *restart_policy
     container_name: warstars-api
     env_file:
       - .env
