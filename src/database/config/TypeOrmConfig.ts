@@ -20,7 +20,7 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
             password: this.database.password,
             database: this.database.name,
             entities,
-            synchronize: this.config.isDevelopment,
+            synchronize: true,
             keepConnectionAlive: true,
             extra: { min: 10, max: 20, idleTimeoutMillis: 0 },
             namingStrategy: new CustomNamingStrategy()
