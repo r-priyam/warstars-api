@@ -32,7 +32,7 @@ export class AdminService {
         await this.checkHeadAdmin(leagueId, userDiscordId);
         const check = await this.userDb.query('SELECT EXISTS(SELECT 1 FROM users WHERE discord_id = $1)', [discordId]);
 
-        if (!check) throw new HttpException('User is not yet registered on this site.', HttpStatus.NOT_FOUND);
+        if (!check[0].exists) throw new HttpException('User is not yet registered on this site.', HttpStatus.NOT_FOUND);
         try {
             return await this.leagueAdminDb
                 .createQueryBuilder()

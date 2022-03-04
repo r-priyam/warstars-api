@@ -45,7 +45,7 @@ export class SeasonService {
             [data.leagueId]
         );
 
-        if (check)
+        if (check[0].exists)
             throw new HttpException('One season is active at the moment. Please end it first to start new season', HttpStatus.BAD_REQUEST);
 
         data.specificId = await this.leagueSeasonDb
@@ -88,7 +88,7 @@ export class SeasonService {
             [data.childLeagueId]
         );
 
-        if (check)
+        if (check[0].exists)
             throw new HttpException('One season is active at the moment. Please end it first to start new season', HttpStatus.BAD_REQUEST);
 
         data.specificId = await this.childSeasonDb
