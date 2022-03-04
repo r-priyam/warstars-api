@@ -1,8 +1,7 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Req } from '@nestjs/common';
+import { FastifyRequest } from 'fastify';
 
 import { Authenticated } from '~/core/decorators/auth.decorator';
-import { Permissions } from '~/core/decorators/leaguepermissions.decorator';
-import { Permission } from '~/utils/AdminPermissions';
 
 import { AdminService } from './admin.service';
 
@@ -18,22 +17,27 @@ export class AdminController {
     @Post('add-admin')
     @Authenticated()
     @HttpCode(200)
-    @Permissions(Permission.MANAGE_ADMINS)
-    async addAdmin(@Body() payload: { discordId: string; leagueId: number; permissions: number }) {
-        return await this.adminService.addAdmin(payload.discordId, payload.leagueId, payload.permissions);
+    async addAdmin(@Req() request: FastifyRequest, @Body() payload: { discordId: string; leagueId: number; permissions: number }) {
+        return await this.adminService.addAdmin(request.session.user.discordId, payload.discordId, payload.leagueId, payload.permissions);
     }
 
     @Put('update-permission')
     @Authenticated()
-    @Permissions(Permission.MANAGE_ADMINS)
-    async updateAdminPermission(@Body() payload: { leagueId: number; adminId: number; permissions: number }) {
-        return await this.adminService.updateAdminPermissions(payload.leagueId, payload.adminId, payload.permissions);
+    async updateAdminPermission(
+        @Req() request: FastifyRequest,
+        @Body() payload: { leagueId: number; adminId: number; permissions: number }
+    ) {
+        return await this.adminService.updateAdminPermissions(
+            request.session.user.discordId,
+            payload.leagueId,
+            payload.adminId,
+            payload.permissions
+        );
     }
 
     @Delete('remove-admin')
     @Authenticated()
-    @Permissions(Permission.MANAGE_ADMINS)
-    async removeAdmin(@Body() payload: { adminId: number; leagueId: number }) {
-        return await this.adminService.removeAdmin(payload.adminId, payload.leagueId);
+    async removeAdmin(@Req() request: FastifyRequest, @Body() payload: { adminId: number; leagueId: number }) {
+        return await this.adminService.removeAdmin(request.session.user.discordId, payload.adminId, payload.leagueId);
     }
 }

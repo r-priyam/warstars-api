@@ -30,15 +30,13 @@ export class LeaguePermission implements CanActivate {
 
         const check = new AdminPermissions(leaguePermission.permissions);
         const checks: Record<number, boolean> = {
-            1: check.manageAdmins,
-            2: check.managePermissions,
-            4: check.manageChildDivisions,
+            2: check.manageChildDivisions,
+            4: check.manageChildLeagues,
             8: check.administrator,
-            16: check.manageChildLeagues,
-            32: check.manageClans,
-            64: check.manageWarData,
-            128: check.manageSeason,
-            256: check.manageLeague
+            16: check.manageClans,
+            32: check.manageWarData,
+            64: check.manageSeason,
+            128: check.manageLeague
         };
         if (!checks[requiredPermissions[0]]) throw new UnauthorizedException("You aren't allowed to perform this action.");
         return true;

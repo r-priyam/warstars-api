@@ -1,13 +1,11 @@
 export enum Permission {
-    MANAGE_ADMINS = 1 << 0,
-    MANAGE_PERMISSIONS = 1 << 1,
+    MANAGE_CHILD_DIVISIONS = 1 << 1,
+    MANAGE_CHILD_LEAGUES = 1 << 2,
     ADMINISTRATOR = 1 << 3,
-    MANAGE_CHILD_LEAGUES = 1 << 4,
-    MANAGE_CHILD_DIVISIONS = 1 << 2,
-    MANAGE_CLANS = 1 << 5,
-    MANAGE_WAR_DATA = 1 << 6,
-    MANAGE_SEASON = 1 << 7,
-    MANAGE_LEAGUE = 1 << 8
+    MANAGE_CLANS = 1 << 4,
+    MANAGE_WAR_DATA = 1 << 5,
+    MANAGE_SEASON = 1 << 6,
+    MANAGE_LEAGUE = 1 << 7
 }
 
 export class AdminPermissions {
@@ -16,23 +14,13 @@ export class AdminPermissions {
     }
 
     private readonly permissionsValue: number;
-    private MANAGE_ADMINS = 1 << 0;
-    private MANAGE_PERMISSIONS = 1 << 1;
-    private ADMINISTRATOR = 1 << 3; // all powers, just below the boss
-    private MANAGE_CHILD_LEAGUES = 1 << 4;
-    private MANAGE_CHILD_DIVISIONS = 1 << 2;
-    private MANAGE_CLANS = 1 << 5;
-    private MANAGE_WAR_DATA = 1 << 6;
-    private MANAGE_SEASON = 1 << 7;
-    private MANAGE_LEAGUE = 1 << 8;
-
-    public get manageAdmins(): boolean {
-        return (this.permissionsValue & this.MANAGE_ADMINS) === this.MANAGE_ADMINS || this.administrator;
-    }
-
-    public get managePermissions(): boolean {
-        return (this.permissionsValue & this.MANAGE_PERMISSIONS) === this.MANAGE_PERMISSIONS || this.administrator;
-    }
+    private MANAGE_CHILD_DIVISIONS = 1 << 1;
+    private MANAGE_CHILD_LEAGUES = 1 << 2;
+    private ADMINISTRATOR = 1 << 3;
+    private MANAGE_CLANS = 1 << 4;
+    private MANAGE_WAR_DATA = 1 << 5;
+    private MANAGE_SEASON = 1 << 6;
+    private MANAGE_LEAGUE = 1 << 7;
 
     public get administrator(): boolean {
         return (this.permissionsValue & this.ADMINISTRATOR) === this.ADMINISTRATOR;
