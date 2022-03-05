@@ -11,8 +11,7 @@ import { SessionGuard } from '~/core/guards/session.guard';
 import { LoggingModule } from '~/core/logging/logging.module';
 import { RedisModule } from '~/core/redis/redis.module';
 import { DatabaseModule } from '~/database/config/database.module';
-import { AccountModule, DiscordModule } from '~/routes';
-import { LeagueModule } from '~/routes/league/league.module';
+import { AccountModule, DiscordModule, LeagueModule } from '~/routes';
 
 import { AppController } from './app.controller';
 
