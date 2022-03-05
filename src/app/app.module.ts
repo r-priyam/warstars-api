@@ -9,6 +9,7 @@ import { AppConfig } from '~/core/config/env.getters';
 import { LeaguePermission } from '~/core/guards/leaguepermissions.guard';
 import { SessionGuard } from '~/core/guards/session.guard';
 import { LoggingModule } from '~/core/logging/logging.module';
+import { RedisModule } from '~/core/redis/redis.module';
 import { DatabaseModule } from '~/database/config/database.module';
 import { AccountModule, DiscordModule } from '~/routes';
 import { LeagueModule } from '~/routes/league/league.module';
@@ -35,7 +36,8 @@ import { AppController } from './app.controller';
                 path: 'league',
                 module: LeagueModule
             }
-        ])
+        ]),
+        RedisModule
     ],
     controllers: [AppController],
     providers: [AppConfig, { provide: APP_GUARD, useClass: SessionGuard }, { provide: APP_GUARD, useClass: LeaguePermission }],

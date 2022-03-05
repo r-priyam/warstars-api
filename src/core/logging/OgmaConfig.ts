@@ -11,9 +11,15 @@ export class OgmaModuleConfig implements ModuleConfigFactory<OgmaModuleOptions> 
     constructor(private readonly config: AppConfig) {}
 
     createModuleConfig(): OgmaModuleOptions {
-        const config = { color: this.config.isDevelopment, application: this.config.appName, json: !this.config.isDevelopment };
+        const config = {
+            color: this.config.isDevelopment,
+            application: this.config.appName,
+            json: !this.config.isDevelopment
+        };
         return {
-            service: this.config.isDevelopment ? config : { ...config, stream: createWriteStream('./logs/app.log') },
+            service: this.config.isDevelopment
+                ? { logLevel: 'DEBUG', ...config }
+                : { logLevel: 'INFO', stream: createWriteStream('./logs/app.log'), ...config },
             interceptor: {
                 http: FastifyParser
             }

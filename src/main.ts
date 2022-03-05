@@ -12,6 +12,7 @@ import { AppModule } from './app/app.module';
 import { BotService } from './core/bot/bot.service';
 import { ClashService } from './core/clash/clash.service';
 import { AppConfig } from './core/config/env.getters';
+import { RedisService } from './core/redis/redis.service';
 import { DatabaseSession } from './database';
 
 async function main() {
@@ -24,10 +25,12 @@ async function main() {
     const logger = app.get<OgmaService>(OgmaService);
     const sessionStore = getRepository(DatabaseSession);
     const clashClient = app.get<ClashService>(ClashService);
+    const redisClient = app.get<RedisService>(RedisService);
 
     app.useLogger(logger);
     app.enableCors({ origin: config.corsOrigins, credentials: true });
     await discord.init();
+    await redisClient.init();
     await clashClient.init();
 
     await app.register(fastifyHelmet);
