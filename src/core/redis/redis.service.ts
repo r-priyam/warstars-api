@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
+import { style } from '@ogma/styler';
 import { createClient } from 'redis';
 
 @Injectable()
@@ -23,12 +24,28 @@ export class RedisService {
     public async set(key: string, value: string, expiry?: number) {
         if (!expiry) await this.client.set(key, value);
         await this.client.set(key, value, { EX: expiry });
+
+        this.logger.debug(
+            `${style.green.bold.apply('Cached Data')} | 
+            ${style.yellow.bold.apply('KEY:')} ${key} | 
+            ${style.red.bold.apply('EXPIRY:')} ${expiry} | 
+            ${style.blue.bold.apply('VALUE:')} 
+            ${JSON.stringify(value).substring(0, 40)} ...`.replace(/\n|\r|\s+/g, ' ')
+        );
+        return true;
     }
 
     public async get(key: string) {
         const data = await this.client.get(key);
 
         if (data === null) return null;
-        else return JSON.parse(data);
+
+        this.logger.debug(
+            `${style.color(214).bold.apply('Returning Cached Data')} | 
+            ${style.yellow.bold.apply('KEY:')} ${key} | 
+            ${style.blue.bold.apply('DATA:')} ${data.substring(0, 40)} ...`.replace(/\n|\r|\s+/g, ' ')
+        );
+
+        return JSON.parse(data);
     }
 }
