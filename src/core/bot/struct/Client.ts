@@ -5,7 +5,7 @@ import * as path from 'path';
 export default class Client extends AkairoClient {
     public commandHandler: CommandHandler = new CommandHandler(this, {
         directory: path.join(__dirname, '..', 'commands'),
-        prefix: '!',
+        prefix: process.env.ENV === 'development' ? '?' : '!',
         aliasReplacement: /-/g,
         allowMention: true,
         fetchMembers: true,
