@@ -3,6 +3,8 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 
 import { AppConfig } from '~/core/config/env.getters';
 import { Authenticated } from '~/core/decorators/auth.decorator';
+import { Cache } from '~/core/decorators/cacheset.decorator';
+import { CACHE_SET_VALUES } from '~/utils/CacheConstants';
 
 import { CoreService } from './core.service';
 
@@ -21,6 +23,7 @@ export class CoreController {
     }
 
     @Get('user-leagues')
+    @Cache(CACHE_SET_VALUES.USER_LEAGUES)
     @Authenticated()
     async userLeagues(@Req() request: FastifyRequest) {
         return await this.coreService.getUserLeagues(request.session.user.discordId);

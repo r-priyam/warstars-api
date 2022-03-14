@@ -2,6 +2,8 @@ import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Req } from '
 import { FastifyRequest } from 'fastify';
 
 import { Authenticated } from '~/core/decorators/auth.decorator';
+import { Cache } from '~/core/decorators/cacheset.decorator';
+import { CACHE_SET_VALUES } from '~/utils/CacheConstants';
 
 import { AdminService } from './admin.service';
 
@@ -10,6 +12,7 @@ export class AdminController {
     constructor(private readonly adminService: AdminService) {}
 
     @Get('admins/:leagueId')
+    @Cache(CACHE_SET_VALUES.LEAGUE_ADMINS)
     async admins(@Param('leagueId') leagueId: number) {
         return await this.adminService.admins(leagueId);
     }

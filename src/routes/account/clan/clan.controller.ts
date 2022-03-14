@@ -2,6 +2,8 @@ import { Body, Controller, Delete, Get, HttpCode, Post, Req } from '@nestjs/comm
 import { FastifyRequest } from 'fastify';
 
 import { Authenticated } from '~/core/decorators/auth.decorator';
+import { Cache } from '~/core/decorators/cacheset.decorator';
+import { CACHE_SET_VALUES } from '~/utils/CacheConstants';
 
 import { ClanService } from './clan.service';
 
@@ -11,6 +13,7 @@ export class ClanController {
 
     @Get('clans')
     @Authenticated()
+    @Cache(CACHE_SET_VALUES.USER_CLANS)
     async userClans(@Req() request: FastifyRequest) {
         return await this.clanService.userClans(request);
     }

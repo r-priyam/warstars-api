@@ -21,18 +21,26 @@ export class RedisService {
         await this.client.connect();
     }
 
-    public async set(key: string, value: string, expiry?: number) {
-        if (!expiry) await this.client.set(key, value);
-        await this.client.set(key, value, { EX: expiry });
-
+    public async set(key: string, ttl: number, value: string): Promise<boolean> {
         this.logger.debug(
-            `${style.green.bold.apply('Cached Data')} | 
+            `${style.green.bold.apply('Caching Data')} | 
             ${style.yellow.bold.apply('KEY:')} ${key} | 
-            ${style.red.bold.apply('EXPIRY:')} ${expiry} | 
+            ${style.red.bold.apply('ttl:')} ${ttl} | 
             ${style.blue.bold.apply('VALUE:')} 
             ${JSON.stringify(value).substring(0, 40)} ...`.replace(/\n|\r|\s+/g, ' ')
         );
-        return true;
+
+        let success = true;
+        try {
+            if (!ttl) {
+                await this.client.set(key, value);
+            } else {
+                await this.client.set(key, value, { EX: ttl });
+            }
+        } catch (_) {
+            success = false;
+        }
+        return success;
     }
 
     public async get(key: string) {

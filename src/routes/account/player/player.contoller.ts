@@ -2,6 +2,8 @@ import { Body, Controller, Delete, Get, HttpCode, Post, Req } from '@nestjs/comm
 import { FastifyRequest } from 'fastify';
 
 import { Authenticated } from '~/core/decorators/auth.decorator';
+import { Cache } from '~/core/decorators/cacheset.decorator';
+import { CACHE_SET_VALUES } from '~/utils/CacheConstants';
 
 import { PlayerService } from './player.service';
 
@@ -10,6 +12,7 @@ export class PlayerController {
     constructor(private readonly playerService: PlayerService) {}
 
     @Get('players')
+    @Cache(CACHE_SET_VALUES.USER_PLAYERS)
     @Authenticated()
     async userPlayers(@Req() request: FastifyRequest) {
         return await this.playerService.userPlayers(request);

@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
 
 import { Authenticated } from '~/core/decorators/auth.decorator';
+import { Cache } from '~/core/decorators/cacheset.decorator';
 import { Permissions } from '~/core/decorators/leaguepermissions.decorator';
 import { Permission } from '~/utils/AdminPermissions';
+import { CACHE_SET_VALUES } from '~/utils/CacheConstants';
 import {
     IEndChildSeason,
     IEndLeagueSeason,
@@ -24,11 +26,13 @@ export class SeasonController {
     }
 
     @Get('child-info/:seasonId')
+    @Cache(CACHE_SET_VALUES.CHILD_SEASON_INFO)
     async childSeasonInfo(@Param('seasonId') seasonId: number) {
         return await this.seasonService.childSeasonInfo(seasonId);
     }
 
     @Get('child-clans/:childId/:seasonId')
+    @Cache(CACHE_SET_VALUES.SEASON_CHILD_CLANS)
     async seasonChildClans(@Param('childId') childId: number, @Param('seasonId') seasonId: number) {
         return await this.seasonService.getChildSeasonClans(childId, seasonId);
     }
