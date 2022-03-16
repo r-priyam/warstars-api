@@ -27,14 +27,8 @@ export class DiscordController {
 
     @Get('user')
     @Authenticated()
-    user(@Req() request: FastifyRequest) {
-        return {
-            discordId: request.session.user.discordId,
-            username: request.session.user.username,
-            discriminator: request.session.user.discriminator,
-            avatar: request.session.user.avatar,
-            createdAt: request.session.user.createdAt
-        };
+    async user(@Req() request: FastifyRequest) {
+        return await this.discordService.user(request);
     }
 
     @Get('check')

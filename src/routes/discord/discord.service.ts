@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
 import * as CryptoJS from 'crypto-js';
 import { FastifyRequest } from 'fastify';
 import fetch from 'node-fetch';
-import { Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 
 import { AppConfig } from '~/core/config/env.getters';
 import { DatabaseSession, User } from '~/database';
@@ -14,6 +14,7 @@ export class DiscordService {
     constructor(
         private readonly config: AppConfig,
         @InjectRepository(User) private userDB: Repository<User>,
+        @InjectConnection() private readonly db: Connection,
         @InjectRepository(DatabaseSession) private sessionDB: Repository<DatabaseSession>
     ) {}
 
@@ -75,6 +76,20 @@ export class DiscordService {
         const tokens = this.encryptTokens(refreshData.access_token, refreshData.refresh_token);
         const user = await this.createUser(DiscordService.userData(userDiscordData, tokens));
         await this.createSession(request, user);
+    }
+
+    async user(request: FastifyRequest) {
+        const leagueCheck = await this.db.query('SELECT EXISTS(SELECT 1 FROM league_admin WHERE discord_id = $1)', [
+            request.session.user.discordId
+        ]);
+        return {
+            discordId: request.session.user.discordId,
+            username: request.session.user.username,
+            discriminator: request.session.user.discriminator,
+            avatar: request.session.user.avatar,
+            createdAt: request.session.user.createdAt,
+            showLeague: leagueCheck[0].exists
+        };
     }
 
     async userGuilds(request: FastifyRequest): Promise<IDiscordUserGuild> {
