@@ -39,7 +39,7 @@ services:
         env_file:
             - .env
         ports:
-            - '${PORT}:${PORT}'
+            - '8000:8000'
         volumes:
             - ./logs:/logs
         depends_on:
