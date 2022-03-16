@@ -17,8 +17,9 @@ export class DiscordController {
 
     @Get('callback')
     async callback(@Req() request: FastifyRequest, @Query() query: { code: string }, @Res() response: FastifyReply) {
-        if (!query.code)
+        if (!query.code) {
             throw new HttpException('No code received. Please return back to homepage and try to authorize again.', HttpStatus.BAD_REQUEST);
+        }
 
         await this.discordService.handleCallback(request, query.code);
         return response.status(302).redirect(this.config.discord.successRedirect);

@@ -21,6 +21,7 @@ export class PlayerService {
             .getMany();
 
         const playersData = [];
+        // TODO: fetch max 5 tags at a time
         const players = Util.allSettled(data.map((e) => this.coc.getPlayer(e.playerTag)));
 
         for (const player of await players) {
@@ -42,16 +43,22 @@ export class PlayerService {
     }
 
     public async linkPlayer(request: FastifyRequest, playerTag: string, apiToken: string) {
-        if (!Util.isValidTag(Util.formatTag(playerTag))) throw new HttpException('Invalid Player Tag!', HttpStatus.NOT_ACCEPTABLE);
+        if (!Util.isValidTag(Util.formatTag(playerTag))) {
+            throw new HttpException('Invalid Player Tag!', HttpStatus.NOT_ACCEPTABLE);
+        }
 
         let status: boolean;
         try {
             status = await this.coc.verifyPlayerToken(playerTag, apiToken);
         } catch (error) {
-            if (error.reason === 'notFound') throw new HttpException('Player Not Found!', HttpStatus.NOT_FOUND);
+            if (error.reason === 'notFound') {
+                throw new HttpException('Player Not Found!', HttpStatus.NOT_FOUND);
+            }
         }
 
-        if (!status) throw new HttpException('Invalid API Token!', HttpStatus.BAD_REQUEST);
+        if (!status) {
+            throw new HttpException('Invalid API Token!', HttpStatus.BAD_REQUEST);
+        }
 
         try {
             await this.playerDb
@@ -61,7 +68,9 @@ export class PlayerService {
                 .execute();
             return 'Player linked successfully';
         } catch (error) {
-            if (error.code === '23505') throw new HttpException('Player is already linked', HttpStatus.BAD_REQUEST);
+            if (error.code === '23505') {
+                throw new HttpException('Player is already linked', HttpStatus.BAD_REQUEST);
+            }
         }
     }
 
@@ -70,6 +79,8 @@ export class PlayerService {
             request.session.user.discordId,
             Util.formatTag(playerTag)
         ]);
-        if (data[1] === 0) throw new HttpException('Player Tag not linked!', HttpStatus.CONFLICT);
+        if (data[1] === 0) {
+            throw new HttpException('Player Tag not linked!', HttpStatus.CONFLICT);
+        }
     }
 }

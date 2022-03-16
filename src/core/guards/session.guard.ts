@@ -14,17 +14,23 @@ export class SessionGuard implements CanActivate {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const checkAuth = this.reflector.getAllAndOverride(AUTH_KEY, [context.getHandler(), context.getClass()]);
-        if (!checkAuth) return true;
+        if (!checkAuth) {
+            return true;
+        }
 
         const request: FastifyRequest = context.switchToHttp().getRequest();
         const session = request.session;
 
-        if (!session) throw new UnauthorizedException('You must log in to use this feature.');
+        if (!session) {
+            throw new UnauthorizedException('You must log in to use this feature.');
+        }
 
         const sessionRepository = getRepository(DatabaseSession);
         const sessionStore = await sessionRepository.findOne({ id: session.sessionId });
 
-        if (!sessionStore) throw new UnauthorizedException('You must log in to use this feature.');
+        if (!sessionStore) {
+            throw new UnauthorizedException('You must log in to use this feature.');
+        }
 
         if (sessionStore.expiredAt < Date.now()) {
             await sessionRepository.delete(sessionStore);

@@ -46,7 +46,9 @@ export class RedisService {
     public async get(key: string) {
         const data = await this.client.get(key);
 
-        if (data === null) return null;
+        if (data === null) {
+            return null;
+        }
 
         this.logger.debug(
             `${style.color(214).bold.apply('Returning Cached Data')} | 

@@ -20,6 +20,7 @@ export class ClanService {
             .getMany();
 
         const clansData = [];
+        // TODO: fetch max 5 tags at a time
         const clans = Util.allSettled(data.map((e) => this.coc.getClan(e.clanTag)));
 
         for (const clan of await clans) {
@@ -41,13 +42,17 @@ export class ClanService {
     }
 
     public async linkClan(request: FastifyRequest, clanTag: string) {
-        if (!Util.isValidTag(Util.formatTag(clanTag))) throw new HttpException('Invalid Clan Tag!', HttpStatus.NOT_ACCEPTABLE);
+        if (!Util.isValidTag(Util.formatTag(clanTag))) {
+            throw new HttpException('Invalid Clan Tag!', HttpStatus.NOT_ACCEPTABLE);
+        }
 
         let clan: Clan;
         try {
             clan = await this.coc.getClan(clanTag);
         } catch (error) {
-            if (error.reason === 'notFound') throw new HttpException('Clan Not Found!', HttpStatus.NOT_FOUND);
+            if (error.reason === 'notFound') {
+                throw new HttpException('Clan Not Found!', HttpStatus.NOT_FOUND);
+            }
         }
 
         try {
@@ -57,7 +62,9 @@ export class ClanService {
                 .values([{ discordId: request.session.user.discordId, clanTag: clan.tag }])
                 .execute();
         } catch (error) {
-            if (error.code === '23505') throw new HttpException('Clan is already linked', HttpStatus.BAD_REQUEST);
+            if (error.code === '23505') {
+                throw new HttpException('Clan is already linked', HttpStatus.BAD_REQUEST);
+            }
         }
     }
 
@@ -66,6 +73,8 @@ export class ClanService {
             request.session.user.discordId,
             Util.formatTag(clanTag)
         ]);
-        if (data[1] === 0) throw new HttpException('Clan Tag not linked!', HttpStatus.CONFLICT);
+        if (data[1] === 0) {
+            throw new HttpException('Clan Tag not linked!', HttpStatus.CONFLICT);
+        }
     }
 }

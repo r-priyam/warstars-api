@@ -9,7 +9,9 @@ export default class PermissionInhibitor extends Inhibitor {
     }
 
     public exec(message: Message) {
-        if (!message.guild) return false;
+        if (!message.guild) {
+            return false;
+        }
         return !(message.channel as TextChannel).permissionsFor(message.guild.me).has('SEND_MESSAGES');
     }
 }

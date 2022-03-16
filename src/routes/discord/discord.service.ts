@@ -40,7 +40,9 @@ export class DiscordService {
     private async createUser(data: ICreateUser): Promise<User> {
         const user = await this.userDB.findOne({ discordId: data.discordId });
 
-        if (user) return await this.updateUser(user, data);
+        if (user) {
+            return await this.updateUser(user, data);
+        }
 
         const newUser = this.userDB.create(data);
         return await this.userDB.save(newUser);
@@ -79,7 +81,9 @@ export class DiscordService {
         const accessToken = this.decryptToken(request.session.user.accessToken).toString(CryptoJS.enc.Utf8);
         const response = await fetch('https://discord.com/api/users/@me/guilds', { headers: { authorization: `Bearer ${accessToken}` } });
         const data = await response.json();
-        if (!response.ok) throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: data }, HttpStatus.BAD_REQUEST);
+        if (!response.ok) {
+            throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: data }, HttpStatus.BAD_REQUEST);
+        }
         return data;
     }
 
@@ -98,8 +102,11 @@ export class DiscordService {
             grant_type: grantType,
             redirect_uri: this.config.discord.redirectUrl
         });
-        if (code) body.append('code', code);
-        else body.append('refresh_token', refreshToken);
+        if (code) {
+            body.append('code', code);
+        } else {
+            body.append('refresh_token', refreshToken);
+        }
 
         const response = await fetch('https://discord.com/api/v8//oauth2/token', {
             method: 'POST',
@@ -108,14 +115,18 @@ export class DiscordService {
         });
 
         const data = await response.json();
-        if (!response.ok) throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: data }, HttpStatus.BAD_REQUEST);
+        if (!response.ok) {
+            throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: data }, HttpStatus.BAD_REQUEST);
+        }
         return data;
     }
 
     private static async getUserData(accessToken: string): Promise<IDiscordUser> {
         const response = await fetch('https://discord.com/api/users/@me', { headers: { authorization: `Bearer ${accessToken}` } });
         const data = await response.json();
-        if (!response.ok) throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: data }, HttpStatus.BAD_REQUEST);
+        if (!response.ok) {
+            throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: data }, HttpStatus.BAD_REQUEST);
+        }
         return data;
     }
 

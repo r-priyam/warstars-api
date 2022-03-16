@@ -26,7 +26,9 @@ export default class EvalCommand extends Command {
         const code = yield {
             match: 'rest',
             type: (_msg: Message, code: string) => {
-                if (!code) return Flag.cancel();
+                if (!code) {
+                    return Flag.cancel();
+                }
                 return code;
             }
         };
@@ -49,7 +51,9 @@ export default class EvalCommand extends Command {
         const result = this.result(evaled, hrDiff, depth);
         if (Array.isArray(result)) {
             return result.map(async (res, index) => {
-                if (index === 0) return message.util!.send(res);
+                if (index === 0) {
+                    return message.util!.send(res);
+                }
                 return message.channel.send(res);
             });
         }

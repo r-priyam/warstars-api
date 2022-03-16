@@ -12,8 +12,12 @@ export default class MessageListener extends Listener {
     }
 
     public async exec(interaction: Interaction) {
-        if (!interaction.isButton()) return;
-        if (!interaction.customId.startsWith('APPROVE_') && !interaction.customId.startsWith('DECLINE_')) return;
+        if (!interaction.isButton()) {
+            return;
+        }
+        if (!interaction.customId.startsWith('APPROVE_') && !interaction.customId.startsWith('DECLINE_')) {
+            return;
+        }
 
         const db = getConnection();
         const user = interaction.member as GuildMember;

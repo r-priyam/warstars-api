@@ -17,16 +17,22 @@ export class LeaguePermission implements CanActivate {
             context.getClass()
         ]);
 
-        if (!requiredPermissions) return true;
+        if (!requiredPermissions) {
+            return true;
+        }
 
         const request: FastifyRequest = context.switchToHttp().getRequest();
         const { leagueid } = request.headers;
 
-        if (!leagueid) throw new BadRequestException('League Id is not present in request headers!');
+        if (!leagueid) {
+            throw new BadRequestException('League Id is not present in request headers!');
+        }
 
         const leaguePermission = await this.leagueCoreService.getUserLeaguePermission(request.session.user.discordId, +leagueid);
 
-        if (!leaguePermission) throw new UnauthorizedException("You aren't allowed to perform this action.");
+        if (!leaguePermission) {
+            throw new UnauthorizedException("You aren't allowed to perform this action.");
+        }
 
         const check = new AdminPermissions(leaguePermission.permissions);
         const checks: Record<number, boolean> = {
@@ -38,7 +44,9 @@ export class LeaguePermission implements CanActivate {
             64: check.manageSeason,
             128: check.manageLeague
         };
-        if (!checks[requiredPermissions[0]]) throw new UnauthorizedException("You aren't allowed to perform this action.");
+        if (!checks[requiredPermissions[0]]) {
+            throw new UnauthorizedException("You aren't allowed to perform this action.");
+        }
         return true;
     }
 }

@@ -45,8 +45,9 @@ export class SeasonService {
             [data.leagueId]
         );
 
-        if (check[0].exists)
+        if (check[0].exists) {
             throw new HttpException('One season is active at the moment. Please end it first to start new season', HttpStatus.BAD_REQUEST);
+        }
 
         data.specificId = await this.leagueSeasonDb
             .createQueryBuilder('season')
@@ -88,8 +89,9 @@ export class SeasonService {
             [data.childLeagueId]
         );
 
-        if (check[0].exists)
+        if (check[0].exists) {
             throw new HttpException('One season is active at the moment. Please end it first to start new season', HttpStatus.BAD_REQUEST);
+        }
 
         data.specificId = await this.childSeasonDb
             .createQueryBuilder('season')
@@ -134,7 +136,9 @@ export class SeasonService {
                 const clan = await this.coc.getClan(tag);
                 clanData[clan.tag] = clan.name;
             } catch (error) {
-                if (error.reason === 'notFound') throw new HttpException('Clan Not Found!', HttpStatus.NOT_FOUND);
+                if (error.reason === 'notFound') {
+                    throw new HttpException('Clan Not Found!', HttpStatus.NOT_FOUND);
+                }
             }
         }
 
@@ -156,7 +160,9 @@ export class SeasonService {
                     ])
                     .execute();
             } catch (error) {
-                if (error.code === '23505') throw new HttpException('Clan tag is already registered for season', HttpStatus.BAD_REQUEST);
+                if (error.code === '23505') {
+                    throw new HttpException('Clan tag is already registered for season', HttpStatus.BAD_REQUEST);
+                }
             }
         }
 

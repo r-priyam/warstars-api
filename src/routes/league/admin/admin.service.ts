@@ -17,7 +17,9 @@ export class AdminService {
             .createQueryBuilder('user')
             .where('user.discord_id = :discordId AND user.league_id = :leagueId', { discordId, leagueId })
             .getOne();
-        if (!data.headAdmin) throw new HttpException("You are't allowed to perform this action.", HttpStatus.UNAUTHORIZED);
+        if (!data.headAdmin) {
+            throw new HttpException("You are't allowed to perform this action.", HttpStatus.UNAUTHORIZED);
+        }
     }
 
     public async admins(leagueId: number) {
@@ -32,7 +34,9 @@ export class AdminService {
         await this.checkHeadAdmin(leagueId, userDiscordId);
         const check = await this.userDb.query('SELECT EXISTS(SELECT 1 FROM users WHERE discord_id = $1)', [discordId]);
 
-        if (!check[0].exists) throw new HttpException('User is not yet registered on this site.', HttpStatus.NOT_FOUND);
+        if (!check[0].exists) {
+            throw new HttpException('User is not yet registered on this site.', HttpStatus.NOT_FOUND);
+        }
         try {
             return await this.leagueAdminDb
                 .createQueryBuilder()
@@ -46,7 +50,9 @@ export class AdminService {
                 ])
                 .execute();
         } catch (error) {
-            if (error.code === '23505') throw new HttpException('User is already a super admin for this league!', HttpStatus.BAD_REQUEST);
+            if (error.code === '23505') {
+                throw new HttpException('User is already a super admin for this league!', HttpStatus.BAD_REQUEST);
+            }
         }
     }
 

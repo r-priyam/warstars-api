@@ -8,6 +8,8 @@ export const validate = (config: Record<string, unknown>): ConfigEnvironment => 
 
     const errors = validateSync(validatedConfig, { skipMissingProperties: false });
 
-    if (errors.length > 0) throw new Error(errors.map((error) => error.toString()).join('\n'));
+    if (errors.length > 0) {
+        throw new Error(errors.map((error) => error.toString()).join('\n'));
+    }
     return validatedConfig;
 };

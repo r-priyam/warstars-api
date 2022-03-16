@@ -30,7 +30,9 @@ export default class LeagueIconCommand extends Command {
     }
 
     public async exec(message: Message, { leagueId, iconUrl }: { leagueId?: number; iconUrl: string }) {
-        if (!leagueId || !iconUrl) return message.util.send('**Please provide `League ID` and `Icon Url`**');
+        if (!leagueId || !iconUrl) {
+            return message.util.send('**Please provide `League ID` and `Icon Url`**');
+        }
         const db = getConnection();
 
         await db.query('UPDATE league SET icon_url = $1 WHERE league_id = $2', [iconUrl, leagueId]);

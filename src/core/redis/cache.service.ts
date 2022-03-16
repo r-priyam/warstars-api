@@ -27,7 +27,9 @@ export class CacheService implements Omit<Store, 'delete' | 'clear'> {
 
     public async get(key: string) {
         const data = await this.redis.get(key);
-        if (data === null) return null;
+        if (data === null) {
+            return null;
+        }
 
         this.logger.debug(
             `${style.color(214).bold.apply('Returning Cached Data')} | 
