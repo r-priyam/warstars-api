@@ -1,9 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { ClashService } from '~/core/clash/clash.service';
 import { ChildLeagueSeason, LeagueClan, LeagueSeason } from '~/database';
+import { EVENT_VALUES } from '~/utils/Constants';
 import {
     IEndChildSeason,
     IEndLeagueSeason,
@@ -19,20 +21,21 @@ export class SeasonService {
         @InjectRepository(LeagueClan) private leagueClanDb: Repository<LeagueClan>,
         @InjectRepository(LeagueSeason) private leagueSeasonDb: Repository<LeagueSeason>,
         @InjectRepository(ChildLeagueSeason) private childSeasonDb: Repository<ChildLeagueSeason>,
-        private readonly clash: ClashService
+        private readonly clash: ClashService,
+        private readonly eventEmitter: EventEmitter2
     ) {}
 
     private coc = this.clash.clashClient;
 
     public async seasonInfo(seasonId: number) {
-        return await this.leagueSeasonDb.createQueryBuilder('season').where('season.season_id = :seasonId', { seasonId }).getOne();
+        await this.leagueSeasonDb.createQueryBuilder('season').where('season.season_id = :seasonId', { seasonId }).getOne();
     }
 
     public async childSeasonInfo(seasonId: number) {
         return await this.childSeasonDb.createQueryBuilder('childSeason').where('childSeason.season_id = :seasonId', { seasonId }).getOne();
     }
 
-    public async getChildSeasonClans(childId: number, seasonId: number) {
+    public async getSeasonChildClans(childId: number, seasonId: number) {
         return await this.leagueClanDb
             .createQueryBuilder('clan')
             .where('clan.child_id = :childId AND clan.child_season_id = seasonId', { childId, seasonId })
@@ -98,7 +101,7 @@ export class SeasonService {
             .where('season.child_league_id = :childLeagueId', { childLeagueId: data.childLeagueId })
             .getCount();
 
-        await this.childSeasonDb
+        const newSeasonData = await this.childSeasonDb
             .createQueryBuilder()
             .insert()
             .values([
@@ -113,6 +116,7 @@ export class SeasonService {
                 }
             ])
             .execute();
+        this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_CHILD_SEASON_INFO, newSeasonData.generatedMaps[0].seasonId);
     }
 
     public async endLeagueSeason(data: IEndLeagueSeason) {
@@ -123,10 +127,11 @@ export class SeasonService {
     }
 
     public async endChildSeason(data: IEndChildSeason) {
-        return await this.childSeasonDb.query(
-            'UPDATE child_league_season SET is_active=False WHERE season_id = $1 AND child_league_id = $2',
-            [data.seasonId, data.childLeagueId]
-        );
+        await this.childSeasonDb.query('UPDATE child_league_season SET is_active=False WHERE season_id = $1 AND child_league_id = $2', [
+            data.seasonId,
+            data.childLeagueId
+        ]);
+        this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_CHILD_SEASON_INFO, data.seasonId);
     }
 
     public async addSeasonClans(data: ISeasonAddClan) {
@@ -144,7 +149,7 @@ export class SeasonService {
 
         if (data.clanTags.length === 1) {
             try {
-                return await this.leagueClanDb
+                await this.leagueClanDb
                     .createQueryBuilder()
                     .insert()
                     .values([
@@ -159,30 +164,32 @@ export class SeasonService {
                         }
                     ])
                     .execute();
+                this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_SEASON_CHILD_CLANS, data.childId, data.childSeasonId);
             } catch (error) {
                 if (error.code === '23505') {
                     throw new HttpException('Clan tag is already registered for season', HttpStatus.BAD_REQUEST);
                 }
             }
-        }
-
-        for (const tag in data.clanTags) {
-            await this.leagueClanDb
-                .createQueryBuilder()
-                .insert()
-                .values([
-                    {
-                        leagueId: data.leagueId,
-                        childId: data.childId,
-                        divisionId: data.divisionId || 0,
-                        leagueSeasonId: data.leagueSeasonId,
-                        childSeasonId: data.childSeasonId,
-                        name: clanData[tag],
-                        tag
-                    }
-                ])
-                .orIgnore()
-                .execute();
+        } else {
+            for (const tag in data.clanTags) {
+                await this.leagueClanDb
+                    .createQueryBuilder()
+                    .insert()
+                    .values([
+                        {
+                            leagueId: data.leagueId,
+                            childId: data.childId,
+                            divisionId: data.divisionId || 0,
+                            leagueSeasonId: data.leagueSeasonId,
+                            childSeasonId: data.childSeasonId,
+                            name: clanData[tag],
+                            tag
+                        }
+                    ])
+                    .orIgnore()
+                    .execute();
+                this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_SEASON_CHILD_CLANS, data.childId, data.childSeasonId);
+            }
         }
     }
 
@@ -192,5 +199,6 @@ export class SeasonService {
             data.childSeasonId,
             data.tag
         ]);
+        this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_SEASON_CHILD_CLANS, data.childId, data.childSeasonId);
     }
 }

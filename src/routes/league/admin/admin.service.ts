@@ -1,15 +1,18 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 
 import { LeagueAdmin, User } from '~/database';
+import { EVENT_VALUES } from '~/utils/Constants';
 
 @Injectable()
 export class AdminService {
     constructor(
         @InjectRepository(LeagueAdmin) private leagueAdminDb: Repository<LeagueAdmin>,
         @InjectConnection() private readonly db: Connection,
-        @InjectRepository(User) private userDb: Repository<User>
+        @InjectRepository(User) private userDb: Repository<User>,
+        private eventEmitter: EventEmitter2
     ) {}
 
     private async checkHeadAdmin(leagueId: number, discordId: string) {
@@ -38,7 +41,7 @@ export class AdminService {
             throw new HttpException('User is not yet registered on this site.', HttpStatus.NOT_FOUND);
         }
         try {
-            return await this.leagueAdminDb
+            await this.leagueAdminDb
                 .createQueryBuilder()
                 .insert()
                 .values([
@@ -49,6 +52,7 @@ export class AdminService {
                     }
                 ])
                 .execute();
+            this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_LEAGUE_ADMINS, leagueId);
         } catch (error) {
             if (error.code === '23505') {
                 throw new HttpException('User is already a super admin for this league!', HttpStatus.BAD_REQUEST);
@@ -64,10 +68,13 @@ export class AdminService {
             .set({ permissions })
             .where('league_id = :leagueId AND id = :adminId', { leagueId, adminId })
             .execute();
+        this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_LEAGUE_ADMINS, leagueId);
     }
 
-    public async removeAdmin(userDiscordId: string, adminId: number, leagueId: number) {
+    public async removeAdmin(userDiscordId: string, adminId: number, adminDiscordId: string, leagueId: number) {
         await this.checkHeadAdmin(leagueId, userDiscordId);
         await this.leagueAdminDb.query('DELETE FROM league_admin WHERE id = $1 AND league_id = $2', [adminId, leagueId]);
+        this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_LEAGUE_ADMINS, leagueId);
+        this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_USER_LEAGUES, adminDiscordId);
     }
 }

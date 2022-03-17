@@ -72,6 +72,7 @@ export class CoreService {
             }
             return userLeagues;
         }
+        return [];
     }
 
     public async getUserLeaguePermission(discordId: string, leagueId: number) {

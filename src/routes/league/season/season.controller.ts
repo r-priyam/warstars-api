@@ -34,7 +34,7 @@ export class SeasonController {
     @Get('child-clans/:childId/:seasonId')
     @Cache(CACHE_SET_VALUES.SEASON_CHILD_CLANS)
     async seasonChildClans(@Param('childId') childId: number, @Param('seasonId') seasonId: number) {
-        return await this.seasonService.getChildSeasonClans(childId, seasonId);
+        return await this.seasonService.getSeasonChildClans(childId, seasonId);
     }
 
     @Post('new')

@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { OgmaModule } from '@ogma/nestjs-module';
 
 import { BotModule } from '~/core/bot/bot.module';
 import { ClashModule } from '~/core/clash/clash.module';
 import { ConfigModule } from '~/core/config/config.module';
 import { AppConfig } from '~/core/config/env.getters';
 import { LoggingModule } from '~/core/logging/logging.module';
+import { CacheService } from '~/core/redis/cache.service';
+import { RedisModule } from '~/core/redis/redis.module';
 import {
     ChildLeague,
     ChildLeagueSeason,
@@ -24,6 +27,7 @@ import { ClanController } from './account/clan/clan.controller';
 import { ClanService } from './account/clan/clan.service';
 import { PlayerController } from './account/player/player.contoller';
 import { PlayerService } from './account/player/player.service';
+import { CacheUpdateListener } from './cache-event.listener';
 import { DiscordController } from './discord/discord.controller';
 import { DiscordService } from './discord/discord.service';
 import { AdminController } from './league/admin/admin.controller';
@@ -60,11 +64,13 @@ const LEAGUE_MODULE = {
 
 @Module({
     imports: [
+        RedisModule,
+        OgmaModule.forFeature(CacheService),
         ...new Set([...ACCOUNT_MODULE.imports, ...DISCORD_MODULE.imports, ...LEAGUE_MODULE.imports]),
         TypeOrmModule.forFeature([...new Set([...ACCOUNT_MODULE.entities, ...DISCORD_MODULE.entities, ...LEAGUE_MODULE.entities])])
     ],
     controllers: [...ACCOUNT_MODULE.controllers, ...DISCORD_MODULE.controllers, ...LEAGUE_MODULE.controllers],
-    providers: [...ACCOUNT_MODULE.providers, ...DISCORD_MODULE.providers, ...LEAGUE_MODULE.providers],
+    providers: [CacheService, CacheUpdateListener, ...ACCOUNT_MODULE.providers, ...DISCORD_MODULE.providers, ...LEAGUE_MODULE.providers],
     exports: [...ACCOUNT_MODULE.exports, ...DISCORD_MODULE.exports, ...LEAGUE_MODULE.exports]
 })
 export class RoutesModule {}

@@ -40,7 +40,12 @@ export class AdminController {
 
     @Delete('remove-admin')
     @Authenticated()
-    async removeAdmin(@Req() request: FastifyRequest, @Body() payload: { adminId: number; leagueId: number }) {
-        return await this.adminService.removeAdmin(request.session.user.discordId, payload.adminId, payload.leagueId);
+    async removeAdmin(@Req() request: FastifyRequest, @Body() payload: { adminId: number; adminDiscordId: string; leagueId: number }) {
+        return await this.adminService.removeAdmin(
+            request.session.user.discordId,
+            payload.adminId,
+            payload.adminDiscordId,
+            payload.leagueId
+        );
     }
 }

@@ -38,4 +38,9 @@ export class CacheService implements Omit<Store, 'delete' | 'clear'> {
         );
         return JSON.parse(data);
     }
+
+    public async delete(key: string) {
+        await this.redis.del(key);
+        this.logger.debug(`${style.red.bold.apply('Deleting Key')} | ${style.yellow.bold.apply('KEY:')} ${key}`);
+    }
 }
