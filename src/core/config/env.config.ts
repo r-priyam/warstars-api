@@ -35,8 +35,6 @@ export class ConfigEnvironment {
     @Length(64)
     SESSION_COOKIE_SECRET: string;
 
-    JWT_SECRET: string;
-
     @IsNotEmpty()
     @IsString()
     POSTGRES_HOST: string;

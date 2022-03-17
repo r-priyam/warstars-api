@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 
@@ -11,8 +10,7 @@ export class CoreService {
         @InjectRepository(League) private leagueDb: Repository<League>,
         @InjectRepository(ChildLeague) private childLeagueDb: Repository<ChildLeague>,
         @InjectRepository(LeagueAdmin) private adminDb: Repository<LeagueAdmin>,
-        @InjectConnection() private readonly db: Connection,
-        private readonly jwtService: JwtService
+        @InjectConnection() private readonly db: Connection
     ) {}
 
     public async getLeagueInfo(leagueId: number) {
@@ -88,8 +86,8 @@ export class CoreService {
 
     public async getUserLeaguePermissions(discordId: string) {
         const data = await this.adminDb.createQueryBuilder('user').where('user.discord_id = :discordId', { discordId }).getMany();
-        const payload = {};
-        data.forEach((league) => (payload[league.leagueId] = league.permissions));
-        return this.jwtService.sign({ ...payload });
+        const perms = {};
+        data.forEach((league) => (perms[league.leagueId] = league.permissions));
+        return perms;
     }
 }

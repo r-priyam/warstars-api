@@ -1,11 +1,8 @@
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { BotModule } from '~/core/bot/bot.module';
 import { ClashModule } from '~/core/clash/clash.module';
-import { ConfigModule } from '~/core/config/config.module';
-import { AppConfig } from '~/core/config/env.getters';
 import { ChildLeague, ChildLeagueSeason, Division, League, LeagueAdmin, LeagueClan, LeagueSeason, User } from '~/database';
 
 import { AdminController } from './admin/admin.controller';
@@ -22,14 +19,7 @@ import { SeasonService } from './season/season.service';
     imports: [
         ClashModule,
         BotModule,
-        TypeOrmModule.forFeature([LeagueAdmin, League, ChildLeague, Division, LeagueSeason, ChildLeagueSeason, LeagueClan, User]),
-        JwtModule.registerAsync({
-            imports: [ConfigModule],
-            useFactory: async (config: AppConfig) => ({
-                secret: config.jwtSecret
-            }),
-            inject: [AppConfig]
-        })
+        TypeOrmModule.forFeature([LeagueAdmin, League, ChildLeague, Division, LeagueSeason, ChildLeagueSeason, LeagueClan, User])
     ],
     controllers: [AdminController, CoreController, RegisterController, SeasonController],
     providers: [AdminService, CoreService, RegisterService, SeasonService, LeagueRegisterListener],

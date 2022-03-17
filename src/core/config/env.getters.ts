@@ -37,10 +37,6 @@ export class AppConfig {
         return this.configService.get('SESSION_COOKIE_SECRET');
     }
 
-    get jwtSecret(): string {
-        return this.configService.get('JWT_SECRET');
-    }
-
     get database(): {
         host: string;
         port: number;

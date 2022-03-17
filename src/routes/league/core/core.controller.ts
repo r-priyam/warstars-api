@@ -1,7 +1,6 @@
-import { Controller, Get, Param, Req, Res } from '@nestjs/common';
-import { FastifyReply, FastifyRequest } from 'fastify';
+import { Controller, Get, Param, Req } from '@nestjs/common';
+import { FastifyRequest } from 'fastify';
 
-import { AppConfig } from '~/core/config/env.getters';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Cache } from '~/core/decorators/cacheset.decorator';
 import { CACHE_SET_VALUES } from '~/utils/CacheConstants';
@@ -10,7 +9,7 @@ import { CoreService } from './core.service';
 
 @Controller('core')
 export class CoreController {
-    constructor(private readonly coreService: CoreService, private readonly config: AppConfig) {}
+    constructor(private readonly coreService: CoreService) {}
 
     @Get('league-info/:leagueId')
     async leagueInfo(@Param('leagueId') leagueId: number) {
@@ -31,8 +30,7 @@ export class CoreController {
 
     @Get('user-league-permissions')
     @Authenticated()
-    async userLeaguePermissions(@Req() request: FastifyRequest, @Res({ passthrough: true }) response: FastifyReply) {
-        const perms = await this.coreService.getUserLeaguePermissions(request.session.user.discordId);
-        response.setCookie('_league_permissions', perms, { maxAge: 180000, secure: false, path: '/', domain: this.config.cookieDomain });
+    async userLeaguePermissions(@Req() request: FastifyRequest) {
+        return await this.coreService.getUserLeaguePermissions(request.session.user.discordId);
     }
 }
