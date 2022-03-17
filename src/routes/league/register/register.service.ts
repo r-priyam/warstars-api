@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { ChildLeague, Division, League } from '~/database';
+import { EVENT_VALUES } from '~/utils/Constants';
 import { IRegisterChildLeague, IRegisterDivision, IRegisterLeague } from '~/utils/interfaces';
 
 @Injectable()
@@ -31,7 +32,7 @@ export class RegisterService {
                 .insert()
                 .values([{ ...data }])
                 .execute();
-            this.eventEmitter.emit('league.register', data);
+            this.eventEmitter.emit(EVENT_VALUES.LEAGUE_REGISTER, data);
         } catch (error) {
             if (error.code === '23505') {
                 throw new HttpException(`Abbreviation: ${data.abbreviation}  is already registered!`, HttpStatus.BAD_REQUEST);
