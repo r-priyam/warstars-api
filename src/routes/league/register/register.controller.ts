@@ -3,11 +3,12 @@ import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Permissions } from '~/core/decorators/leaguepermissions.decorator';
 import { Permission } from '~/utils/AdminPermissions';
+import { ROUTES_PREFIX } from '~/utils/Constants';
 import { IRegisterChildLeague, IRegisterDivision, IRegisterLeague } from '~/utils/interfaces';
 
 import { RegisterService } from './register.service';
 
-@Controller('register')
+@Controller(ROUTES_PREFIX.LEAGUE.REGISTER)
 export class RegisterController {
     constructor(private readonly registerService: RegisterService) {}
 

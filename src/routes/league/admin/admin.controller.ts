@@ -3,11 +3,11 @@ import { FastifyRequest } from 'fastify';
 
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Cache } from '~/core/decorators/cacheset.decorator';
-import { CACHE_SET_VALUES } from '~/utils/Constants';
+import { CACHE_SET_VALUES, ROUTES_PREFIX } from '~/utils/Constants';
 
 import { AdminService } from './admin.service';
 
-@Controller('admin')
+@Controller(ROUTES_PREFIX.LEAGUE.ADMIN)
 export class AdminController {
     constructor(private readonly adminService: AdminService) {}
 

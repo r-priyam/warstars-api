@@ -3,11 +3,11 @@ import { FastifyRequest } from 'fastify';
 
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Cache } from '~/core/decorators/cacheset.decorator';
-import { CACHE_SET_VALUES } from '~/utils/Constants';
+import { CACHE_SET_VALUES, ROUTES_PREFIX } from '~/utils/Constants';
 
 import { PlayerService } from './player.service';
 
-@Controller('player')
+@Controller(ROUTES_PREFIX.ACCOUNT.PLAYER)
 export class PlayerController {
     constructor(private readonly playerService: PlayerService) {}
 

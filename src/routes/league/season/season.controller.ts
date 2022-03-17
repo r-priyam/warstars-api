@@ -4,7 +4,7 @@ import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Cache } from '~/core/decorators/cacheset.decorator';
 import { Permissions } from '~/core/decorators/leaguepermissions.decorator';
 import { Permission } from '~/utils/AdminPermissions';
-import { CACHE_SET_VALUES } from '~/utils/Constants';
+import { CACHE_SET_VALUES, ROUTES_PREFIX } from '~/utils/Constants';
 import {
     IEndChildSeason,
     IEndLeagueSeason,
@@ -16,7 +16,7 @@ import {
 
 import { SeasonService } from './season.service';
 
-@Controller('season')
+@Controller(ROUTES_PREFIX.LEAGUE.SEASON)
 export class SeasonController {
     constructor(private readonly seasonService: SeasonService) {}
 

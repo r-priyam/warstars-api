@@ -7,4 +7,7 @@ export const CACHE_SET_VALUES = {
     SEASON_CHILD_CLANS: { key: 's/ch/c', ttl: 7 * 24 * 60 * 60000, paramCache: true }
 };
 
-export const CACHE_UPDATE_VALUES = {};
+export const ROUTES_PREFIX = {
+    ACCOUNT: { CLAN: 'account/clan', PLAYER: 'account/player' },
+    LEAGUE: { ADMIN: 'league/admin', CORE: 'league/core', REGISTER: 'league/register', SEASON: 'league/season' }
+};

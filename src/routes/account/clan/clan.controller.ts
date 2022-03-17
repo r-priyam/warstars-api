@@ -3,11 +3,11 @@ import { FastifyRequest } from 'fastify';
 
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Cache } from '~/core/decorators/cacheset.decorator';
-import { CACHE_SET_VALUES } from '~/utils/Constants';
+import { CACHE_SET_VALUES, ROUTES_PREFIX } from '~/utils/Constants';
 
 import { ClanService } from './clan.service';
 
-@Controller('clan')
+@Controller(ROUTES_PREFIX.ACCOUNT.CLAN)
 export class ClanController {
     constructor(private readonly clanService: ClanService) {}
 
