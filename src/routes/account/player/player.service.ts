@@ -21,23 +21,24 @@ export class PlayerService {
             .getMany();
 
         const playersData = [];
-        // TODO: fetch max 5 tags at a time
-        const players = Util.allSettled(data.map((e) => this.coc.getPlayer(e.playerTag)));
+        while (data.length !== 0) {
+            const players = Util.allSettled(data.splice(0, 5).map((e) => this.coc.getPlayer(e.playerTag)));
 
-        for (const player of await players) {
-            playersData.push({
-                name: player.name,
-                tag: player.tag,
-                trophies: player.trophies,
-                versusTrophies: player.versusTrophies,
-                clan: {
-                    name: player.clan?.name || 'No Clan',
-                    position: this.roles[player.role] || null,
-                    badge: player.clan?.badge.url || null
-                },
-                labels: Object.fromEntries(player.labels.map((label) => [label.name, label.icon.url])),
-                linkedAt: data.find((e) => e.playerTag === player.tag).linkedAt
-            });
+            for (const player of await players) {
+                playersData.push({
+                    name: player.name,
+                    tag: player.tag,
+                    trophies: player.trophies,
+                    versusTrophies: player.versusTrophies,
+                    clan: {
+                        name: player.clan?.name || 'No Clan',
+                        position: this.roles[player.role] || null,
+                        badge: player.clan?.badge.url || null
+                    },
+                    labels: Object.fromEntries(player.labels.map((label) => [label.name, label.icon.url])),
+                    linkedAt: data.find((data) => data.playerTag === player.tag).linkedAt
+                });
+            }
         }
         return playersData;
     }

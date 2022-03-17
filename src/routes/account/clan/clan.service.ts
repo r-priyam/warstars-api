@@ -20,23 +20,24 @@ export class ClanService {
             .getMany();
 
         const clansData = [];
-        // TODO: fetch max 5 tags at a time
-        const clans = Util.allSettled(data.map((e) => this.coc.getClan(e.clanTag)));
+        while (data.length !== 0) {
+            const clans = Util.allSettled(data.splice(0, 5).map((data) => this.coc.getClan(data.clanTag)));
 
-        for (const clan of await clans) {
-            clansData.push({
-                name: clan.name,
-                tag: clan.tag,
-                members: clan.memberCount,
-                badge: clan.badge.url,
-                leader: clan.members.find((m) => m.role === 'leader').name,
-                level: clan.level,
-                location: clan.location?.name || 'No Location Set',
-                trophies: clan.points,
-                versusTrophies: clan.versusPoints,
-                labels: Object.fromEntries(clan.labels.map((label) => [label.name, label.icon.url])),
-                linkedAt: data.find((e) => e.clanTag === clan.tag).linkedAt
-            });
+            for (const clan of await clans) {
+                clansData.push({
+                    name: clan.name,
+                    tag: clan.tag,
+                    members: clan.memberCount,
+                    badge: clan.badge.url,
+                    leader: clan.members.find((m) => m.role === 'leader').name,
+                    level: clan.level,
+                    location: clan.location?.name || 'No Location Set',
+                    trophies: clan.points,
+                    versusTrophies: clan.versusPoints,
+                    labels: Object.fromEntries(clan.labels.map((label) => [label.name, label.icon.url])),
+                    linkedAt: data.find((data) => data.clanTag === clan.tag).linkedAt
+                });
+            }
         }
         return clansData;
     }
