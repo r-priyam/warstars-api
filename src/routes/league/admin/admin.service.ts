@@ -18,7 +18,7 @@ export class AdminService {
             .where('user.discord_id = :discordId AND user.league_id = :leagueId', { discordId, leagueId })
             .getOne();
         if (!data.headAdmin) {
-            throw new HttpException("You are't allowed to perform this action.", HttpStatus.UNAUTHORIZED);
+            throw new HttpException("You aren't allowed to perform this action.", HttpStatus.UNAUTHORIZED);
         }
     }
 

@@ -13,7 +13,7 @@ echo "${BLUE}${BOLD}Enter dump file name to restore -${RESET}"
 read FILE_NAME
 
 if [ -f "$FILE_NAME" ]; then
-    echo "${BLUE}Starting databse dump restore"
+    echo "${BLUE}Starting database dump restore"
     cat $FILE_NAME | docker exec -i warstars_database psql -U warstars -d warstars
     echo "${GREEN}Restore completed"
 
