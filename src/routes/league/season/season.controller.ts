@@ -4,7 +4,7 @@ import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Cache } from '~/core/decorators/cacheset.decorator';
 import { Permissions } from '~/core/decorators/leaguepermissions.decorator';
 import { Permission } from '~/utils/AdminPermissions';
-import { CACHE_SET_VALUES } from '~/utils/CacheConstants';
+import { CACHE_SET_VALUES } from '~/utils/Constants';
 import {
     IEndChildSeason,
     IEndLeagueSeason,

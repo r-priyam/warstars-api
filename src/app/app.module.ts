@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, RouterModule } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { OgmaInterceptor } from '@ogma/nestjs-module';
 
@@ -14,33 +14,12 @@ import { ExceptionsFilter } from '~/core/logging/exception.filter';
 import { LoggingModule } from '~/core/logging/logging.module';
 import { RedisModule } from '~/core/redis/redis.module';
 import { DatabaseModule } from '~/database/config/database.module';
-import { AccountModule, DiscordModule, LeagueModule } from '~/routes';
+import { RoutesModule } from '~/routes/routes.module';
 
 import { AppController } from './app.controller';
 
 @Module({
-    imports: [
-        ConfigModule,
-        BotModule,
-        ClashModule,
-        LoggingModule,
-        DatabaseModule,
-        EventEmitterModule.forRoot(),
-        DiscordModule,
-        AccountModule,
-        LeagueModule,
-        RouterModule.register([
-            {
-                path: 'account',
-                module: AccountModule
-            },
-            {
-                path: 'league',
-                module: LeagueModule
-            }
-        ]),
-        RedisModule
-    ],
+    imports: [ConfigModule, BotModule, ClashModule, LoggingModule, DatabaseModule, EventEmitterModule.forRoot(), RoutesModule, RedisModule],
     controllers: [AppController],
     providers: [
         AppConfig,

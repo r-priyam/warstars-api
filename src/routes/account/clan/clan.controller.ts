@@ -3,7 +3,7 @@ import { FastifyRequest } from 'fastify';
 
 import { Authenticated } from '~/core/decorators/auth.decorator';
 import { Cache } from '~/core/decorators/cacheset.decorator';
-import { CACHE_SET_VALUES } from '~/utils/CacheConstants';
+import { CACHE_SET_VALUES } from '~/utils/Constants';
 
 import { ClanService } from './clan.service';
 
