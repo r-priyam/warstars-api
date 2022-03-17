@@ -18,6 +18,7 @@ export class ClanService {
             .createQueryBuilder('user')
             .where('user.discord_id = :discordId', { discordId: request.session.user.discordId })
             .getMany();
+        const saved = [...data];
 
         const clansData = [];
         while (data.length !== 0) {
@@ -35,10 +36,11 @@ export class ClanService {
                     trophies: clan.points,
                     versusTrophies: clan.versusPoints,
                     labels: Object.fromEntries(clan.labels.map((label) => [label.name, label.icon.url])),
-                    linkedAt: data.find((data) => data.clanTag === clan.tag).linkedAt
+                    linkedAt: saved.find((data) => data.clanTag === clan.tag).linkedAt
                 });
             }
         }
+        saved.length > 0 && saved.pop();
         return clansData;
     }
 

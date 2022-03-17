@@ -19,6 +19,7 @@ export class PlayerService {
             .createQueryBuilder('user')
             .where('user.discord_id = :discordId', { discordId: request.session.user.discordId })
             .getMany();
+        const saved = [...data];
 
         const playersData = [];
         while (data.length !== 0) {
@@ -36,10 +37,11 @@ export class PlayerService {
                         badge: player.clan?.badge.url || null
                     },
                     labels: Object.fromEntries(player.labels.map((label) => [label.name, label.icon.url])),
-                    linkedAt: data.find((data) => data.playerTag === player.tag).linkedAt
+                    linkedAt: saved.find((data) => data.playerTag === player.tag).linkedAt
                 });
             }
         }
+        saved.length > 0 && saved.pop();
         return playersData;
     }
 
