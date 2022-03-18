@@ -32,7 +32,7 @@ export class CoreService {
 
         const childDataQueryString = `SELECT t1.id, t1.league_id AS "leagueId", t1.name, t1.abbreviation, t1.icon_url AS "iconUrl",
 		        t2.season_id AS "seasonId", t2.league_season_id, t2.specific_id AS "specificId", t2.start_time AS "startTime", t2.end_time AS "endTime", t2.is_active AS "seasonActive",
-                COUNT(t3) AS "totalAdmins" 
+                COUNT(t3) AS "clansCount" 
                 FROM child_league t1 LEFT JOIN child_league_season t2 ON t1.id = t2.child_league_id AND
                 t2.is_active = (SELECT is_active FROM child_league_season WHERE child_league_id = $1 ORDER BY is_active DESC LIMIT 1) 
                 LEFT JOIN league_clan t3 ON t1.id = t3.child_id AND t2.season_id = t3.child_season_id 
