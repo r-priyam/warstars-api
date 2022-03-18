@@ -53,6 +53,7 @@ export class AdminService {
                 ])
                 .execute();
             this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_LEAGUE_ADMINS, leagueId);
+            this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_USER_LEAGUES, discordId);
         } catch (error) {
             if (error.code === '23505') {
                 throw new HttpException('User is already a super admin for this league!', HttpStatus.BAD_REQUEST);
