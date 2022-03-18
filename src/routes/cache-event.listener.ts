@@ -66,4 +66,21 @@ export class CacheUpdateListener {
             CACHE_SET_VALUES.SEASON_CHILD_CLANS.ttl
         );
     }
+
+    @OnEvent(EVENT_VALUES.HANDLE_LEAGUE_CHANGES)
+    async handleLeagueChanges(leagueId: number) {
+        const admins = await this.adminService.admins(leagueId);
+        admins.forEach(async (data: { discordId: string }) => {
+            const userLeagues = await this.coreService.getUserLeagues(data.discordId);
+            if (userLeagues.length === 0) {
+                await this.cacheService.delete(`${CACHE_SET_VALUES.USER_LEAGUES.key}/${data.discordId}`);
+            } else {
+                await this.cacheService.set(
+                    `${CACHE_SET_VALUES.USER_LEAGUES.key}/${data.discordId}`,
+                    JSON.stringify(userLeagues),
+                    CACHE_SET_VALUES.USER_LEAGUES.ttl
+                );
+            }
+        });
+    }
 }

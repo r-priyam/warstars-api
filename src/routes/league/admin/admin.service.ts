@@ -25,6 +25,14 @@ export class AdminService {
         }
     }
 
+    public async adminsDiscord(leagueId: number) {
+        return await this.leagueAdminDb
+            .createQueryBuilder('admin')
+            .select(['admin.discord_id'])
+            .where('admin.league_id = :leagueId', { leagueId })
+            .getMany();
+    }
+
     public async admins(leagueId: number) {
         const query = `SELECT t1.id, t1.discord_id AS "discordId", t1.league_id AS "leagueId", t1.permissions, t1.head_admin AS "headAdmin", t1.added_at AS "addedAt", 
 			t2.user_name AS "username", t2.discriminator, t2.avatar 
@@ -53,7 +61,7 @@ export class AdminService {
                 ])
                 .execute();
             this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_LEAGUE_ADMINS, leagueId);
-            this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_USER_LEAGUES, discordId);
+            this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_USER_LEAGUES, leagueId);
         } catch (error) {
             if (error.code === '23505') {
                 throw new HttpException('User is already a super admin for this league!', HttpStatus.BAD_REQUEST);
@@ -76,6 +84,6 @@ export class AdminService {
         await this.checkHeadAdmin(leagueId, userDiscordId);
         await this.leagueAdminDb.query('DELETE FROM league_admin WHERE id = $1 AND league_id = $2', [adminId, leagueId]);
         this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_LEAGUE_ADMINS, leagueId);
-        this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_USER_LEAGUES, adminDiscordId);
+        this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_USER_LEAGUES, leagueId);
     }
 }

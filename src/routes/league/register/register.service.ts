@@ -47,6 +47,7 @@ export class RegisterService {
                 .insert()
                 .values([{ ...data }])
                 .execute();
+            this.eventEmitter.emit(EVENT_VALUES.HANDLE_LEAGUE_CHANGES, data.leagueId);
         } catch (error) {
             if (error.code === '23505') {
                 throw new HttpException(`Abbreviation: ${data.abbreviation}  is already registered!`, HttpStatus.BAD_REQUEST);
@@ -61,6 +62,7 @@ export class RegisterService {
                 .insert()
                 .values([{ ...data }])
                 .execute();
+            this.eventEmitter.emit(EVENT_VALUES.HANDLE_LEAGUE_CHANGES, data.leagueId);
         } catch (error) {
             if (error.code === '23505') {
                 throw new HttpException(`Abbreviation: ${data.abbreviation}  is already registered!`, HttpStatus.BAD_REQUEST);
