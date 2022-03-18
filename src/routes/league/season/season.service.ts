@@ -52,12 +52,13 @@ export class SeasonService {
             throw new HttpException('One season is active at the moment. Please end it first to start new season', HttpStatus.BAD_REQUEST);
         }
 
-        data.specificId = await this.leagueSeasonDb
-            .createQueryBuilder('season')
-            .where('season.league_id = :leagueId', { leagueId: data.leagueId })
-            .getCount();
+        data.specificId =
+            (await this.leagueSeasonDb
+                .createQueryBuilder('season')
+                .where('season.league_id = :leagueId', { leagueId: data.leagueId })
+                .getCount()) + 1;
 
-        await this.leagueSeasonDb
+        const newSeason = await this.leagueSeasonDb
             .createQueryBuilder()
             .insert()
             .values([
@@ -71,22 +72,23 @@ export class SeasonService {
             ])
             .execute();
 
-        // TODO: cross check
         if (data.childData.length > 0) {
-            for (const childId in data.childData) {
+            data.childData.forEach(async (e) => {
                 const childSeasonData: INewChildLeagueSeason = {
+                    leagueSeasonId: newSeason.generatedMaps[0].seasonId,
                     leagueId: data.leagueId,
-                    childLeagueId: parseInt(childId, 10),
+                    childLeagueId: e,
                     startTime: data.startTime,
                     endTime: data.endTime,
                     isActive: true
                 };
-                await this.newChildSeason(childSeasonData);
-            }
+                await this.newChildSeason(childSeasonData, true);
+            });
         }
+        this.eventEmitter.emit(EVENT_VALUES.HANDLE_LEAGUE_CHANGES, data.leagueId);
     }
 
-    public async newChildSeason(data: INewChildLeagueSeason) {
+    public async newChildSeason(data: INewChildLeagueSeason, withLeague = false) {
         const check = await this.childSeasonDb.query(
             'SELECT EXISTS(SELECT 1 FROM child_league_season WHERE child_league_id = $1 AND is_active = True)',
             [data.childLeagueId]
@@ -96,10 +98,11 @@ export class SeasonService {
             throw new HttpException('One season is active at the moment. Please end it first to start new season', HttpStatus.BAD_REQUEST);
         }
 
-        data.specificId = await this.childSeasonDb
-            .createQueryBuilder('season')
-            .where('season.child_league_id = :childLeagueId', { childLeagueId: data.childLeagueId })
-            .getCount();
+        data.specificId =
+            (await this.childSeasonDb
+                .createQueryBuilder('season')
+                .where('season.child_league_id = :childLeagueId', { childLeagueId: data.childLeagueId })
+                .getCount()) + 1;
 
         const newSeasonData = await this.childSeasonDb
             .createQueryBuilder()
@@ -116,21 +119,26 @@ export class SeasonService {
                 }
             ])
             .execute();
+
         this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_CHILD_SEASON_INFO, newSeasonData.generatedMaps[0].seasonId);
+        !withLeague && this.eventEmitter.emit(EVENT_VALUES.HANDLE_LEAGUE_CHANGES, data.leagueId);
     }
 
     public async endLeagueSeason(data: IEndLeagueSeason) {
-        return await this.leagueSeasonDb.query('UPDATE league_season SET is_active=False WHERE season_id = $1 AND league_id = $2', [
+        await this.leagueSeasonDb.query('UPDATE league_season SET is_active=False WHERE season_id = $1 AND league_id = $2', [
             data.seasonId,
             data.leagueId
         ]);
+        this.eventEmitter.emit(EVENT_VALUES.HANDLE_LEAGUE_CHANGES, data.leagueId);
     }
 
     public async endChildSeason(data: IEndChildSeason) {
-        await this.childSeasonDb.query('UPDATE child_league_season SET is_active=False WHERE season_id = $1 AND child_league_id = $2', [
-            data.seasonId,
-            data.childLeagueId
-        ]);
+        const endedData = await this.childSeasonDb.query(
+            'UPDATE child_league_season SET is_active=False WHERE season_id = $1 AND child_league_id = $2 RETURNING league_id',
+            [data.seasonId, data.childLeagueId]
+        );
+
+        this.eventEmitter.emit(EVENT_VALUES.HANDLE_LEAGUE_CHANGES, endedData[0][0].league_id);
         this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_CHILD_SEASON_INFO, data.seasonId);
     }
 
@@ -165,6 +173,7 @@ export class SeasonService {
                     ])
                     .execute();
                 this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_SEASON_CHILD_CLANS, data.childId, data.childSeasonId);
+                this.eventEmitter.emit(EVENT_VALUES.HANDLE_LEAGUE_CHANGES, data.leagueId);
             } catch (error) {
                 if (error.code === '23505') {
                     throw new HttpException('Clan tag is already registered for season', HttpStatus.BAD_REQUEST);
@@ -188,8 +197,9 @@ export class SeasonService {
                     ])
                     .orIgnore()
                     .execute();
-                this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_SEASON_CHILD_CLANS, data.childId, data.childSeasonId);
             }
+            this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_SEASON_CHILD_CLANS, data.childId, data.childSeasonId);
+            this.eventEmitter.emit(EVENT_VALUES.HANDLE_LEAGUE_CHANGES, data.leagueId);
         }
     }
 
@@ -200,5 +210,6 @@ export class SeasonService {
             data.tag
         ]);
         this.eventEmitter.emit(EVENT_VALUES.UPDATE_CACHE_SEASON_CHILD_CLANS, data.childId, data.childSeasonId);
+        this.eventEmitter.emit(EVENT_VALUES.HANDLE_LEAGUE_CHANGES, data.leagueId);
     }
 }
