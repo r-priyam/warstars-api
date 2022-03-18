@@ -12,6 +12,7 @@ then
 elif [[ $1 == 'prod' ]];
 then
   echo "${GREEN}Starting docker for production"
+  docker-compose pull api # always check for latest image
   docker-compose up -d
 
 else
