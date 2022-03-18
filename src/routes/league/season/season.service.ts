@@ -38,7 +38,7 @@ export class SeasonService {
     public async getSeasonChildClans(childId: number, seasonId: number) {
         return await this.leagueClanDb
             .createQueryBuilder('clan')
-            .where('clan.child_id = :childId AND clan.child_season_id = seasonId', { childId, seasonId })
+            .where('clan.child_id = :childId AND clan.child_season_id = :seasonId', { childId, seasonId })
             .getMany();
     }
 
