@@ -59,7 +59,7 @@ export class CacheUpdateListener {
 
     @OnEvent(EVENT_VALUES.UPDATE_CACHE_SEASON_CHILD_CLANS)
     async handleSeasonChildClansCache(childId: number, seasonId: number) {
-        const seasonChildClans = this.seasonService.getSeasonChildClans(childId, seasonId);
+        const seasonChildClans = await this.seasonService.getSeasonChildClans(childId, seasonId);
         await this.cacheService.set(
             `${CACHE_SET_VALUES.SEASON_CHILD_CLANS.key}/${childId}/${seasonId}`,
             JSON.stringify(seasonChildClans),
