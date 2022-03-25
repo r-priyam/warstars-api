@@ -39,7 +39,10 @@ export class DiscordService {
     }
 
     private async createUser(data: ICreateUser): Promise<User> {
-        const user = await this.userDB.findOne({ discordId: data.discordId });
+        const user = await this.userDB
+            .createQueryBuilder('user')
+            .where('user.discordId = :discordId', { discordId: data.discordId })
+            .getOne();
 
         if (user) {
             return await this.updateUser(user, data);

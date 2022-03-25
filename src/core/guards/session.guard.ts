@@ -26,7 +26,11 @@ export class SessionGuard implements CanActivate {
         }
 
         const sessionRepository = getRepository(DatabaseSession);
-        const sessionStore = await sessionRepository.findOne({ id: session.sessionId });
+        await sessionRepository.findOne({});
+        const sessionStore = await sessionRepository
+            .createQueryBuilder('session')
+            .where('session.id = :id', { id: session.sessionId })
+            .getOne();
 
         if (!sessionStore) {
             throw new UnauthorizedException('You must log in to use this feature.');
