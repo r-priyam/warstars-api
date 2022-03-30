@@ -47,7 +47,7 @@
         "uid-safe": "^2.1.5"
     },
     "devDependencies": {
-        "@antfu/eslint-config": "^0.18.9",
+        "@antfu/eslint-config": "^0.19.1",
         "@nestjs/cli": "^8.2.4",
         "@nestjs/schematics": "^8.0.8",
         "@types/crypto-js": "^4.1.1",
