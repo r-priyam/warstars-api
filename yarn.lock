@@ -211,14 +211,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/session@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "@fastify/session@npm:8.0.0"
+"@fastify/session@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "@fastify/session@npm:8.1.0"
   dependencies:
     cookie-signature: ^1.1.0
     fastify-plugin: ^3.0.0
+    safe-stable-stringify: ^2.3.1
     uid-safe: ^2.1.5
-  checksum: 31c1d032a89bd40eb18e9c52b1477d2950c7fad1af9611580505479943e64ad2db4eaedf3cc49bdce392f70824b31b238c884b015a09ac5ab9d4355f27d89333
+  checksum: 345dd4e3694dac48b03aba5ff493865c5d5e1b390494b21936ff77a8066398860bf24329585f93f23dd7bbec95c2707337e85cba5594dd1c38e4090b057a30aa
   languageName: node
   linkType: hard
 
@@ -5446,6 +5447,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"safe-stable-stringify@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "safe-stable-stringify@npm:2.3.1"
+  checksum: a0a0bad0294c3e2a9d1bf3cf2b1096dfb83c162d09a5e4891e488cce082120bd69161d2a92aae7fc48255290f17700decae9c89a07fe139794e61b5c8b411377
+  languageName: node
+  linkType: hard
+
 "safer-buffer@npm:>= 2.1.2 < 3, safer-buffer@npm:>= 2.1.2 < 3.0.0":
   version: 2.1.2
   resolution: "safer-buffer@npm:2.1.2"
@@ -6367,7 +6375,7 @@ __metadata:
   resolution: "warstars-api@workspace:."
   dependencies:
     "@antfu/eslint-config": ^0.20.2
-    "@fastify/session": ^8.0.0
+    "@fastify/session": ^8.1.0
     "@nestjs/cli": ^8.2.5
     "@nestjs/common": ^8.4.3
     "@nestjs/config": ^2.0.0
