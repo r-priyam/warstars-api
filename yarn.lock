@@ -211,14 +211,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/session@npm:^6.5.2":
-  version: 6.5.2
-  resolution: "@fastify/session@npm:6.5.2"
+"@fastify/session@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@fastify/session@npm:8.0.0"
   dependencies:
     cookie-signature: ^1.1.0
     fastify-plugin: ^3.0.0
     uid-safe: ^2.1.5
-  checksum: b9702c0eb6f8212e5ceafb7d69893ae0bd6c16c3c6978a7e526d2ddbda51120a6c238f450da54f3b5dade9628ccd6e09f40fc03eb64ba6fb0d3000819d73328d
+  checksum: 31c1d032a89bd40eb18e9c52b1477d2950c7fad1af9611580505479943e64ad2db4eaedf3cc49bdce392f70824b31b238c884b015a09ac5ab9d4355f27d89333
   languageName: node
   linkType: hard
 
@@ -6367,7 +6367,7 @@ __metadata:
   resolution: "warstars-api@workspace:."
   dependencies:
     "@antfu/eslint-config": ^0.20.2
-    "@fastify/session": ^6.5.2
+    "@fastify/session": ^8.0.0
     "@nestjs/cli": ^8.2.5
     "@nestjs/common": ^8.4.3
     "@nestjs/config": ^2.0.0
