@@ -45,7 +45,7 @@ export class DiscordController {
     @Authenticated()
     async logout(@Req() request: FastifyRequest, @Res() response: FastifyReply) {
         await this.discordService.logOut(request);
-        request.destroySession(() => {
+        request.session.destroy(() => {
             response.clearCookie('sessionId');
             response.redirect(this.config.logOutRedirectUrl);
         });
