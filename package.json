@@ -19,7 +19,7 @@
         "typecheck": "tsc --noemit"
     },
     "dependencies": {
-        "@fastify/session": "^6.5.2",
+        "@fastify/session": "^8.0.0",
         "@nestjs/common": "^8.4.3",
         "@nestjs/config": "^2.0.0",
         "@nestjs/core": "^8.4.3",
