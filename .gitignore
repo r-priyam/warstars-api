@@ -10,6 +10,10 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+#  Yarn files
+.yarn/install-state.gz
+.yarn/build-state.yml
+
 # OS
 .DS_Store
 
