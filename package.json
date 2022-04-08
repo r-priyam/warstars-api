@@ -56,7 +56,7 @@
         "@types/pg": "^8.6.5",
         "@types/uid-safe": "^2.1.2",
         "bumpp": "^7.1.1",
-        "eslint": "^8.12.0",
+        "eslint": "^8.13.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-simple-import-sort": "^7.0.0",
