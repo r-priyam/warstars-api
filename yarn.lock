@@ -579,9 +579,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ogma/nestjs-module@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "@ogma/nestjs-module@npm:3.2.0"
+"@ogma/nestjs-module@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "@ogma/nestjs-module@npm:3.2.1"
   dependencies:
     "@golevelup/nestjs-modules": 0.5.0
     "@ogma/common": 1.0.0
@@ -592,7 +592,7 @@ __metadata:
     "@nestjs/core": ^8.0.0
     reflect-metadata: ^0.1.0
     rxjs: ^7.0.0
-  checksum: 84301719fa2d19709755c7360feb60b41923cbe76777e487f9d810a9bf6467d336f6ab9c2e669a21fac8c81606d37a0eb11edc496b2e1f4dfcdfd17f0aa46416
+  checksum: 3016d64c0482ca3a2ea5ec4146c48d359aa07b5bf612d204e51337a30d725cf2c5523b32d1731c7470847a5ecc1b38f2b93dd03b91124bb1a303bdc400da453c
   languageName: node
   linkType: hard
 
@@ -6375,7 +6375,7 @@ __metadata:
     "@nestjs/platform-fastify": ^8.4.4
     "@nestjs/schematics": ^8.0.10
     "@nestjs/typeorm": ^8.0.3
-    "@ogma/nestjs-module": ^3.2.0
+    "@ogma/nestjs-module": ^3.2.1
     "@ogma/platform-fastify": ^3.0.1
     "@types/crypto-js": ^4.1.1
     "@types/node": ^17.0.23
