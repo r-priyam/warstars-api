@@ -2930,13 +2930,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastify-cookie@npm:^5.6.0":
-  version: 5.6.0
-  resolution: "fastify-cookie@npm:5.6.0"
+"fastify-cookie@npm:^5.6.1":
+  version: 5.6.1
+  resolution: "fastify-cookie@npm:5.6.1"
   dependencies:
     cookie-signature: ^1.1.0
     fastify-plugin: ^3.0.1
-  checksum: a4dc359a8434217ccc2fb28b82a1c25b2a06383d7e01a5967e457298c7a231bd4273a0295a17c8564753a5ab9dc1865d2bc0296db7ec8012a064f9b5c2e455b5
+  checksum: 33e6ea5c8e6f84acec375a734ad92806e7f39ae08425ab7e65ebab1b0c6933539e06efd5b31adcabe4f160e2d406a79a2c79bf0f9cd32cb9d802887f45f07207
   languageName: node
   linkType: hard
 
@@ -6394,7 +6394,7 @@ __metadata:
     eslint-config-prettier: ^8.5.0
     eslint-plugin-prettier: ^4.0.0
     eslint-plugin-simple-import-sort: ^7.0.0
-    fastify-cookie: ^5.6.0
+    fastify-cookie: ^5.6.1
     fastify-helmet: ^7.0.1
     node-fetch: 2.6.7
     pg: ^8.7.3
