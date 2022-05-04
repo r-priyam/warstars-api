@@ -19,14 +19,14 @@
         "typecheck": "tsc --noemit"
     },
     "dependencies": {
-        "@fastify/session": "^8.1.0",
+        "@fastify/session": "^8.2.0",
         "@nestjs/common": "^8.4.4",
         "@nestjs/config": "^2.0.0",
         "@nestjs/core": "^8.4.4",
         "@nestjs/event-emitter": "^1.1.0",
         "@nestjs/platform-fastify": "^8.4.4",
         "@nestjs/typeorm": "^8.0.3",
-        "@ogma/nestjs-module": "^3.2.1",
+        "@ogma/nestjs-module": "^3.2.2",
         "@ogma/platform-fastify": "^3.0.1",
         "clashofclans.js": "^2.6.1",
         "class-transformer": "^0.5.1",
@@ -35,11 +35,11 @@
         "crypto-js": "^4.1.1",
         "discord-akairo": "github:csuvajit/discord-akairo#main",
         "discord.js": "^13.6.0",
-        "fastify-cookie": "^5.6.1",
-        "fastify-helmet": "^7.0.1",
+        "fastify-cookie": "^5.7.0",
+        "fastify-helmet": "^7.1.0",
         "node-fetch": "2.6.7",
         "pg": "^8.7.3",
-        "redis": "^4.0.6",
+        "redis": "^4.1.0",
         "reflect-metadata": "^0.1.13",
         "rimraf": "^3.0.2",
         "rxjs": "^7.5.5",
@@ -47,7 +47,7 @@
         "uid-safe": "^2.1.5"
     },
     "devDependencies": {
-        "@antfu/eslint-config": "^0.21.1",
+        "@antfu/eslint-config": "^0.23.0",
         "@nestjs/cli": "^8.2.5",
         "@nestjs/schematics": "^8.0.10",
         "@types/crypto-js": "^4.1.1",
@@ -61,7 +61,7 @@
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-simple-import-sort": "^7.0.0",
         "prettier": "^2.6.2",
-        "typescript": "^4.6.3"
+        "typescript": "^4.6.4"
     },
     "packageManager": "yarn@3.2.0"
 }
