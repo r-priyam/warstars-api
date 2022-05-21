@@ -34,7 +34,7 @@ services:
     api:
         <<: *logging
         container_name: warstars_api
-        image: node:18.1-alpine
+        image: node:18.2-alpine
         volumes:
             - .:/app:rw
         working_dir: /app
