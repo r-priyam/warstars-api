@@ -1821,12 +1821,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clashofclans.js@npm:^2.6.1":
-  version: 2.6.1
-  resolution: "clashofclans.js@npm:2.6.1"
+"clashofclans.js@npm:^2.7.0":
+  version: 2.7.0
+  resolution: "clashofclans.js@npm:2.7.0"
   dependencies:
     node-fetch: ^2.6.7
-  checksum: 1f21c6524fa17679c2dd2adee2e7c488ae4b996d84745d27e7cb4bcfcaa1426e9f60dd86b41a73e9f1603336f5f74f393f4ebf36b5988e8ce7d055db99e87f14
+  checksum: b2599de2c4750bd92913bae4f127a02afaea1c6763d327c7d95347efc764b6e047668805a2c6b394707d240d1ceb80503264bb7a1e254b27a24ae634785bada4
   languageName: node
   linkType: hard
 
@@ -6533,7 +6533,7 @@ __metadata:
     "@types/pg": ^8.6.5
     "@types/uid-safe": ^2.1.2
     bumpp: ^7.1.1
-    clashofclans.js: ^2.6.1
+    clashofclans.js: ^2.7.0
     class-transformer: ^0.5.1
     class-validator: ^0.13.2
     connect-typeorm: ^1.1.4
