@@ -55,7 +55,7 @@
         "@types/node-fetch": "2.6.1",
         "@types/pg": "^8.6.5",
         "@types/uid-safe": "^2.1.2",
-        "bumpp": "^7.1.1",
+        "bumpp": "^8.2.1",
         "eslint": "^8.17.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.0.0",
