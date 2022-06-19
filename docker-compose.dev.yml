@@ -26,7 +26,7 @@ services:
     redis:
         <<: *logging
         <<: *restart_policy
-        image: 'redis:7.0.1-alpine'
+        image: 'redis:7.0.2-alpine'
         container_name: warstars_redis
         ports:
             - '127.0.0.1:6379:6379'
@@ -34,7 +34,7 @@ services:
     api:
         <<: *logging
         container_name: warstars_api
-        image: node:18.3-alpine
+        image: node:18.4-alpine
         volumes:
             - .:/app:rw
         working_dir: /app

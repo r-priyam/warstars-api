@@ -351,9 +351,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/common@npm:^8.4.6":
-  version: 8.4.6
-  resolution: "@nestjs/common@npm:8.4.6"
+"@nestjs/common@npm:^8.4.7":
+  version: 8.4.7
+  resolution: "@nestjs/common@npm:8.4.7"
   dependencies:
     axios: 0.27.2
     iterare: 1.2.1
@@ -372,7 +372,7 @@ __metadata:
       optional: true
     class-validator:
       optional: true
-  checksum: db95e4195cd666c5a8feca1da90f4246ddabe0770c6c51f43d0b827bcea98e1019ee58a068ac1012adc3ac91314942a611869d04d44d480c486a0b482eddfaf3
+  checksum: b3fa20618d4e60f9f5089215c800f2deb5d08b9f88443102b066036d7bacf17ff5926ad5ff0ef7ace42feb8e0ca561dc7e75fd05dbd028f5e675d5e7062eb685
   languageName: node
   linkType: hard
 
@@ -392,9 +392,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/core@npm:^8.4.6":
-  version: 8.4.6
-  resolution: "@nestjs/core@npm:8.4.6"
+"@nestjs/core@npm:^8.4.7":
+  version: 8.4.7
+  resolution: "@nestjs/core@npm:8.4.7"
   dependencies:
     "@nuxtjs/opencollective": 0.3.2
     fast-safe-stringify: 2.1.1
@@ -417,7 +417,7 @@ __metadata:
       optional: true
     "@nestjs/websockets":
       optional: true
-  checksum: 9e8a387f5da724880a2c739ba73d516de8459063753465154872a314d87f83facc1ed434e782232f92deb3da51d9aac7ec2ab96b207c4966507cc4753563eb5f
+  checksum: 58d18b04e03cdae4b06e06f1a60705cdbe2e81824e0a85d0be422cf8dbd39c263287196b85939718659d7eeedc2856f29744487931dbe5c2695fcd374a5fbe40
   languageName: node
   linkType: hard
 
@@ -434,9 +434,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/platform-fastify@npm:^8.4.6":
-  version: 8.4.6
-  resolution: "@nestjs/platform-fastify@npm:8.4.6"
+"@nestjs/platform-fastify@npm:^8.4.7":
+  version: 8.4.7
+  resolution: "@nestjs/platform-fastify@npm:8.4.7"
   dependencies:
     fastify: 3.29.0
     fastify-cors: 6.1.0
@@ -448,7 +448,7 @@ __metadata:
   peerDependencies:
     "@nestjs/common": ^8.0.0
     "@nestjs/core": ^8.0.0
-  checksum: c7ae0acf29aba81ad23ec77b4bff681aa199277726ecb1ffdb561b703f8aef585f9cd83a60b3e6d3df010463b17405a845e4498fc439528a165aa5f1d5405798
+  checksum: 6d508b5da2552ffb2ea591ecd775dfa94697aefb8018afea3fc49d5e4ccedeb7fd94e3863becbbc063b82911ec819d1d558e2c9049bb42a220917b1c23e6b568
   languageName: node
   linkType: hard
 
@@ -482,9 +482,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/typeorm@npm:^8.1.2":
-  version: 8.1.2
-  resolution: "@nestjs/typeorm@npm:8.1.2"
+"@nestjs/typeorm@npm:^8.1.4":
+  version: 8.1.4
+  resolution: "@nestjs/typeorm@npm:8.1.4"
   dependencies:
     uuid: 8.3.2
   peerDependencies:
@@ -493,7 +493,7 @@ __metadata:
     reflect-metadata: ^0.1.13
     rxjs: ^7.2.0
     typeorm: ^0.3.0
-  checksum: 9cb93ce1ccb3948084d64e36e11759517c6abb41a5d111accfaf210ff78ce3c53162f7715900b468d6697d122b44266320f9fa59dd777a5c66ff43fb7a41d765
+  checksum: 397d2c72a30ae6ceefc8ef37ac0ec84b4265be21090b3a8f4ba3ac0d480604c3edb2ec9b5b7930b6f183d3546fdc60a4213927b40672da0d6d07aaaceb37f71b
   languageName: node
   linkType: hard
 
@@ -835,7 +835,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node-fetch@npm:2.6.1, @types/node-fetch@npm:^2.6.1":
+"@types/node-fetch@npm:2.6.2":
+  version: 2.6.2
+  resolution: "@types/node-fetch@npm:2.6.2"
+  dependencies:
+    "@types/node": "*"
+    form-data: ^3.0.0
+  checksum: 6f73b1470000d303d25a6fb92875ea837a216656cb7474f66cdd67bb014aa81a5a11e7ac9c21fe19bee9ecb2ef87c1962bceeaec31386119d1ac86e4c30ad7a6
+  languageName: node
+  linkType: hard
+
+"@types/node-fetch@npm:^2.6.1":
   version: 2.6.1
   resolution: "@types/node-fetch@npm:2.6.1"
   dependencies:
@@ -2859,9 +2869,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.17.0":
-  version: 8.17.0
-  resolution: "eslint@npm:8.17.0"
+"eslint@npm:^8.18.0":
+  version: 8.18.0
+  resolution: "eslint@npm:8.18.0"
   dependencies:
     "@eslint/eslintrc": ^1.3.0
     "@humanwhocodes/config-array": ^0.9.2
@@ -2900,7 +2910,7 @@ __metadata:
     v8-compile-cache: ^2.0.3
   bin:
     eslint: bin/eslint.js
-  checksum: b484c96681c6b19f5b437f664623f1cd310d3ee9be88400d8450e086e664cd968a9dc202f0b0678578fd50e7a445b92586efe8c787de5073ff2f83213b00bb7b
+  checksum: d9b4b7488a9cee97608343cbb5ac652d3f316436f95ef0800cd9497c1c6f877b655a3275817989c02f1ff0d5dfd1959c5092af9251c7e3fcf60659da37752a10
   languageName: node
   linkType: hard
 
@@ -5297,12 +5307,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.6.2":
-  version: 2.6.2
-  resolution: "prettier@npm:2.6.2"
+"prettier@npm:^2.7.1":
+  version: 2.7.1
+  resolution: "prettier@npm:2.7.1"
   bin:
     prettier: bin-prettier.js
-  checksum: 48d08dde8e9fb1f5bccdd205baa7f192e9fc8bc98f86e1b97d919de804e28c806b0e6cc685e4a88211aa7987fa9668f30baae19580d87ced3ed0f2ec6572106f
+  checksum: 55a4409182260866ab31284d929b3cb961e5fdb91fe0d2e099dac92eaecec890f36e524b4c19e6ceae839c99c6d7195817579cdffc8e2c80da0cb794463a748b
   languageName: node
   linkType: hard
 
@@ -6501,13 +6511,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.7.3":
-  version: 4.7.3
-  resolution: "typescript@npm:4.7.3"
+"typescript@npm:^4.7.4":
+  version: 4.7.4
+  resolution: "typescript@npm:4.7.4"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: fd13a1ce53790a36bb8350e1f5e5e384b5f6cb9b0635114a6d01d49cb99916abdcfbc13c7521cdae2f2d3f6d8bc4a8ae7625edf645a04ee940588cd5e7597b2f
+  checksum: 5750181b1cd7e6482c4195825547e70f944114fb47e58e4aa7553e62f11b3f3173766aef9c281783edfd881f7b8299cf35e3ca8caebe73d8464528c907a164df
   languageName: node
   linkType: hard
 
@@ -6521,13 +6531,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.7.3#~builtin<compat/typescript>":
-  version: 4.7.3
-  resolution: "typescript@patch:typescript@npm%3A4.7.3#~builtin<compat/typescript>::version=4.7.3&hash=7ad353"
+"typescript@patch:typescript@^4.7.4#~builtin<compat/typescript>":
+  version: 4.7.4
+  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=7ad353"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 137d18a77f52254a284960b16ab53d0619f57b69b5d585804b8413f798a1175ce3e774fb95e6a101868577aafe357d8fcfc9171f0dc9fc0c210e9ae59d107cc0
+  checksum: 9096d8f6c16cb80ef3bf96fcbbd055bf1c4a43bd14f3b7be45a9fbe7ada46ec977f604d5feed3263b4f2aa7d4c7477ce5f9cd87de0d6feedec69a983f3a4f93e
   languageName: node
   linkType: hard
 
@@ -6678,18 +6688,18 @@ __metadata:
     "@antfu/eslint-config": ^0.25.1
     "@fastify/session": ^8.2.0
     "@nestjs/cli": ^8.2.6
-    "@nestjs/common": ^8.4.6
+    "@nestjs/common": ^8.4.7
     "@nestjs/config": ^2.1.0
-    "@nestjs/core": ^8.4.6
+    "@nestjs/core": ^8.4.7
     "@nestjs/event-emitter": ^1.1.1
-    "@nestjs/platform-fastify": ^8.4.6
+    "@nestjs/platform-fastify": ^8.4.7
     "@nestjs/schematics": ^8.0.11
-    "@nestjs/typeorm": ^8.1.2
+    "@nestjs/typeorm": ^8.1.4
     "@ogma/nestjs-module": ^3.3.0
     "@ogma/platform-fastify": ^3.0.1
     "@types/crypto-js": ^4.1.1
     "@types/node": ^17.0.23
-    "@types/node-fetch": 2.6.1
+    "@types/node-fetch": 2.6.2
     "@types/pg": ^8.6.5
     "@types/uid-safe": ^2.1.2
     bumpp: ^8.2.1
@@ -6700,7 +6710,7 @@ __metadata:
     crypto-js: ^4.1.1
     discord-akairo: "github:csuvajit/discord-akairo#main"
     discord.js: ^13.8.0
-    eslint: ^8.17.0
+    eslint: ^8.18.0
     eslint-config-prettier: ^8.5.0
     eslint-plugin-prettier: ^4.0.0
     eslint-plugin-simple-import-sort: ^7.0.0
@@ -6708,13 +6718,13 @@ __metadata:
     fastify-helmet: ^7.1.0
     node-fetch: 2.6.7
     pg: ^8.7.3
-    prettier: ^2.6.2
+    prettier: ^2.7.1
     redis: ^4.1.0
     reflect-metadata: ^0.1.13
     rimraf: ^3.0.2
     rxjs: ^7.5.5
     typeorm: ^0.3.6
-    typescript: ^4.7.3
+    typescript: ^4.7.4
     uid-safe: ^2.1.5
   languageName: unknown
   linkType: soft
