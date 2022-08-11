@@ -514,18 +514,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/typeorm@npm:^8.1.4":
-  version: 8.1.4
-  resolution: "@nestjs/typeorm@npm:8.1.4"
+"@nestjs/typeorm@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "@nestjs/typeorm@npm:9.0.1"
   dependencies:
     uuid: 8.3.2
   peerDependencies:
-    "@nestjs/common": ^8.0.0
-    "@nestjs/core": ^8.0.0
+    "@nestjs/common": ^8.0.0 || ^9.0.0
+    "@nestjs/core": ^8.0.0 || ^9.0.0
     reflect-metadata: ^0.1.13
     rxjs: ^7.2.0
     typeorm: ^0.3.0
-  checksum: 397d2c72a30ae6ceefc8ef37ac0ec84b4265be21090b3a8f4ba3ac0d480604c3edb2ec9b5b7930b6f183d3546fdc60a4213927b40672da0d6d07aaaceb37f71b
+  checksum: fbf8d28405331bffa7bf224664d99078c0b7bf55a77007f79ca141a94fcf812dbc5ac40baacff370626b15f6e037bb8d60e6fee977c798fbb3f6b080c5d5b3d9
   languageName: node
   linkType: hard
 
@@ -6715,7 +6715,7 @@ __metadata:
     "@nestjs/event-emitter": ^1.3.0
     "@nestjs/platform-fastify": ^8.4.7
     "@nestjs/schematics": ^8.0.11
-    "@nestjs/typeorm": ^8.1.4
+    "@nestjs/typeorm": ^9.0.1
     "@ogma/nestjs-module": ^3.3.1
     "@ogma/platform-fastify": ^3.0.1
     "@types/crypto-js": ^4.1.1
