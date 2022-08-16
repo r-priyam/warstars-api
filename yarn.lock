@@ -589,23 +589,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ogma/common@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@ogma/common@npm:1.0.0"
-  checksum: 36e4c5f745d2b9a434a67c69d15f2af1ce0ef516479313f1cd74e7d635fc0abd4de15b23096f954a2c5c43c816b7dc079f53a333e079d45830eb17ddd50a7fd7
-  languageName: node
-  linkType: hard
-
-"@ogma/logger@npm:2.1.0":
-  version: 2.1.0
-  resolution: "@ogma/logger@npm:2.1.0"
-  dependencies:
-    "@ogma/common": 1.0.0
-    "@ogma/styler": 1.0.0
-  checksum: 29a8159e1b93a81f42a2b98f407fba4064b3bea44ddb2e4ce221d4d1844dc4b993e0799916f39b28ff78f98a63437d85b823ddf78fc3c641856efa5900b4ea22
-  languageName: node
-  linkType: hard
-
 "@ogma/nestjs-module@npm:^3.3.1":
   version: 3.3.1
   resolution: "@ogma/nestjs-module@npm:3.3.1"
@@ -623,17 +606,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ogma/platform-fastify@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@ogma/platform-fastify@npm:3.0.1"
-  dependencies:
-    "@ogma/common": 1.0.0
-    "@ogma/logger": 2.1.0
-    "@ogma/styler": 1.0.0
+"@ogma/platform-fastify@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@ogma/platform-fastify@npm:4.0.0"
   peerDependencies:
-    "@nestjs/platform-fastify": ^8.0.0
-    "@ogma/nestjs-module": ^3.0.0
-    fastify: ">=2.13.0"
+    "@nestjs/platform-fastify": ^9.0.0
+    "@ogma/common": 1.1.0
+    "@ogma/logger": 2.3.0
+    "@ogma/nestjs-module": ^4.0.0
+    "@ogma/styler": 1.0.0
+    fastify: ">=4.0.0"
   peerDependenciesMeta:
     "@nestjs/platform-fastify":
       optional: false
@@ -641,16 +623,7 @@ __metadata:
       optional: false
     fastify:
       optional: false
-  checksum: dd50f6568b870f8baf948071e862f2c32cf50f6ed0710482118b58fa54ac3f9f1bf1fbccc5e74b313fc80492b3770279a2b5ed6aaa1c61eb2bc0d91969e26f31
-  languageName: node
-  linkType: hard
-
-"@ogma/styler@npm:1.0.0":
-  version: 1.0.0
-  resolution: "@ogma/styler@npm:1.0.0"
-  dependencies:
-    "@ogma/common": 1.0.0
-  checksum: f6c4a1834878ca6c6cd07d59b583b3224cd74897cf2e55a622b2c8ac54d2c677a826ffdd440b2bebccfa5af02d779825c3920583e3a65ed2cd2e72e7eda0261a
+  checksum: d6f4fb7dab41e5efb499023b1be9d40e8184c9a3190ef4b72d9022285c2f8c8a011371ef9e57f06f1d5815b79f02bb438284ada513468a43b3ee568950001c64
   languageName: node
   linkType: hard
 
@@ -6717,7 +6690,7 @@ __metadata:
     "@nestjs/schematics": ^8.0.11
     "@nestjs/typeorm": ^8.1.4
     "@ogma/nestjs-module": ^3.3.1
-    "@ogma/platform-fastify": ^3.0.1
+    "@ogma/platform-fastify": ^4.0.0
     "@types/crypto-js": ^4.1.1
     "@types/node": ^17.0.23
     "@types/node-fetch": 2.6.2

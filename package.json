@@ -27,7 +27,7 @@
         "@nestjs/platform-fastify": "^8.4.7",
         "@nestjs/typeorm": "^8.1.4",
         "@ogma/nestjs-module": "^3.3.1",
-        "@ogma/platform-fastify": "^3.0.1",
+        "@ogma/platform-fastify": "^4.0.0",
         "clashofclans.js": "^2.8.0",
         "class-transformer": "^0.5.1",
         "class-validator": "^0.13.2",
