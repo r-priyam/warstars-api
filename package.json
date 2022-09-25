@@ -34,7 +34,7 @@
         "connect-typeorm": "^1.1.4",
         "crypto-js": "^4.1.1",
         "discord-akairo": "github:csuvajit/discord-akairo#main",
-        "discord.js": "^13.8.1",
+        "discord.js": "^14.4.0",
         "fastify-cookie": "^5.7.0",
         "fastify-helmet": "^7.1.0",
         "node-fetch": "2.6.7",
