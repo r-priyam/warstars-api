@@ -17,7 +17,7 @@ jobs:
                   echo "::set-output name=tag::$tag"
 
             - name: Checkout code
-              uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
+              uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
 
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@f211e3e9ded2d9377c8cadc4489a4e38014bc4c9 # tag=v1
